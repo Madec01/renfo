@@ -1,4 +1,4 @@
-const VERSION="b774dfa738ae";
+const VERSION="0a7e7dd00735";
 const SHELL='renfo-shell-'+VERSION,ASSETS='renfo-assets-'+VERSION;
 const FILES=["./", "index.html", "css/app.css", "js/data.js", "js/core.js", "js/storage.js", "js/body.js", "js/app.js", "manifest.webmanifest", "assets/icon.svg", "assets/icon-192.png", "assets/icon-512.png"];
 self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(FILES))));
