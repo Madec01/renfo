@@ -4,22 +4,18 @@ Application personnelle de renforcement, en français, utilisable sur téléphon
 
 ## Fonctionnalités
 
-- Profils Martin, Séverine et ajout libre de personnes ; historique, notes, favoris, matériel, réglages et séances en cours indépendants.
-- Une base commune par séance et des versions personnelles : poids et séries différents, possibilité d’ajouter/retirer/changer les mouvements. Copier une version dans son brouillon ne modifie pas les autres personnes.
-- Éditeur organisé en quatre blocs facultatifs : échauffement, renforcement, mobilisation, étirements. Ordre des blocs et mouvements modifiables, routines insérables par famille.
-- Mode Normal pour préparer et ajuster ; mode Actif pour suivre à distance, avec illustration, repères, grands compteurs, charge et côté, repos contrasté, plein écran, sons et voix facultatifs.
-- Commandes tactiles de 44 px ou plus, séries sous forme de cartes sur mobile ; clavier en mode Actif : espace pour l’action principale, P pour pause/reprise (hors champs de saisie).
-
-- Modèles de séances modifiables : ordre, blocs, séries, répétitions, durée, charge, repos, circuits et superséries.
-- Séance libre ou guidée, pause, reprise après rechargement, chronomètres, historique corrigible, annulation d’une validation.
-- 76 mouvements illustrés : 50 exercices de renforcement et 26 échauffements, mobilisations et étirements, 10 propositions d’échauffement et 7 routines de mobilisation/étirements.
-- Geste et carte musculaire côte à côte ; fiche détaillée, zoom, sources et impression/PDF.
-- Principaux, assistants et stabilisateurs séparés ; bilan calculé sur les séries réellement validées.
-- Commentaires corporels sur un schéma face/dos, zones ou points, côté, temporalité, série et charge liées, suivi « mieux / pareil / pire ».
-- Repères techniques sourcés, distincts d’un diagnostic ; aucune augmentation automatique de charge à partir d’une douleur ou d’un ressenti.
-- Favoris, notes épinglées, exercices personnels, inventaire du matériel, progression par exercice.
-- Export/import JSON avec validation, fusion des éléments nouveaux ou remplacement explicite précédé d’un export de secours.
-- PWA : icônes, manifeste, cache hors ligne et mise à jour sans remplacer la version pendant une séance ouverte.
+- Séances communes : Les personnes choisies apparaissent ensemble. Chacun conserve ses séries, répétitions, charges, chronos, exercices et commentaires. Le choix de profil filtre uniquement le suivi.
+- Onglet Séances avec deux entrées : choisir un programme ou créer en trois étapes (participants, mouvements, réglages personnels).
+- Quatre blocs facultatifs et réordonnables : échauffement, renforcement, mobilisation, étirements. Séries classiques ou circuit, routines dosées, exercices interchangeables par participant.
+- Un mouvement courant et des commandes personnelles de validation. L’action d’une personne ne valide rien pour les autres. Programme complet et ajustements accessibles à la demande.
+- Mode Normal, mode Actif à distance sur PC, interface téléphone compacte, pause commune et minuteurs individuels. Sons et voix facultatifs. Les séries ne sont jamais validées automatiquement par le chrono.
+- Démarrer alors qu’une séance est inachevée ouvre un choix explicite : reprendre, terminer puis commencer, annuler. Les anciennes séances actives restent accessibles.
+- 76 mouvements illustrés (50 renforcement, 26 préparation) ; 24 routines d’échauffement dosées de 3/5/8/10 min et 7 routines de mobilisation/étirement. Les formats courts et assis précisent leurs limites.
+- Bibliothèque avec recherche et filtres repliables. Fiches Geste/Muscles, installation et étapes visibles ; compléments, notes et sources en accordéons, impression complète.
+- Bilan musculaire par personne, rôles principaux/assistance/stabilisation, historique, progression, commentaires corporels sur schéma face/dos.
+- Repères techniques sourcés, sans diagnostic ni augmentation automatique des charges sur un signal de douleur.
+- Sauvegarde locale IndexedDB, export/import validés, fusion, migration des anciens carnets sans perte de séries ni de commentaires.
+- Bouton Installer Renfo, invite native lorsque disponible, aide iPhone/Android, icône d’accueil, cache hors ligne, conservation des images inchangées lors des mises à jour.
 
 ## Utiliser l’application
 
@@ -35,7 +31,7 @@ Servir le dossier `dist/` avec un serveur statique. Par exemple :
 python3 -m http.server 8000 --directory dist
 ```
 
-Ouvrir ensuite `http://localhost:8000`. Le site hébergé en HTTPS peut être ajouté à l’écran d’accueil. Dans les réglages, « Préparer les images hors ligne » télécharge toutes les illustrations pour les consulter sans connexion.
+Ouvrir ensuite `http://localhost:8000`. Le bouton « Installer Renfo » sur l’accueil ou dans Réglages guide l’ajout à l’écran d’accueil. Sur iPhone, exporter un carnet déjà utilisé dans Safari puis l’importer dans l’app installée : le stockage peut être séparé. Dans les réglages, « Préparer les images hors ligne » télécharge toutes les illustrations pour les consulter sans connexion.
 
 L’ouverture directe de `dist/index.html` est possible dans les navigateurs qui autorisent le stockage local pour les fichiers ; le service worker et l’installation ne fonctionnent qu’en HTTP local/HTTPS. Pour un usage durable, privilégier un hébergement HTTPS.
 
@@ -52,8 +48,9 @@ npm run build
 
 ## Structure
 
-- `dist/index.html`, `dist/css/app.css` : interface responsive.
-- `dist/js/core.js` : séances, séries, horodatages, agrégations et validation d’import.
+- `dist/index.html`, `dist/css/app.css`, `dist/css/v3.css`, `dist/css/library-v3.css` : interface et affichage progressif.
+- `dist/js/core.js` : schéma 3, entraînements communs (`workouts`), participations individuelles (`sessions`), étapes stables, horodatages, agrégations et validation d’import.
+- `dist/js/install.js` : détection autonome et invite d’installation.
 - `dist/js/storage.js` : file d’écriture IndexedDB, repli sur le stockage navigateur.
 - `dist/js/body.js` : carte corporelle SVG et zones.
 - `dist/js/app.js` : navigation, formulaires et interactions.
@@ -66,7 +63,7 @@ npm run build
 
 La masse par haltère est distincte de la charge totale. Les séries sont séparées quand le comptage est par côté. Un échauffement alterné à durée totale utilise un seul chrono ; certaines mobilisations se comptent en paires gauche + droite. Les étirements et mobilisations n’alimentent pas le volume de renforcement. Les couleurs de la carte sont des rôles qualitatifs, et non des pourcentages d’activation ou une mesure de récupération.
 
-Les profils sont des carnets locaux, sans authentification individuelle ni cloisonnement par mot de passe. Une sauvegarde contient toutes les personnes. La migration du schéma 1 attribue les données existantes à Martin, sans effacer les séries ni les minuteurs. Les versions personnelles sont des copies indépendantes de la base commune ; les modifications ultérieures de la base ne les remplacent pas.
+Les profils sont des carnets locaux, sans authentification individuelle ni cloisonnement par mot de passe. Une sauvegarde contient toutes les personnes. La migration du schéma 1 attribue les données existantes à Martin, sans effacer les séries ni les minuteurs. La migration vers le schéma 3 conserve chaque ancienne séance dans un entraînement solo distinct. Les nouvelles séances partagent des identifiants d’étapes, avec paramètres personnels ; elles ne sont pas liées au profil consulté dans le suivi.
 
 Les commentaires restent privés dans le navigateur. Ils ne sont pas transmis aux sources citées, à GitHub ou à un service d’IA. Il n’y a pas de synchronisation automatique entre appareils dans cette version : utiliser export/import pour transférer le carnet. Changer de navigateur ou d’adresse d’hébergement change le stockage utilisé.
 
@@ -76,4 +73,4 @@ Les navigateurs peuvent suspendre les minuteurs sonores en arrière-plan. Le tem
 
 ## Mise à jour de la PWA
 
-Dans Réglages, utiliser « Vérifier les mises à jour », puis fermer tous les onglets et fenêtres Renfo avant de rouvrir. La séance et les profils restent en IndexedDB. Le cache ne change pas pendant une séance ouverte. Les images supplémentaires peuvent être préparées hors ligne depuis les réglages.
+Dans Réglages, utiliser « Vérifier les mises à jour », puis fermer tous les onglets et fenêtres Renfo avant de rouvrir. La séance et les profils restent en IndexedDB. Le cache ne change pas pendant une séance ouverte. Les illustrations inchangées déjà téléchargées sont conservées après une mise à jour. Les nouvelles peuvent être préparées hors ligne depuis les réglages.

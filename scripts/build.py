@@ -7,15 +7,13 @@ DIST=ROOT/'dist'
 strength=json.loads((ROOT/'content/strength.json').read_text())
 prep=json.loads((ROOT/'content/preparation.json').read_text())
 advice=json.loads((ROOT/'content/advice-sources.json').read_text())
-concepts=json.loads((ROOT/'content/routines.json').read_text())
+warmups=json.loads((ROOT/'content/warmup-routines.json').read_text())
 exercises=strength['exercises']+prep['exercises']
 for e in exercises:
     if (DIST/f'assets/exercises/{e["id"]}.webp').exists(): e['image']=f'assets/exercises/{e["id"]}.webp'
     elif (DIST/f'assets/exercises/{e["id"]}.png').exists(): e['image']=f'assets/exercises/{e["id"]}.png'
-sources={s['id']:s for s in strength['sources']+prep['sources']+advice['sources']}
-routines=[]
-for r in concepts['warmup_routine_concepts']:
-    routines.append({'id':r['id'],'name':r['name'],'family':'echauffement','exerciseIds':r['preparation_ids']+r['strength_rehearsal_ids']})
+sources={s['id']:s for s in strength['sources']+prep['sources']+advice['sources']+warmups['sources']}
+routines=list(warmups['routines'])
 routines += [
  {'id':'mob-ankle-hip','name':'Chevilles & hanches','family':'mobilisation','exerciseIds':['mob-chevilles-cercles','mob-cheville-demi-genou','mob-hanches-90-90']},
  {'id':'mob-upper','name':'Haut du dos & épaules','family':'mobilisation','exerciseIds':['mob-roules-epaules','mob-livre-ouvert','mob-anges-mur']},
@@ -28,35 +26,97 @@ routines += [
 assert len({e['id'] for e in exercises})==76
 ids={e['id'] for e in exercises}
 assert all(i in ids for r in routines for i in r['exerciseIds'])
+assert len({r['id'] for r in routines})==len(routines)
+for r in warmups['routines']:
+    assert r['family']=='echauffement',r['id']
+    assert [i['exerciseId'] for i in r['items']]==r['exerciseIds'],r['id']
+    assert all(i['block']=='echauffement' for i in r['items']),r['id']
+    assert all(s in sources for s in r['source_ids']),r['id']
 for e in exercises:
     assert all(s in sources for s in e['source_ids']),e['id']
     assert all(m in strength['muscles'] for group in e['muscle_roles'].values() for m in group),e['id']
-data={'version':'1.0.0','exercises':exercises,'muscles':strength['muscles'],'sources':list(sources.values()),'adviceSources':advice['sources'],'adviceRules':advice['rules'],'routines':routines}
-core_files=[p for p in DIST.rglob('*') if p.is_file() and p.suffix in ['.css','.js','.html','.webp'] and p.name not in ['data.js','sw.js']]
-digest=hashlib.sha256(json.dumps(data,ensure_ascii=False).encode())
-for p in sorted(core_files):digest.update(p.read_bytes())
-version=digest.hexdigest()[:12]
-data['cacheName']='renfo-assets-'+version
-(DIST/'js/data.js').write_text('window.RENFO_DATA = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n')
+data={'version':'3.0.0','exercises':exercises,'muscles':strength['muscles'],'sources':list(sources.values()),'adviceSources':advice['sources'],'adviceRules':advice['rules'],'routines':routines,'warmupFilters':warmups['filters'],'warmupUseNotes':warmups['use_notes'],'warmupDurationNote':warmups['duration_note']}
 manifest=json.loads((DIST/'manifest.webmanifest').read_text())
 manifest['icons']=[{'src':'assets/icon-192.png','sizes':'192x192','type':'image/png','purpose':'any'},{'src':'assets/icon-512.png','sizes':'512x512','type':'image/png','purpose':'any'},{'src':'assets/icon.svg','sizes':'any','type':'image/svg+xml'}]
 (DIST/'manifest.webmanifest').write_text(json.dumps(manifest,ensure_ascii=False))
-shell=['./','index.html','css/app.css','js/data.js','js/core.js','js/storage.js','js/body.js','js/app.js','manifest.webmanifest','assets/icon.svg','assets/icon-192.png','assets/icon-512.png']
+shell=['./','index.html','css/app.css','css/v3.css','css/library-v3.css','js/install.js','js/data.js','js/core.js','js/storage.js','js/body.js','js/app.js','manifest.webmanifest','assets/icon.svg','assets/icon-192.png','assets/icon-512.png']
+missing=[name for name in shell if name not in ['./','js/data.js'] and not (DIST/name).is_file()]
+assert not missing,'Missing service-worker shell files: '+', '.join(missing)
+core_files=[p for p in DIST.rglob('*') if p.is_file() and p.suffix in ['.css','.js','.html','.webp','.webmanifest','.svg','.png','.pdf'] and p.name not in ['data.js','sw.js'] and not p.name.startswith('qa-')]
+digest=hashlib.sha256(json.dumps(data,ensure_ascii=False,sort_keys=True).encode())
+# Include filenames and build logic as well as all served assets. Manifest-only,
+# icon-only and service-worker changes must produce a new cache generation.
+digest.update(Path(__file__).read_bytes())
+for p in sorted(core_files):
+    digest.update(p.relative_to(DIST).as_posix().encode()+b'\0')
+    digest.update(p.read_bytes())
+version=digest.hexdigest()[:12]
+data['cacheVersion']=version
+(DIST/'js/data.js').write_text('window.RENFO_DATA = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'+
+    "window.RENFO_DATA.cacheName = 'renfo@'+encodeURIComponent(new URL('./', document.baseURI).pathname)+':assets-'+window.RENFO_DATA.cacheVersion;\n")
+asset_revisions={p.relative_to(DIST).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
+    for p in sorted((DIST/'assets').rglob('*')) if p.is_file()}
 sw='''const VERSION=__VERSION__;
-const SHELL='renfo-shell-'+VERSION,ASSETS='renfo-assets-'+VERSION;
+const BASE=new URL('./',self.location.href),PREFIX='renfo@'+encodeURIComponent(BASE.pathname)+':';
+const SHELL=PREFIX+'shell-'+VERSION,ASSETS=PREFIX+'assets-'+VERSION;
 const FILES=__SHELL__;
+const ASSET_REVISIONS=__REVISIONS__;
+const inScope=url=>url.origin===BASE.origin&&url.pathname.startsWith(BASE.pathname);
 self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(FILES))));
 // No skipWaiting: a session keeps its version until every open Renfo tab closes.
-self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('renfo-')&&k!==SHELL&&k!==ASSETS).map(k=>caches.delete(k)));await self.clients.claim();})()));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{
+  const keys=await caches.keys(),assets=await caches.open(ASSETS);
+  const oldAssets=keys.filter(key=>key!==ASSETS&&(key.startsWith(PREFIX+'assets-')||/^renfo-assets-/.test(key)));
+  // Migrate only byte-identical assets. The legacy cache has no revision table,
+  // and URL equality alone is unsafe when an illustration has been replaced.
+  for(const name of oldAssets){
+    const previous=await caches.open(name);
+    for(const request of await previous.keys()){
+      const url=new URL(request.url);
+      if(!inScope(url))continue;
+      const path=url.pathname.slice(BASE.pathname.length),expected=ASSET_REVISIONS[path];
+      if(!expected)continue;
+      const canonical=new URL(path,BASE).href;
+      if(await assets.match(canonical))continue;
+      try{
+        const response=await previous.match(request);
+        if(!response?.ok)continue;
+        const bytes=await response.clone().arrayBuffer();
+        const digest=await crypto.subtle.digest('SHA-256',bytes);
+        const actual=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+        if(actual===expected)await assets.put(canonical,response);
+      }catch(_){/* A missing or invalid cached image can be downloaded again. */}
+    }
+  }
+  for(const key of keys){
+    if(key===SHELL||key===ASSETS)continue;
+    if(key.startsWith(PREFIX)){await caches.delete(key);continue;}
+    // Retire pre-v3 caches only if every entry belongs to this installation.
+    // Another Renfo deployment on this origin keeps its own cached resources.
+    if(/^renfo-(shell|assets)-/.test(key)){
+      const old=await caches.open(key),requests=await old.keys();
+      if(requests.length&&requests.every(request=>inScope(new URL(request.url))))await caches.delete(key);
+    }
+  }
+  await self.clients.claim();
+})()));
 self.addEventListener('fetch',event=>{
   const req=event.request,url=new URL(req.url);
-  if(req.method!=='GET'||url.origin!==self.location.origin)return;
+  if(req.method!=='GET'||!inScope(url))return;
   event.respondWith((async()=>{
-    const cached=await caches.match(req,{ignoreSearch:true});if(cached)return cached;
-    try{const response=await fetch(req);if(response.ok&&/\\.(webp|png|svg|pdf)$/.test(url.pathname)){const cache=await caches.open(ASSETS);await cache.put(req,response.clone());}return response;}
-    catch(error){if(req.mode==='navigate'){const cache=await caches.open(SHELL);return await cache.match('index.html')||Response.error();}return Response.error();}
+    const shell=await caches.open(SHELL),assets=await caches.open(ASSETS);
+    const cached=await shell.match(req,{ignoreSearch:true})||await assets.match(req,{ignoreSearch:true});
+    if(cached)return cached;
+    try{
+      const response=await fetch(req),path=url.pathname.slice(BASE.pathname.length);
+      if(response.ok&&ASSET_REVISIONS[path])await assets.put(new URL(path,BASE).href,response.clone());
+      return response;
+    }catch(error){
+      if(req.mode==='navigate')return await shell.match(new URL('index.html',BASE).href)||Response.error();
+      return Response.error();
+    }
   })());
 });
 '''
-(DIST/'sw.js').write_text(sw.replace('__VERSION__',json.dumps(version)).replace('__SHELL__',json.dumps(shell)))
+(DIST/'sw.js').write_text(sw.replace('__VERSION__',json.dumps(version)).replace('__SHELL__',json.dumps(shell)).replace('__REVISIONS__',json.dumps(asset_revisions,separators=(',',':'))))
 print(json.dumps({'exercises':len(exercises),'illustrated':sum(bool(e.get('image')) for e in exercises),'routines':len(routines),'sources':len(sources),'cache_version':version}))

@@ -1,0 +1,2481 @@
+{
+  "schema_version": "1.0.0",
+  "locale": "fr-FR",
+  "scope": "Propositions modulables de préparation à une séance de renforcement ; aucune prescription liée à une douleur ou un diagnostic.",
+  "duration_note": "Durées approximatives selon le calcul actuel de l’application : 4 secondes par répétition ou paire, durée chronométrée par côté si indiqué, repos après chaque série et chaque côté. Les changements de position peuvent allonger la séance.",
+  "use_notes": [
+    "Commencer à un rythme facile et augmenter progressivement. Le temps proposé reste modifiable selon la séance et les sensations.",
+    "Les formats de 3 minutes et les routines entièrement assises sont des amorces ou compléments articulaires : ils ne garantissent pas à eux seuls une préparation suffisante à une séance de renforcement.",
+    "Répéter les gestes de la séance avec une difficulté facile ; pour un exercice chargé, ajouter si nécessaire des séries progressives avec une charge choisie explicitement.",
+    "Les exercices de renforcement utilisés ici restent dans le bloc échauffement et ne doivent pas compter comme séries de travail dans le bilan musculaire.",
+    "Les mouvements doivent rester confortables. Une douleur est un motif pour arrêter le mouvement, pas pour générer automatiquement un protocole."
+  ],
+  "filters": {
+    "duration": {
+      "3": "3 min · complément",
+      "5": "5 min",
+      "8": "8 min",
+      "10": "10 min"
+    },
+    "focus": {
+      "global": "Corps entier",
+      "jambes": "Jambes",
+      "squat": "Squats",
+      "fentes": "Fentes",
+      "hanches": "Hanches",
+      "fessiers": "Fessiers",
+      "chevilles": "Chevilles",
+      "epaules": "Épaules",
+      "poussee": "Poussée",
+      "tirage": "Tirage",
+      "dos": "Dos",
+      "nuque": "Nuque",
+      "tronc": "Tronc"
+    },
+    "position": {
+      "debout": "Tout debout",
+      "assis": "Tout assis",
+      "debout_assis": "Debout et assis",
+      "sol": "Au tapis",
+      "mixte": "Debout et au tapis"
+    },
+    "level": {
+      "debutant": "Simple",
+      "intermediaire": "Avec gestes plus techniques"
+    },
+    "usage": {
+      "amorce": "Amorce à prolonger",
+      "complement": "Complément articulaire",
+      "echauffement": "Échauffement"
+    },
+    "noFloor": "Sans passage au sol",
+    "noJump": "Sans saut"
+  },
+  "sources": [
+    {
+      "id": "warmup-aha-guidance",
+      "title": "American Heart Association — Warm Up, Cool Down",
+      "url": "https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/warm-up-cool-down",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "warmup-ace-movement",
+      "title": "American Council on Exercise — 5 Reasons Movement Preparation Is an Effective Warm-Up Strategy",
+      "url": "https://www.acefitness.org/resources/pros/expert-articles/5404/5-reasons-movement-preparation-is-an-effective-warm-up-strategy/",
+      "consulted_on": "2026-11-06"
+    }
+  ],
+  "routines": [
+    {
+      "id": "warmup-3-reveil-debout",
+      "name": "Départ express debout",
+      "family": "echauffement",
+      "durationLabel": "≈ 3 min",
+      "durationMinutes": 3,
+      "estimatedSeconds": 168,
+      "focus": [
+        "global"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "amorce",
+      "description": "Une courte mise en mouvement, sans saut. Prolonge ensuite la préparation avant les séries de travail.",
+      "equipment": [],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-aha-flexibility",
+        "prep-stsft-physical"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-roules-epaules",
+        "prep-flexions"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-flexions",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-3-chevilles-assis",
+      "name": "Chevilles sur une chaise",
+      "family": "echauffement",
+      "durationLabel": "≈ 3 min",
+      "durationMinutes": 3,
+      "estimatedSeconds": 164,
+      "focus": [
+        "chevilles"
+      ],
+      "position": "assis",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "complement",
+      "description": "Cercles puis flexions, un pied après l’autre. Complément articulaire à associer à une mise en mouvement globale.",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-kingston-ankles",
+        "prep-leeds-ankles"
+      ],
+      "exerciseIds": [
+        "mob-chevilles-cercles",
+        "mob-chevilles-flexion"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chevilles-cercles",
+          "sets": 1,
+          "reps": 0,
+          "duration": 30,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chevilles-flexion",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-3-epaules-mur",
+      "name": "Épaules avec un mur",
+      "family": "echauffement",
+      "durationLabel": "≈ 3 min",
+      "durationMinutes": 3,
+      "estimatedSeconds": 159,
+      "focus": [
+        "epaules",
+        "poussee"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "complement",
+      "description": "Roulements, arcs de bras, glissements au mur et quelques pompes faciles. À ajouter après une mise en mouvement globale.",
+      "equipment": [
+        "mur"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-aha-flexibility",
+        "prep-torokhtiy-shoulder",
+        "prep-papworth-wall",
+        "nhs-wall-push"
+      ],
+      "exerciseIds": [
+        "mob-roules-epaules",
+        "mob-epaule-controlee",
+        "mob-anges-mur",
+        "pompes-mur"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-anges-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-3-rotations-assis",
+      "name": "Rotations douces assis",
+      "family": "echauffement",
+      "durationLabel": "≈ 3 min",
+      "durationMinutes": 3,
+      "estimatedSeconds": 164,
+      "focus": [
+        "dos",
+        "nuque",
+        "chevilles"
+      ],
+      "position": "assis",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "complement",
+      "description": "Mobilise épaules, buste, nuque et chevilles sur une chaise stable. Complément articulaire, avec de petites amplitudes confortables.",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-aha-flexibility",
+        "prep-nhs-seated",
+        "prep-nhs-flexibility",
+        "prep-kingston-ankles"
+      ],
+      "exerciseIds": [
+        "mob-roules-epaules",
+        "mob-rotation-assise",
+        "mob-nuque-rotation",
+        "mob-chevilles-cercles"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-rotation-assise",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-nuque-rotation",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chevilles-cercles",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-3-hanches-sol",
+      "name": "Hanches au tapis",
+      "family": "echauffement",
+      "durationLabel": "≈ 3 min",
+      "durationMinutes": 3,
+      "estimatedSeconds": 170,
+      "focus": [
+        "hanches",
+        "fessiers"
+      ],
+      "position": "sol",
+      "noFloor": false,
+      "noJump": true,
+      "level": "intermediaire",
+      "usage": "complement",
+      "description": "Transitions 90/90, ponts et coquillages après un chat-vache. Complément à faire après la mise en mouvement, sans chercher la fatigue.",
+      "equipment": [
+        "tapis"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-ace-catcow",
+        "prep-hero-9090",
+        "prep-tamu-mobility",
+        "nasm-bridge",
+        "nhs-clam"
+      ],
+      "exerciseIds": [
+        "mob-chat-vache",
+        "mob-hanches-90-90",
+        "pont-fessier",
+        "coquillage"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "coquillage",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 5,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-3-tronc-sol",
+      "name": "Tronc et coordination",
+      "family": "echauffement",
+      "durationLabel": "≈ 3 min",
+      "durationMinutes": 3,
+      "estimatedSeconds": 162,
+      "focus": [
+        "tronc",
+        "dos"
+      ],
+      "position": "sol",
+      "noFloor": false,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "complement",
+      "description": "Chat-vache, bird dog, deadbug puis W au sol. Quelques répétitions faciles en complément d’un échauffement global.",
+      "equipment": [
+        "tapis",
+        "serviette"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-ace-catcow",
+        "nasm-bird",
+        "nasm-deadbug",
+        "ace-prone"
+      ],
+      "exerciseIds": [
+        "mob-chat-vache",
+        "bird-dog",
+        "deadbug",
+        "w-sol"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "bird-dog",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "deadbug",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "w-sol",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-5-premiers-pas",
+      "name": "Premiers pas sans saut",
+      "family": "echauffement",
+      "durationLabel": "≈ 5 min",
+      "durationMinutes": 5,
+      "estimatedSeconds": 288,
+      "focus": [
+        "global"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Commence tranquillement, puis augmente légèrement le rythme. Marche, talons, genoux, épaules et petites flexions.",
+      "equipment": [],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-aha-flexibility"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-roules-epaules",
+        "prep-flexions"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 100,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-flexions",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-5-jambes-debout",
+      "name": "Jambes : tout debout",
+      "family": "echauffement",
+      "durationLabel": "≈ 5 min",
+      "durationMinutes": 5,
+      "estimatedSeconds": 298,
+      "focus": [
+        "jambes",
+        "squat"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Prépare les jambes avec une progression simple et termine par six squats sans charge, dans une amplitude facile.",
+      "equipment": [],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "ace-squat"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "prep-flexions",
+        "squat-poids-corps"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 120,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-flexions",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-5-poussee-mur",
+      "name": "Avant les pompes",
+      "family": "echauffement",
+      "durationLabel": "≈ 5 min",
+      "durationMinutes": 5,
+      "estimatedSeconds": 299,
+      "focus": [
+        "poussee",
+        "epaules"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Mets-toi en mouvement, mobilise les épaules puis répète la poussée contre un mur, loin de la fatigue.",
+      "equipment": [
+        "mur"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-aha-flexibility",
+        "prep-torokhtiy-shoulder",
+        "prep-papworth-wall",
+        "nhs-wall-push"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-roules-epaules",
+        "mob-epaule-controlee",
+        "mob-anges-mur",
+        "pompes-mur"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 90,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-anges-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-5-dos-sans-sol",
+      "name": "Dos : sans tapis",
+      "family": "echauffement",
+      "durationLabel": "≈ 5 min",
+      "durationMinutes": 5,
+      "estimatedSeconds": 290,
+      "focus": [
+        "dos",
+        "epaules"
+      ],
+      "position": "debout_assis",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Marche et talons, puis rotations assises et bras au mur. Préparation du haut du corps sans passage au sol.",
+      "equipment": [
+        "chaise_stable",
+        "mur"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-aha-flexibility",
+        "prep-nhs-seated",
+        "prep-papworth-wall",
+        "prep-torokhtiy-shoulder"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-roules-epaules",
+        "mob-rotation-assise",
+        "mob-anges-mur",
+        "mob-epaule-controlee"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 75,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-rotation-assise",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-anges-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-5-tout-assis",
+      "name": "Réveil articulaire assis",
+      "family": "echauffement",
+      "durationLabel": "≈ 5 min",
+      "durationMinutes": 5,
+      "estimatedSeconds": 286,
+      "focus": [
+        "chevilles",
+        "dos",
+        "epaules"
+      ],
+      "position": "assis",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "complement",
+      "description": "Reste sur une chaise stable pour mobiliser chevilles, épaules, buste et nuque. Complète par une mise en mouvement adaptée avant le renforcement.",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-kingston-ankles",
+        "prep-leeds-ankles",
+        "prep-aha-flexibility",
+        "prep-nhs-seated",
+        "prep-nhs-flexibility"
+      ],
+      "exerciseIds": [
+        "mob-chevilles-cercles",
+        "mob-chevilles-flexion",
+        "mob-roules-epaules",
+        "mob-rotation-assise",
+        "mob-nuque-rotation"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chevilles-cercles",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chevilles-flexion",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-rotation-assise",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-nuque-rotation",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-5-chevilles-actives",
+      "name": "Avant les appuis",
+      "family": "echauffement",
+      "durationLabel": "≈ 5 min",
+      "durationMinutes": 5,
+      "estimatedSeconds": 287,
+      "focus": [
+        "chevilles",
+        "jambes"
+      ],
+      "position": "debout_assis",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Marche et talons, puis mobilisation des pieds assis. Termine debout par de petites flexions, sans saut.",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-kingston-ankles",
+        "prep-leeds-ankles",
+        "prep-stsft-physical"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-chevilles-cercles",
+        "mob-chevilles-flexion",
+        "prep-flexions"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chevilles-cercles",
+          "sets": 1,
+          "reps": 0,
+          "duration": 25,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chevilles-flexion",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-flexions",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-8-global-debout",
+      "name": "Corps entier debout",
+      "family": "echauffement",
+      "durationLabel": "≈ 8 min",
+      "durationMinutes": 8,
+      "estimatedSeconds": 467,
+      "focus": [
+        "global"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Trois minutes de marche progressive, puis jambes et épaules. Termine par des squats sans charge et des pompes au mur faciles.",
+      "equipment": [
+        "mur"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-aha-flexibility",
+        "prep-torokhtiy-shoulder",
+        "ace-squat",
+        "nhs-wall-push"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-roules-epaules",
+        "mob-epaule-controlee",
+        "squat-poids-corps",
+        "pompes-mur"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 180,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-8-avant-squats",
+      "name": "Avant squats et fentes",
+      "family": "echauffement",
+      "durationLabel": "≈ 8 min",
+      "durationMinutes": 8,
+      "estimatedSeconds": 464,
+      "focus": [
+        "jambes",
+        "squat",
+        "chevilles"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Mise en mouvement debout, chevilles en demi-agenouillé, puis squats et quelques split squats sans charge.",
+      "equipment": [
+        "tapis"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-berkshire-ankles",
+        "ace-squat",
+        "catalyst-split"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-cheville-demi-genou",
+        "squat-poids-corps",
+        "split-squat"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 165,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-cheville-demi-genou",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "split-squat",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-8-hanches-fessiers",
+      "name": "Hanches et fessiers",
+      "family": "echauffement",
+      "durationLabel": "≈ 8 min",
+      "durationMinutes": 8,
+      "estimatedSeconds": 462,
+      "focus": [
+        "hanches",
+        "fessiers"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "intermediaire",
+      "usage": "echauffement",
+      "description": "Commence debout, puis reste au tapis : chat-vache, transitions de hanches, ponts et coquillages faciles.",
+      "equipment": [
+        "tapis"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-ace-catcow",
+        "prep-hero-9090",
+        "prep-tamu-mobility",
+        "nasm-bridge",
+        "nhs-clam"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-chat-vache",
+        "mob-hanches-90-90",
+        "pont-fessier",
+        "coquillage"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 150,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "coquillage",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-8-avant-dos",
+      "name": "Avant une séance dos",
+      "family": "echauffement",
+      "durationLabel": "≈ 8 min",
+      "durationMinutes": 8,
+      "estimatedSeconds": 469,
+      "focus": [
+        "dos",
+        "tirage"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Mise en mouvement puis rotations du haut du dos, W et T au sol. Ajoute ensuite des répétitions légères du tirage prévu dans ta séance.",
+      "equipment": [
+        "tapis",
+        "serviette"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-aha-flexibility",
+        "prep-ace-catcow",
+        "prep-leeds-openbook",
+        "ace-prone",
+        "allina-prone"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-roules-epaules",
+        "mob-chat-vache",
+        "mob-livre-ouvert",
+        "w-sol",
+        "t-sol"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 180,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-livre-ouvert",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "w-sol",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "t-sol",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-8-avant-gainage",
+      "name": "Avant le gainage",
+      "family": "echauffement",
+      "durationLabel": "≈ 8 min",
+      "durationMinutes": 8,
+      "estimatedSeconds": 463,
+      "focus": [
+        "tronc",
+        "hanches"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Marche et genoux pour démarrer, puis contrôle du tronc au tapis. Bird dog et deadbug restent faciles et précis.",
+      "equipment": [
+        "tapis"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-ace-catcow",
+        "nasm-bird",
+        "nasm-deadbug",
+        "nasm-bridge"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-genoux",
+        "mob-chat-vache",
+        "bird-dog",
+        "deadbug",
+        "pont-fessier"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 180,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "bird-dog",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "deadbug",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-8-haut-sans-sol",
+      "name": "Haut du corps sans sol",
+      "family": "echauffement",
+      "durationLabel": "≈ 8 min",
+      "durationMinutes": 8,
+      "estimatedSeconds": 469,
+      "focus": [
+        "epaules",
+        "dos",
+        "poussee"
+      ],
+      "position": "debout_assis",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Marche, rotations assises et mouvements d’épaules. Termine au mur, sans t’allonger ni t’agenouiller.",
+      "equipment": [
+        "chaise_stable",
+        "mur"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-aha-flexibility",
+        "prep-nhs-seated",
+        "prep-torokhtiy-shoulder",
+        "prep-papworth-wall",
+        "nhs-wall-push"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-roules-epaules",
+        "mob-rotation-assise",
+        "mob-epaule-controlee",
+        "mob-anges-mur",
+        "pompes-mur"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 180,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-rotation-assise",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-anges-mur",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-10-grand-tour",
+      "name": "Le grand tour",
+      "family": "echauffement",
+      "durationLabel": "≈ 10 min",
+      "durationMinutes": 10,
+      "estimatedSeconds": 599,
+      "focus": [
+        "global"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Une préparation complète : mise en mouvement, jambes, poussée au mur et tronc au tapis. Toutes les répétitions restent faciles.",
+      "equipment": [
+        "mur",
+        "tapis"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-aha-flexibility",
+        "ace-squat",
+        "prep-torokhtiy-shoulder",
+        "nhs-wall-push",
+        "prep-ace-catcow",
+        "nasm-bridge",
+        "nasm-deadbug"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-roules-epaules",
+        "squat-poids-corps",
+        "mob-epaule-controlee",
+        "pompes-mur",
+        "mob-chat-vache",
+        "pont-fessier",
+        "deadbug"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 165,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 45,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 20,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "deadbug",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-10-jambes-appuis",
+      "name": "Jambes et changements d’appui",
+      "family": "echauffement",
+      "durationLabel": "≈ 10 min",
+      "durationMinutes": 10,
+      "estimatedSeconds": 591,
+      "focus": [
+        "jambes",
+        "chevilles",
+        "fentes"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "intermediaire",
+      "usage": "echauffement",
+      "description": "Prépare les jambes, puis répète squats, montée sur marche basse et fentes arrière. Prends un appui fixe si nécessaire ; aucun saut.",
+      "equipment": [
+        "tapis",
+        "marche_stable"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-berkshire-ankles",
+        "ace-squat",
+        "ace-step",
+        "catalyst-reverse"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-cheville-demi-genou",
+        "squat-poids-corps",
+        "montee-marche",
+        "fente-arriere"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 195,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-cheville-demi-genou",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "montee-marche",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "fente-arriere",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-10-jambes-sans-sol",
+      "name": "Bas du corps sans tapis",
+      "family": "echauffement",
+      "durationLabel": "≈ 10 min",
+      "durationMinutes": 10,
+      "estimatedSeconds": 599,
+      "focus": [
+        "jambes",
+        "hanches",
+        "chevilles"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "intermediaire",
+      "usage": "echauffement",
+      "description": "Progression debout avec squats, fentes statiques et latérales, puis quelques élévations de mollet avec appui. Amplitudes faciles, sans charge.",
+      "equipment": [
+        "appui_fixe"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "ace-squat",
+        "catalyst-split",
+        "ace-side-lunge",
+        "cuh-calf"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "prep-flexions",
+        "squat-poids-corps",
+        "split-squat",
+        "fente-laterale",
+        "mollets-unilateral"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 195,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-flexions",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "split-squat",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "fente-laterale",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mollets-unilateral",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-10-haut-complet",
+      "name": "Haut du corps complet",
+      "family": "echauffement",
+      "durationLabel": "≈ 10 min",
+      "durationMinutes": 10,
+      "estimatedSeconds": 588,
+      "focus": [
+        "epaules",
+        "dos",
+        "poussee"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Échauffe l’ensemble du corps, puis prépare épaules, poussée et rotations du buste. Les derniers mouvements se font au tapis.",
+      "equipment": [
+        "mur",
+        "tapis",
+        "serviette"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-aha-flexibility",
+        "prep-torokhtiy-shoulder",
+        "prep-papworth-wall",
+        "nhs-wall-push",
+        "prep-ace-catcow",
+        "prep-leeds-openbook",
+        "ace-prone"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "mob-roules-epaules",
+        "mob-epaule-controlee",
+        "mob-anges-mur",
+        "pompes-mur",
+        "mob-chat-vache",
+        "mob-livre-ouvert",
+        "w-sol"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 180,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-anges-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 20,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-livre-ouvert",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "w-sol",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-10-tronc-hanches",
+      "name": "Tronc, hanches et rotations",
+      "family": "echauffement",
+      "durationLabel": "≈ 10 min",
+      "durationMinutes": 10,
+      "estimatedSeconds": 593,
+      "focus": [
+        "tronc",
+        "hanches",
+        "dos"
+      ],
+      "position": "mixte",
+      "noFloor": false,
+      "noJump": true,
+      "level": "intermediaire",
+      "usage": "echauffement",
+      "description": "Mise en mouvement progressive puis rotations et coordination au tapis. Termine par des ponts et des deadbugs sans accélérer.",
+      "equipment": [
+        "tapis"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-ace-catcow",
+        "prep-hero-9090",
+        "prep-tamu-mobility",
+        "prep-thoracic-commentary",
+        "nasm-bird",
+        "nasm-bridge",
+        "nasm-deadbug"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-genoux",
+        "mob-chat-vache",
+        "mob-hanches-90-90",
+        "mob-rotation-demi-genou",
+        "bird-dog",
+        "pont-fessier",
+        "deadbug"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 210,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-rotation-demi-genou",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "bird-dog",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "deadbug",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    },
+    {
+      "id": "warmup-10-progressif-debout",
+      "name": "Progressif, tout debout",
+      "family": "echauffement",
+      "durationLabel": "≈ 10 min",
+      "durationMinutes": 10,
+      "estimatedSeconds": 577,
+      "focus": [
+        "global"
+      ],
+      "position": "debout",
+      "noFloor": true,
+      "noJump": true,
+      "level": "debutant",
+      "usage": "echauffement",
+      "description": "Prends le temps de monter doucement en rythme, sans saut. Termine par quelques gestes de jambes et de poussée, avec un mur.",
+      "equipment": [
+        "mur"
+      ],
+      "source_ids": [
+        "warmup-aha-guidance",
+        "warmup-ace-movement",
+        "prep-nhs-warmup",
+        "prep-stsft-physical",
+        "prep-aha-flexibility",
+        "ace-squat",
+        "prep-torokhtiy-shoulder",
+        "nhs-wall-push"
+      ],
+      "exerciseIds": [
+        "prep-marche",
+        "prep-talons",
+        "prep-genoux",
+        "mob-roules-epaules",
+        "prep-flexions",
+        "squat-poids-corps",
+        "mob-epaule-controlee",
+        "pompes-mur"
+      ],
+      "items": [
+        {
+          "exerciseId": "prep-marche",
+          "sets": 1,
+          "reps": 0,
+          "duration": 180,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-talons",
+          "sets": 1,
+          "reps": 0,
+          "duration": 90,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-genoux",
+          "sets": 1,
+          "reps": 0,
+          "duration": 60,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "prep-flexions",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "squat-poids-corps",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 15,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "sets": 1,
+          "reps": 8,
+          "duration": 0,
+          "rest": 0,
+          "block": "echauffement",
+          "load": 0,
+          "loadMode": "none"
+        }
+      ]
+    }
+  ]
+}
