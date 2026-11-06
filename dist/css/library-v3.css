@@ -113,3 +113,38 @@
   .sheet-v3 .sheet-extra-content { padding-bottom: 8px; }
   .sheet-v3 .sheet-essentials { margin-top: 20px; }
 }
+
+/* Warmups are available both as routines and as individual illustrated movements. */
+.warmup-views { display:flex; gap:4px; padding:4px; max-width:420px; border:1px solid var(--line); border-radius:13px; background:#eeeaf3; }
+.warmup-views button { flex:1; min-height:44px; border:0; border-radius:9px; background:transparent; font:inherit; font-weight:650; color:#61546d; cursor:pointer; }
+.warmup-views button[aria-pressed="true"] { background:#fff; color:#432861; box-shadow:0 1px 4px #30233c14; }
+.warmup-views span { margin-left:6px; font-size:12px; }
+.warmup-intro { margin:12px 0 16px; max-width:680px; color:#655c6e; font-size:14px; line-height:1.5; }
+.warmup-filters { display:flex; gap:6px; flex-wrap:wrap; }
+.warmup-filters .btn { min-height:44px; padding:9px 12px; font-size:13px; }
+.warmup-library-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr)); gap:16px; }
+.warmup-library-card { display:flex; flex-direction:column; min-width:0; padding:20px; border:1px solid var(--line); border-radius:16px; background:white; }
+.warmup-library-card h2 { margin:8px 0 12px; font-size:19px; line-height:1.3; }
+.warmup-library-card > p { flex:1; margin:12px 0; color:#655c6e; font-size:14px; line-height:1.55; }
+.warmup-previews { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; border-radius:10px; overflow:hidden; background:#faf9fc; }
+.warmup-previews .exercise-image { width:100%; height:82px; object-fit:contain; }
+.warmup-card-footer { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:4px; }
+.warmup-card-footer > span { color:#655c6e; font-size:12px; }
+.warmup-card-footer .btn { padding:10px 12px; font-size:13px; }
+.warmup-detail-intro { color:#655c6e; font-size:14px; }
+.warmup-movement-list { list-style:none; padding:0; margin:18px 0; }
+.warmup-movement-list li { display:grid; grid-template-columns:120px minmax(0,1fr); gap:16px; align-items:center; padding:14px 0; border-top:1px solid var(--line); }
+.warmup-movement-image .exercise-image { width:100%; height:100px; object-fit:contain; border-radius:8px; }
+.warmup-movement-list strong { font-size:16px; line-height:1.4; }
+.warmup-movement-list p { margin:6px 0; font-size:13px; color:#655c6e; line-height:1.5; }
+.warmup-movement-list .text-btn { min-height:44px; }
+.warmup-sheet-note { padding:12px; border-radius:10px; background:#f0ebf7; color:#514064; font-size:14px; line-height:1.5; }
+@media(max-width:700px) {
+  .warmup-views { max-width:none; }
+  .warmup-library-grid { grid-template-columns:1fr; gap:12px; }
+  .warmup-library-card { padding:16px; }
+  .warmup-filters { flex-wrap:nowrap; overflow-x:auto; padding-bottom:4px; }
+  .warmup-filters .btn { flex:none; }
+  .warmup-movement-list li { grid-template-columns:90px minmax(0,1fr); gap:10px; }
+  .warmup-movement-image .exercise-image { height:84px; }
+}

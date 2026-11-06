@@ -1,4 +1,4 @@
-const VERSION="0ec495c20ed1";
+const VERSION="4a9739511f4c";
 const BASE=new URL('./',self.location.href),PREFIX='renfo@'+encodeURIComponent(BASE.pathname)+':';
 const SHELL=PREFIX+'shell-'+VERSION,ASSETS=PREFIX+'assets-'+VERSION;
 const FILES=["./", "index.html", "css/app.css", "css/v3.css", "css/library-v3.css", "js/install.js", "js/data.js", "js/core.js", "js/storage.js", "js/body.js", "js/app.js", "manifest.webmanifest", "assets/icon.svg", "assets/icon-192.png", "assets/icon-512.png"];

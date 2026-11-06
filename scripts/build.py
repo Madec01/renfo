@@ -35,7 +35,7 @@ for r in warmups['routines']:
 for e in exercises:
     assert all(s in sources for s in e['source_ids']),e['id']
     assert all(m in strength['muscles'] for group in e['muscle_roles'].values() for m in group),e['id']
-data={'version':'3.0.0','exercises':exercises,'muscles':strength['muscles'],'sources':list(sources.values()),'adviceSources':advice['sources'],'adviceRules':advice['rules'],'routines':routines,'warmupFilters':warmups['filters'],'warmupUseNotes':warmups['use_notes'],'warmupDurationNote':warmups['duration_note']}
+data={'version':'3.0.1','exercises':exercises,'muscles':strength['muscles'],'sources':list(sources.values()),'adviceSources':advice['sources'],'adviceRules':advice['rules'],'routines':routines,'warmupFilters':warmups['filters'],'warmupUseNotes':warmups['use_notes'],'warmupDurationNote':warmups['duration_note']}
 manifest=json.loads((DIST/'manifest.webmanifest').read_text())
 manifest['icons']=[{'src':'assets/icon-192.png','sizes':'192x192','type':'image/png','purpose':'any'},{'src':'assets/icon-512.png','sizes':'512x512','type':'image/png','purpose':'any'},{'src':'assets/icon.svg','sizes':'any','type':'image/svg+xml'}]
 (DIST/'manifest.webmanifest').write_text(json.dumps(manifest,ensure_ascii=False))

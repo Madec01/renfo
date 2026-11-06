@@ -223,3 +223,27 @@ test('importing an older active copy never reopens a locally finished common wor
  C.finishWorkout(local,w,start+30000);const merged=C.mergeStates(local,old);
  assert.equal(merged.activeWorkoutId,null);assert.equal(merged.workouts[0].status,'completed');assert.equal(merged.sessions.length,2);assert.equal(merged.activeId,null);
 });
+
+test('warmup catalogue exposes every routine movement once, while other families retain their catalogue',()=>{
+ const routines=JSON.parse(fs.readFileSync(path.join(__dirname,'../content/warmup-routines.json'))).routines;
+ const catalog=[...strength.exercises,...prep.exercises];
+ const movements=C.libraryExercises(catalog,routines,'echauffement');
+ const expected=new Set([...prep.exercises.filter(e=>e.category==='echauffement').map(e=>e.id),...routines.flatMap(r=>r.exerciseIds)]);
+ assert.deepEqual(new Set(movements.map(e=>e.id)),expected);
+ assert.equal(movements.length,expected.size);assert.equal(movements.length,29);
+ for(const category of ['renforcement','mobilisation','etirements'])assert.deepEqual(C.libraryExercises(catalog,routines,category),catalog.filter(e=>C.family(e)===category));
+ assert.deepEqual(C.libraryExercises(catalog,routines,'all'),catalog);
+});
+test('adding a strength movement as warmup preserves its warmup dose and excludes it from work volume for both people',()=>{
+ const routines=JSON.parse(fs.readFileSync(path.join(__dirname,'../content/warmup-routines.json'))).routines;
+ const catalog=[...strength.exercises,...prep.exercises];
+ const definition=catalog.find(e=>C.family(e)==='renforcement'&&routines.some(r=>r.exerciseIds.includes(e.id)));
+ const plan=C.itemForBlock(definition,'echauffement',routines),dose=routines.flatMap(r=>r.items).find(p=>p.exerciseId===definition.id);
+ for(const key of ['sets','reps','duration','rest'])assert.equal(plan[key],dose[key]);
+ assert.equal(plan.loadMode,'none');assert.equal(plan.load,0);assert.equal(plan.block,'echauffement');
+ const {sessions}=C.createWorkout({id:'warm',name:'Warmup',items:[plan]},catalog,['martin','severine'],start);
+ for(const s of sessions){for(const row of s.entries[0].rows)C.complete(s,s.entries[0].id,row.id,'done',start+10000);C.finish(s,start+20000);assert.equal(C.totals([s]).volume,0);assert.deepEqual(C.totals([s]).muscles,{});}
+ const strengthPlan=C.itemForBlock(definition,'renforcement',routines);
+ assert.equal(strengthPlan.sets,C.parameters(definition).sets);
+ assert.notEqual(plan.id,C.itemForBlock(definition,'echauffement',routines).id);
+});

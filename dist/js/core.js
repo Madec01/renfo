@@ -11,6 +11,16 @@
       load: 0, loadMode: e.load_input || 'none', band: '', rest: prep ? 15 : 60, tempo: '', block: family(e)};
   }
   function item(e, overrides = {}) { return {id: uid(), exerciseId: e.id, ...parameters(e), ...overrides}; }
+  // A movement can also belong to the warmup library through a curated routine.
+  function libraryExercises(catalog, routines, category) {
+    const warmupIds = new Set(routines.filter(r => r.family === 'echauffement').flatMap(r => r.exerciseIds));
+    return catalog.filter(e => category === 'all' || family(e) === category || category === 'echauffement' && warmupIds.has(e.id));
+  }
+  function itemForBlock(e, block = family(e), routines = [], overrides = {}) {
+    const warmup = block === 'echauffement';
+    const dose = warmup ? routines.filter(r => r.family === 'echauffement').flatMap(r => r.items || []).find(p => p.exerciseId === e.id) : null;
+    return item(e, {...(warmup ? {sets:1,rest:10,...dose,load:0,loadMode:'none',band:''} : {}),id:uid(),block,...overrides});
+  }
   const blocks = ['echauffement','renforcement','mobilisation','etirements'];
   const profileDefaults = () => ({favorites:[],exerciseNotes:{},activeId:null,preferences:{sounds:false,voice:false,wakeLock:true,equipment:[],weeklyGoal:3,visibility:'normal'}});
   function newState(templates = []) {
@@ -334,7 +344,7 @@
     if(s.activeId!=null&&!s.sessions.some(x=>x.id===s.activeId&&x.status==='active'&&x.profileId===s.currentProfileId))throw Error('La séance en cours est introuvable.');
     const result=Object.assign(newState(),s);captureProfile(result);return result;
   }
-  const api = {createWorkout,addWorkout,getWorkout,workoutSession,finishWorkout,pauseWorkout,resumeWorkout,syncActivePointers,mergeStates,sideCount,blocks,profileDefaults,captureProfile,switchProfile,migrate,personalSessions,templateForProfile,orderedItems,clone, uid, number, finite, family, parameters, item, newState, makeRows, makeEntry, createSession, elapsed, pause, resume, finish, complete, undo, totals, lastPerformance, estimate, validateBackup};
+  const api = {libraryExercises,itemForBlock,createWorkout,addWorkout,getWorkout,workoutSession,finishWorkout,pauseWorkout,resumeWorkout,syncActivePointers,mergeStates,sideCount,blocks,profileDefaults,captureProfile,switchProfile,migrate,personalSessions,templateForProfile,orderedItems,clone, uid, number, finite, family, parameters, item, newState, makeRows, makeEntry, createSession, elapsed, pause, resume, finish, complete, undo, totals, lastPerformance, estimate, validateBackup};
   root.RenfoCore = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

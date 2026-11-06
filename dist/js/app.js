@@ -31,6 +31,9 @@
   let channel, pendingExternal = null, saveStatus = 'saved', initialized = false, onlyMyEquipment = false;
   const catalog = () => [...D.exercises, ...state.customExercises];
   const exercise = id => catalog().find(e => e.id === id);
+  let warmupView='routines', warmupLibraryFilter='all';
+  const familyExercises=category=>C.libraryExercises(catalog(),D.routines||[],category);
+  const blockItem=(e,block,overrides={})=>C.itemForBlock(e,block,D.routines||[],overrides);
   let builderScope='personal', pickerBlock=null, routineTarget='builder';
   const person=()=>state.profiles.find(p=>p.id===state.currentProfileId);
   const mySessions=()=>C.personalSessions(state);
@@ -84,7 +87,7 @@
   function frame() {
     const nav = [['home','home','Accueil'],['templates','workout','Séances'],['library','library','Exercices'],['history','history','Historique'],['stats','chart','Bilan']];
     $('#app').innerHTML = `<aside class="sidebar"><a class="brand" href="#home" aria-label="Renfo, accueil"><span class="brand-mark">r.</span><span>renfo<span class="brand-dot">.</span></span></a><div class="nav-caption">TON ESPACE</div><nav aria-label="Navigation principale">${nav.map(([r,i,l])=>`<a href="#${r}" class="nav-link ${route===r?'active':''}" ${route===r?'aria-current="page"':''}>${icon(i)}<span>${l}</span></a>`).join('')}</nav><div class="sidebar-bottom"><div class="local-badge"><span class="status-dot"></span>Votre carnet commun</div>${btn(icon('settings')+' Réglages','settings','','plain')}</div></aside>
-    <div class="workspace"><header class="topbar">${['history','stats'].includes(route)?`<label class="profile-switch"><span>Suivi de</span><select id="profile-select" aria-label="Personne suivie">${state.profiles.map(p=>`<option value="${p.id}" ${p.id===state.currentProfileId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label>${ibtn('plus','Gérer les personnes','profiles')}`:'<span class="mobile-brand">renfo.</span>'}<span class="breadcrumb">MON ENTRAÎNEMENT <span>/</span> ${nav.find(x=>x[0]===route)?.[2] || 'Séance en cours'}</span><div class="top-actions"><span class="save-status"></span>${ibtn('settings','Réglages et sauvegardes','settings')}</div></header><main id="main" tabindex="-1"></main><footer class="app-footer">À ton rythme, une séance après l’autre.<span>Renfo · 3.0</span></footer></div>
+    <div class="workspace"><header class="topbar">${['history','stats'].includes(route)?`<label class="profile-switch"><span>Suivi de</span><select id="profile-select" aria-label="Personne suivie">${state.profiles.map(p=>`<option value="${p.id}" ${p.id===state.currentProfileId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label>${ibtn('plus','Gérer les personnes','profiles')}`:'<span class="mobile-brand">renfo.</span>'}<span class="breadcrumb">MON ENTRAÎNEMENT <span>/</span> ${nav.find(x=>x[0]===route)?.[2] || 'Séance en cours'}</span><div class="top-actions"><span class="save-status"></span>${ibtn('settings','Réglages et sauvegardes','settings')}</div></header><main id="main" tabindex="-1"></main><footer class="app-footer">À ton rythme, une séance après l’autre.<span>Renfo · ${esc(D.version)}</span></footer></div>
     <nav class="mobile-nav" aria-label="Navigation mobile">${nav.map(([r,i,l])=>`<a href="#${r}" class="${route===r?'active':''}" ${route===r?'aria-current="page"':''}>${icon(i)}<span>${l}</span></a>`).join('')}</nav>`;
     if (pendingExternal) $('#main').insertAdjacentHTML('beforebegin',`<div class="notice warning">Une autre fenêtre a modifié ton carnet. ${btn('Recharger les données','reload')}</div>`);
     updateSaveStatus();
@@ -124,14 +127,15 @@
   }
   function filteredExercises() {
     const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-    return catalog().filter(e=>C.family(e)===activeTab && (!search||normalize(e.name+' '+(e.aliases||[]).join(' ')+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]||m).join(' ')).includes(normalize(search))) && (!filterMuscle||Object.values(e.muscle_roles).flat().includes(filterMuscle)) && (!filterEquipment||(filterEquipment==='none'?!(e.equipment||[]).some(x=>['haltere','halteres','elastique','banc_stable'].includes(x)):e.equipment.includes(filterEquipment))) && (!onlyFavorites||state.favorites.includes(e.id)) && (!onlyMyEquipment || e.equipment.every(x => ['tapis','mur','serviette','sans_materiel'].includes(x) || state.preferences.equipment.includes(x))));
+    return familyExercises(activeTab).filter(e=> (!search||normalize(e.name+' '+(e.aliases||[]).join(' ')+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]||m).join(' ')).includes(normalize(search))) && (!filterMuscle||Object.values(e.muscle_roles).flat().includes(filterMuscle)) && (!filterEquipment||(filterEquipment==='none'?!(e.equipment||[]).some(x=>['haltere','halteres','elastique','banc_stable'].includes(x)):e.equipment.includes(filterEquipment))) && (!onlyFavorites||state.favorites.includes(e.id)) && (!onlyMyEquipment || e.equipment.every(x => ['tapis','mur','serviette','sans_materiel'].includes(x) || state.preferences.equipment.includes(x))));
   }
   function libraryPage() {
-  const hasFilters = !!(filterMuscle || filterEquipment || onlyFavorites || onlyMyEquipment);
+  const hasFilters = !!(filterMuscle || filterEquipment || onlyFavorites || onlyMyEquipment), routinesView=activeTab==='echauffement'&&warmupView==='routines';
   return `<section class="library-v3">${heading('LES FICHES', 'Exercices', 'Choisis un mouvement pour retrouver le geste et les muscles concernés.')}
-    <div class="library-families" role="group" aria-label="Famille de mouvements">${Object.entries(labels).map(([id,label])=>`<button type="button" aria-pressed="${activeTab===id}" class="${activeTab===id?'selected':''}" data-action="library-tab" data-id="${id}">${label}<span>${catalog().filter(e=>C.family(e)===id).length}</span></button>`).join('')}</div>
-    <label class="search-field library-search">${icon('search')}<input id="exercise-search" type="search" placeholder="Un exercice ou un muscle…" value="${esc(search)}" aria-label="Rechercher un exercice ou un muscle"></label>
-    <details class="library-filters" ${hasFilters?'open':''}>
+    <div class="library-families" role="group" aria-label="Famille de mouvements">${Object.entries(labels).map(([id,label])=>`<button type="button" aria-pressed="${activeTab===id}" class="${activeTab===id?'selected':''}" data-action="library-tab" data-id="${id}">${label}<span>${familyExercises(id).length}</span></button>`).join('')}</div>
+    ${activeTab==='echauffement'?`<div class="warmup-views" role="group" aria-label="Parcourir les échauffements">${[['routines','Routines',D.routines.filter(r=>r.family==='echauffement').length],['movements','Mouvements',familyExercises('echauffement').length]].map(([id,label,count])=>`<button type="button" data-action="warmup-view" data-id="${id}" aria-pressed="${warmupView===id}">${label} <span>${count}</span></button>`).join('')}</div><p class="warmup-intro">${routinesView?'Des enchaînements prêts à ajouter à une séance. Ouvre une routine pour voir ses mouvements.':'Les mouvements utilisés dans les routines, à choisir séparément. Ajoutés ici sans charge dans le bloc échauffement.'}</p>`:''}
+    <label class="search-field library-search">${icon('search')}<input id="exercise-search" type="search" placeholder="${routinesView?'Une routine, un mouvement ou une zone…':'Un exercice ou un muscle…'}" value="${esc(search)}" aria-label="${routinesView?'Rechercher un échauffement':'Rechercher un exercice ou un muscle'}"></label>
+    ${routinesView?`<div class="warmup-filters" role="group" aria-label="Durée ou position">${warmupFilterButtons('warmup-library-filter',warmupLibraryFilter)}</div>`:`<details class="library-filters" ${hasFilters?'open':''}>
       <summary><span>${icon('settings')} Filtres</span><small>Muscles, matériel, favoris</small></summary>
       <div class="library-filter-fields">
         <label class="field">Muscle<select id="muscle-filter"><option value="">Tous les muscles</option>${Object.entries(D.muscles).map(([id,name])=>`<option value="${id}" ${filterMuscle===id?'selected':''}>${esc(name)}</option>`).join('')}</select></label>
@@ -139,13 +143,14 @@
         <label class="inventory-filter"><input type="checkbox" id="my-equipment-filter" ${onlyMyEquipment?'checked':''}> Avec mon matériel disponible</label>
         <button type="button" class="btn ${onlyFavorites?'primary':'secondary'}" aria-pressed="${onlyFavorites}" data-action="filter-favorites">${icon('star')} Mes favoris</button>
       </div>
-    </details>
+    </details>`}
     <div id="exercise-results">${exerciseResults()}</div>
     <div class="library-custom"><span>Un mouvement à toi ?</span>${btn(icon('plus')+' Créer un exercice','custom-exercise','','plain')}</div>
   </section>`;
 }
 
   function exerciseResults() {
+  if(activeTab==='echauffement'&&warmupView==='routines')return warmupRoutineResults();
   const list = filteredExercises();
   const filters = [filterMuscle && (D.muscles[filterMuscle] || filterMuscle),filterEquipment && (filterEquipment==='none'?'Sans charge':equipmentNames[filterEquipment] || filterEquipment),onlyFavorites && 'Favoris',onlyMyEquipment && 'Mon matériel'].filter(Boolean);
   return `<div class="library-results-bar"><p class="results-count" role="status" aria-live="polite">${list.length} mouvement${list.length>1?'s':''}${filters.length?`<span>${filters.map(esc).join(' · ')}</span>`:''}</p>${filters.length || search?btn('Tout afficher','reset-filters','','plain'):''}</div>
@@ -156,13 +161,26 @@
       return `<article class="exercise-card library-card-v3">
         <div class="library-card-heading"><h2>${esc(e.name)}</h2>${ibtn('star',state.favorites.includes(e.id)?'Retirer '+e.name+' des favoris':'Ajouter '+e.name+' aux favoris','favorite',`data-id="${e.id}" aria-pressed="${state.favorites.includes(e.id)}"`)}</div>
         <div class="exercise-visuals">
-          <button type="button" class="gesture-preview" data-action="sheet" data-id="${e.id}" aria-label="Voir la fiche du mouvement : ${esc(e.name)}">${photo(e)}<span>Geste</span></button>
-          <button type="button" class="muscle-preview" data-action="sheet" data-id="${e.id}" aria-label="Voir la fiche et les muscles : ${esc(e.name)}">${B.maps(e.muscle_roles,{compact:true,targetRegions:e.target_regions})}<span>${areas}</span></button>
+          <button type="button" class="gesture-preview" data-action="sheet" data-id="${e.id}" data-block="${activeTab}" aria-label="Voir la fiche du mouvement : ${esc(e.name)}">${photo(e)}<span>Geste</span></button>
+          <button type="button" class="muscle-preview" data-action="sheet" data-id="${e.id}" data-block="${activeTab}" aria-label="Voir la fiche et les muscles : ${esc(e.name)}">${B.maps(e.muscle_roles,{compact:true,targetRegions:e.target_regions})}<span>${areas}</span></button>
         </div>
-        <div class="exercise-card-info"><p class="library-targets">${esc(targets)}</p><div class="exercise-card-footer"><span>${esc(equipment)}</span><button type="button" data-action="sheet" data-id="${e.id}" class="text-btn" aria-label="Ouvrir la fiche : ${esc(e.name)}">La fiche ${icon('arrow')}</button></div></div>
+        <div class="exercise-card-info"><p class="library-targets">${esc(targets)}</p><div class="exercise-card-footer"><span>${esc(equipment)}</span><button type="button" data-action="sheet" data-id="${e.id}" data-block="${activeTab}" class="text-btn" aria-label="Ouvrir la fiche : ${esc(e.name)}">La fiche ${icon('arrow')}</button></div></div>
       </article>`;
     }).join('') || empty('search','Aucun mouvement trouvé','Essaie un autre mot ou enlève un filtre.',btn('Réinitialiser les filtres','reset-filters'))}</div>`;
 }
+
+  function warmupFilterButtons(action,selected) {
+    return [['all','Toutes'],['noFloor','Sans sol'],['3','3 min · complément'],['5','5 min'],['8','8 min'],['10','10 min']].map(([id,label])=>`<button type="button" class="btn ${selected===id?'primary':'secondary'}" data-action="${action}" data-id="${id}" aria-pressed="${selected===id}">${label}</button>`).join('');
+  }
+  function warmupRoutineResults() {
+    const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    const routines=D.routines.filter(r=>r.family==='echauffement').filter(r=>warmupLibraryFilter==='all'||warmupLibraryFilter==='noFloor'&&r.noFloor||String(r.durationMinutes)===warmupLibraryFilter).filter(r=>!search||normalize([r.name,r.description,...r.exerciseIds.map(id=>{const e=exercise(id);return e.name+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]||m).join(' ');})].join(' ')).includes(normalize(search)));
+    return `<div class="library-results-bar"><p class="results-count" role="status" aria-live="polite">${routines.length} routine${routines.length>1?'s':''}</p>${search||warmupLibraryFilter!=='all'?btn('Tout afficher','reset-filters','','plain'):''}</div><div class="warmup-library-grid">${routines.map(r=>`<article class="warmup-library-card"><span class="eyebrow">${esc(r.durationLabel)}${r.noFloor?' · SANS SOL':''}</span><h2>${esc(r.name)}</h2><div class="warmup-previews" aria-hidden="true">${r.exerciseIds.slice(0,3).map(id=>photo(exercise(id))).join('')}</div><p>${esc(r.description)}</p><div class="warmup-card-footer"><span>${r.exerciseIds.length} mouvements</span>${btn('Voir la routine '+icon('arrow'),'warmup-detail',`data-id="${r.id}"`,'primary')}</div></article>`).join('')||empty('search','Aucune routine trouvée','Essaie une zone du corps ou enlève le filtre.',btn('Tout afficher','reset-filters'))}</div>`;
+  }
+  function openWarmupRoutine(id) {
+    const r=D.routines.find(r=>r.id===id);if(!r)return;
+    showModal(esc(r.name),`<p class="warmup-detail-intro">${esc(r.durationLabel)}${r.noFloor?' · Sans passage au sol':''} · ${r.exerciseIds.length} mouvements</p><p>${esc(r.description)}</p><ol class="warmup-movement-list">${r.items.map(p=>{const e=exercise(p.exerciseId),dose=e.execution_mode==='duree'?`${p.duration} s`:`${p.reps} ${e.repetition_counting==='paire'?'paires':'répétitions'}`;return `<li><div class="warmup-movement-image">${photo(e)}</div><div><strong>${esc(e.name)}</strong><p>${p.sets} série${p.sets>1?'s':''} · ${dose}${C.sideCount(e)===2?' par côté':''}${p.rest?` · repos ${p.rest} s`:''}</p><button type="button" class="text-btn" data-action="sheet" data-id="${e.id}" data-block="echauffement" data-routine="${r.id}">Geste et muscles ${icon('arrow')}</button></div></li>`;}).join('')}</ol><details class="sheet-extra"><summary>Repères et durées</summary><div class="sheet-extra-content"><p>${esc(D.warmupDurationNote)}</p><ul>${(D.warmupUseNotes||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div></details><div class="dialog-footer">${btn(draft?'Ajouter au brouillon de séance':'Créer une séance avec cette routine','routine-template',`data-id="${r.id}"`,'primary')}</div>`,true);
+  }
 
   function showModal(title,html,wide=false) {
     if(!$('#dialog'))modalReturnFocus=document.activeElement;
@@ -171,19 +189,21 @@
     d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeModal();}});
   }
   function closeModal() { $('#dialog')?.close(); $('#modal-root').innerHTML=''; modalReturnFocus?.isConnected&&modalReturnFocus.focus(); feedbackDraft=null; }
-  function openSheet(id, definition) {
+  function openSheet(id, definition, context={}) {
   sheetPerson=activeHistory?currentSession()?.profileId:$('#builder-adjust-form')?builderPerson:route==='session'&&workout()?(trainingPerson||workout().participantIds[0]):state.currentProfileId;
     const e=definition||exercise(id); if(!e)return;
+  const sheetBlock=context.block||C.family(e);
   const family=C.family(e), roleContext=family==='etirements'?'Zones étirées':family==='mobilisation'?'Zones mobilisées':'Muscles sollicités';
   const note=(sheetPerson===state.currentProfileId?state.exerciseNotes:state.profileData[sheetPerson]?.exerciseNotes)?.[e.id]||'';
   showModal(esc(e.name),`<section class="sheet-v3">
-    <div class="sheet-toolbar"><span class="pill">${labels[family]}</span><span>${esc(e.equipment.map(x=>equipmentNames[x]||x.replaceAll('_',' ')).join(' · '))}</span><span class="sheet-level">${e.difficulty==='intermediaire'?'Intermédiaire':'Accessible'}</span></div>
+    <div class="sheet-toolbar"><span class="pill">${labels[sheetBlock]}</span><span>${esc(e.equipment.map(x=>equipmentNames[x]||x.replaceAll('_',' ')).join(' · '))}</span><span class="sheet-level">${e.difficulty==='intermediaire'?'Intermédiaire':'Accessible'}</span></div>
+    ${sheetBlock==='echauffement'?`<p class="warmup-sheet-note">Version échauffement : sans charge, à un rythme facile. Les réglages ajoutés à la séance sont adaptés à cet usage.</p>`:''}
     <p class="sheet-objective-v3">${esc(e.objective)}</p>
     <div class="sheet-guide-grid">
       <fieldset class="sheet-visual-switch"><legend class="sr-only">Choisir une illustration</legend>
         <input class="sheet-view-input" type="radio" name="sheet-visual" id="sheet-view-gesture" checked><label for="sheet-view-gesture">Geste</label>
         <input class="sheet-view-input" type="radio" name="sheet-visual" id="sheet-view-muscles"><label for="sheet-view-muscles">${family==='etirements'||family==='mobilisation'?'Zones du corps':'Muscles'}</label>
-        <figure class="sheet-visual-gesture">${e.image?`<button type="button" class="zoom-image" data-action="zoom-gesture" data-id="${e.id}" aria-label="Agrandir les positions du mouvement">${photo(e,'','eager')}</button>`:photo(e,'','eager')}<figcaption>${e.image?'Toucher l’image pour agrandir':'Positions clés du mouvement'}</figcaption></figure>
+        <figure class="sheet-visual-gesture">${e.image?`<button type="button" class="zoom-image" data-action="zoom-gesture" data-id="${e.id}" data-block="${sheetBlock}" data-routine="${context.routineId||''}" aria-label="Agrandir les positions du mouvement">${photo(e,'','eager')}</button>`:photo(e,'','eager')}<figcaption>${e.image?'Toucher l’image pour agrandir':'Positions clés du mouvement'}</figcaption></figure>
         <div class="sheet-visual-muscles"><figure>${B.maps(e.muscle_roles,{targetRegions:e.target_regions})}<figcaption>${roleContext}</figcaption></figure>${roleLegend(family)}<div class="muscle-details">${Object.entries({primary:family==='etirements'?'Zones étirées':family==='mobilisation'?'Zones mobilisées':'Muscles principaux',assistance:'En assistance',stabilization:'En stabilisation'}).map(([r,l])=>`<div><strong>${l}</strong><p>${e.muscle_roles[r].map(m=>esc(D.muscles[m]||m)).join(', ')||'—'}</p></div>`).join('')}</div><p class="map-note">Carte simplifiée. Les muscles profonds sont représentés par leur région. Les couleurs indiquent un rôle, pas une intensité mesurée.</p></div>
       </fieldset>
       <section class="sheet-essentials"><h3>Installe-toi</h3><p>${esc(e.setup)}</p><h3>Le mouvement</h3><ol class="step-list">${e.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section>
@@ -192,7 +212,7 @@
     <details class="sheet-extra"><summary>Adapter le mouvement et compter</summary><div class="sheet-extra-content"><p><strong>Plus accessible :</strong> ${esc(e.easier_variant)}</p><p><strong>Progression :</strong> ${esc(e.harder_variant)}</p><h3>Répétitions et charge</h3><p>${esc(e.counting_instructions||'Enregistre la durée ou les répétitions de chaque côté séparément si nécessaire.')}</p><p>${esc(e.load_instructions||loadNames[e.load_input]||'Sans charge externe.')}</p></div></details>
     <details class="sheet-extra" ${note?'open':''}><summary>Note de ${esc(participantName(sheetPerson))}${note?' · enregistrée':''}</summary><div class="sheet-extra-content"><label class="field">Un repère pour la prochaine fois<textarea id="pinned-note" rows="3" maxlength="3000" placeholder="Le réglage ou le conseil qui t’aide…">${esc(note)}</textarea></label>${btn('Enregistrer ma note','save-note',`data-id="${e.id}"`)}</div></details>
     <details class="sheet-extra source-details"><summary>Sources et précisions</summary><div class="sheet-extra-content"><ul>${sourceLinks(e.source_ids)}</ul>${(e.editorial_notes||[]).map(x=>`<p>${esc(x)}</p>`).join('')}</div></details>
-    <div class="sheet-actions-v3">${btn(icon('plus')+' Ajouter à une séance','sheet-add',`data-id="${e.id}"`,'primary')}${btn(icon('download')+' Imprimer / PDF','print-sheet','','plain')}</div>
+    <div class="sheet-actions-v3">${context.routineId?btn(icon('back')+' Retour à la routine','warmup-detail',`data-id="${context.routineId}"`):''}${btn(icon('plus')+' Ajouter à une séance','sheet-add',`data-id="${e.id}" data-block="${sheetBlock}"`,'primary')}${btn(icon('download')+' Imprimer / PDF','print-sheet','','plain')}</div>
   </section>`,true);
 }
 
@@ -210,7 +230,7 @@
   }
   function pickerList(q, category) {
     const low=q.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-    return `<div class="picker-list">${catalog().filter(e=>(category==='all'||C.family(e)===category)&&(e.name+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]).join(' ')).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(low)).map(e=>`<div class="picker-row"><div class="picker-thumb">${photo(e)}</div><div><strong>${esc(e.name)}</strong><small>${labels[C.family(e)]} · ${esc(e.equipment.map(x=>equipmentNames[x]||x).slice(0,2).join(', '))}</small></div>${btn(icon('plus')+(pickerTarget==='replace'?' Remplacer':' Ajouter'),'pick-exercise',`data-id="${e.id}"`)}</div>`).join('')}</div>`;
+    return `<div class="picker-list">${familyExercises(category).filter(e=>(e.name+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]).join(' ')).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(low)).map(e=>`<div class="picker-row"><div class="picker-thumb">${photo(e)}</div><div><strong>${esc(e.name)}</strong><small>${labels[category==='echauffement'?category:C.family(e)]} · ${esc(e.equipment.map(x=>equipmentNames[x]||x).slice(0,2).join(', '))}</small></div>${btn(icon('plus')+(pickerTarget==='replace'?' Remplacer':' Ajouter'),'pick-exercise',`data-id="${e.id}" data-block="${category==='all'?'':category}"`)}</div>`).join('')}</div>`;
   }
   function chooseWarmup(){
     const family=pickerBlock||'echauffement',rs=(D.routines||[]).filter(r=>r.family===family).filter(r=>routineFilter==='all'||routineFilter==='noFloor'&&r.noFloor||String(r.durationMinutes)===routineFilter);
@@ -538,24 +558,27 @@
       case 'picker-done':if(['builder','builder-alternative'].includes(pickerTarget)){renderSharedBuilder();return true;}if(pickerTarget==='shared-replace'){participantEditor(trainingPerson);return true;}return false;
       case 'pick-exercise':{
         const e=exercise(id);
-        if(pickerTarget==='builder'){addSharedItem(C.item(e,{block:pickerBlock||C.family(e)}));button.textContent='Ajouté';toast(e.name+' ajouté.');return true;}
-        if(pickerTarget==='builder-alternative'){const p=editableVariant(builderPerson).items.find(x=>x.id===builderSlot);Object.assign(p,C.item(e,{id:p.id,block:p.block,sets:p.sets}));builderAdjust(builderPerson,builderSlot);return true;}
+        if(pickerTarget==='builder'){addSharedItem(blockItem(e,pickerBlock||button.dataset.block||C.family(e)));button.textContent='Ajouté';toast(e.name+' ajouté.');return true;}
+        if(pickerTarget==='builder-alternative'){const p=editableVariant(builderPerson).items.find(x=>x.id===builderSlot);Object.assign(p,blockItem(e,p.block,{id:p.id,sets:p.sets}));builderAdjust(builderPerson,builderSlot);return true;}
         if(pickerTarget==='shared-add'){
-          const p=C.item(e,{block:pickerBlock||C.family(e)}),slot={id:C.uid(),block:p.block,entries:{}};
+          const p=blockItem(e,pickerBlock||button.dataset.block||C.family(e)),slot={id:C.uid(),block:p.block,entries:{}};
           for(const who of w.participantIds){const s=C.workoutSession(state,w,who),entry=C.makeEntry(C.clone(p),e);s.entries.push(entry);slot.entries[who]=entry.id;}
           w.slots.push(slot);w.cursor=w.slots.length-1;if(await save()){closeModal();render();}return true;
         }
         if(pickerTarget==='shared-replace'){
           const s=selectParticipant(trainingPerson),slot=w.slots[w.cursor],old=s.entries.find(e=>e.id===slot.entries[trainingPerson]),remaining=old.rows.filter(r=>r.status==='pending').length;
           if(!remaining){toast('Ce mouvement est terminé. Ajoutez un mouvement pour continuer.');return true;}
-          const fresh=C.makeEntry(C.item(e,{id:old.plan.id,block:old.plan.block,sets:Math.max(1,Math.ceil(remaining/C.sideCount(e)))}),e),index=s.entries.indexOf(old);
+          const fresh=C.makeEntry(blockItem(e,old.plan.block,{id:old.plan.id,sets:Math.max(1,Math.ceil(remaining/C.sideCount(e)))}),e),index=s.entries.indexOf(old);
           if(old.note||old.feedback?.length||old.rows.some(r=>r.status!=='pending')){old.rows=old.rows.filter(r=>r.status!=='pending');s.entries.splice(index+1,0,fresh);}else s.entries.splice(index,1,fresh);
           slot.entries[trainingPerson]=fresh.id;s.cursor=s.entries.indexOf(fresh);s.restUntil=s.restRemaining=s.effortUntil=s.effortRemaining=s.effortRowId=null;if(await save()){closeModal();render();}return true;
         }return false;
       }
       case 'insert-warmup':{const r=D.routines.find(r=>r.id===id);for(const p of routineItems(r))addSharedItem(p);renderSharedBuilder();return true;}
       case 'routine-filter':routineFilter=id;chooseWarmup();return true;
-      case 'routine-template':{const r=D.routines.find(r=>r.id===id);draft=null;openSharedBuilder();draft.name=r.name;for(const p of routineItems(r))addSharedItem(p);builderStep=2;builderBlock=r.family;renderSharedBuilder();return true;}
+      case 'routine-template':{const r=D.routines.find(r=>r.id===id);if(!r)return true;openSharedBuilder();if(!draft.name.trim())draft.name=r.name;for(const p of routineItems(r))addSharedItem(p);builderStep=2;builderBlock=r.family;renderSharedBuilder();toast('Routine ajoutée au brouillon de séance.');return true;}
+      case 'warmup-view':warmupView=id;render();return true;
+      case 'warmup-library-filter':warmupLibraryFilter=id;render();return true;
+      case 'warmup-detail':openWarmupRoutine(id);return true;
       case 'start-template':{const t=state.templates.find(t=>t.id===id);if(t?.items.length)chooseParticipants(t);else toast('Ajoute au moins un exercice.');return true;}
       case 'quick-start':openSharedBuilder();return true;
       case 'confirm-start':await requestSharedStart();return true;
@@ -588,14 +611,14 @@
         else {if(!r||r.status!=='pending')return true;C.complete(s,e.id,r.id,action==='participant-row-skip'?'skipped':'done');announce(participantName(pid)+', série '+r.number+' enregistrée.');}
         await save();render();if(editor)participantEditor(pid);else $(`[data-person-primary="${pid}"] button`)?.focus();return true;
       }
-      case 'sheet-add':if(workout()){pickerBlock=C.family(exercise(id));pickerTarget='shared-add';return sharedAction('pick-exercise',button);}else{if(!draft)openSharedBuilder();addSharedItem(C.item(exercise(id)));builderStep=2;builderBlock=C.family(exercise(id));renderSharedBuilder();return true;}
+      case 'sheet-add':if(workout()){pickerBlock=button.dataset.block||C.family(exercise(id));pickerTarget='shared-add';return sharedAction('pick-exercise',button);}else{if(!draft)openSharedBuilder();builderBlock=button.dataset.block||C.family(exercise(id));addSharedItem(blockItem(exercise(id),builderBlock));builderStep=2;renderSharedBuilder();return true;}
       case 'repeat-session':{const s=state.sessions.find(s=>s.id===id),t={id:null,name:s.name,participantIds:[s.profileId],items:s.entries.map(e=>{const r=e.rows.find(r=>r.status==='done')||e.rows[0];return {...e.plan,...(r?{load:r.load,loadMode:r.loadMode,reps:r.reps,duration:r.duration}:{}),id:C.uid(),sets:Math.max(1,new Set(e.rows.map(r=>r.number)).size)};})};chooseParticipants(t,s.entries.map(e=>e.definition));return true;}
       case 'confirm-delete-session':{const s=state.sessions.find(s=>s.id===id),group=state.workouts.find(w=>w.id===s.workoutId);state.sessions=state.sessions.filter(s=>s.id!==id);if(group){group.participantIds=group.participantIds.filter(pid=>pid!==s.profileId);delete group.sessionIds[s.profileId];for(const slot of group.slots)delete slot.entries[s.profileId];group.slots=group.slots.filter(slot=>Object.keys(slot.entries).length);group.cursor=Math.max(0,Math.min(group.cursor,group.slots.length-1));if(!group.participantIds.length)state.workouts=state.workouts.filter(w=>w.id!==group.id);}if(await save()){closeModal();render();}return true;}
       case 'install-open':installGuide();return true;
       case 'install-native':{const r=await RenfoInstall.requestInstall();if(r.status==='accepted')toast('Confirmez l’installation dans le navigateur.');else if(r.status==='dismissed')toast('Installation annulée. Le guide reste disponible.');else if(r.status==='error')toast('L’installation n’a pas abouti. Utilisez le menu du navigateur.');installGuide();return true;}
     }return false;
   }
-  function routineItems(r){return r.items?r.items.map(p=>C.item(exercise(p.exerciseId),{...p,id:C.uid(),block:pickerBlock||r.family})):r.exerciseIds.map(id=>C.item(exercise(id),{block:pickerBlock||r.family,sets:1,load:0,loadMode:'none',rest:10}));}
+  function routineItems(r){return r.items?r.items.map(p=>C.item(exercise(p.exerciseId),{...p,id:C.uid(),block:r.family})):r.exerciseIds.map(id=>C.item(exercise(id),{block:r.family,sets:1,load:0,loadMode:'none',rest:10}));}
   const sharedTimerNotified=new Set();
   function sharedTick(){
     const w=workout();if(!w||route!=='session'||activeHistory)return;
@@ -639,13 +662,13 @@
         case 'close-modal':closeModal();break;
         case 'go-templates':closeModal();navigate('templates');break;
         case 'go-history':closeModal();activeHistory=null;navigate('history');break;
-        case 'sheet':openSheet(id);break;
-        case 'session-sheet':openSheet(entry.exerciseId,entry.definition);break;
-        case 'zoom-gesture':{const e=exercise(id);showModal(esc(e.name),`<div class="image-large"><img src="${esc(e.image)}" alt="${esc(e.name)}"></div>${btn('Revenir à la fiche','sheet',`data-id="${e.id}"`)}`,true);break;}
+        case 'sheet':openSheet(id,undefined,{block:button.dataset.block,routineId:button.dataset.routine});break;
+        case 'session-sheet':openSheet(entry.exerciseId,entry.definition,{block:entry.plan.block});break;
+        case 'zoom-gesture':{const e=exercise(id);showModal(esc(e.name),`<div class="image-large"><img src="${esc(e.image)}" alt="${esc(e.name)}"></div>${btn('Revenir à la fiche','sheet',`data-id="${e.id}" data-block="${button.dataset.block||C.family(e)}" data-routine="${button.dataset.routine||''}"`)}`,true);break;}
         case 'print-sheet':window.print();break;
         case 'library-tab':activeTab=id;render();break;
         case 'filter-favorites':onlyFavorites=!onlyFavorites;render();break;
-        case 'reset-filters':search='';filterMuscle='';filterEquipment='';onlyFavorites=false;onlyMyEquipment=false;render();break;
+        case 'reset-filters':search='';filterMuscle='';filterEquipment='';onlyFavorites=false;onlyMyEquipment=false;warmupLibraryFilter='all';render();break;
         case 'favorite':state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];await save();$('#exercise-results')&&($('#exercise-results').innerHTML=exerciseResults());break;
         case 'save-note':{const owner=sheetPerson||state.currentProfileId,notes=owner===state.currentProfileId?state.exerciseNotes:state.profileData[owner].exerciseNotes;notes[id]=$('#pinned-note').value.trim();if(await save())toast('Repère enregistré pour '+participantName(owner)+'.');break;}
         case 'new-template':openBuilder();break;
@@ -673,7 +696,7 @@
           }else{const target=currentSession();target.entries.push(C.makeEntry(C.item(ex,{block:pickerBlock||C.family(ex)}),ex));target.cursor=target.entries.length-1;await save();closeModal();render();}
           break;
         }
-        case 'insert-warmup':{const r=D.routines.find(x=>x.id===id);draft.items.push(...r.exerciseIds.map(id=>{const ex=exercise(id);return C.item(ex,{block:pickerBlock||r.family,sets:1,reps:ex.default_reps||6,load:0,duration:ex.default_duration||30,rest:10});}));renderBuilder();break;}
+        case 'insert-warmup':{const r=D.routines.find(x=>x.id===id);draft.items.push(...r.exerciseIds.map(id=>{const ex=exercise(id);return C.item(ex,{block:r.family,sets:1,reps:ex.default_reps||6,load:0,duration:ex.default_duration||30,rest:10});}));renderBuilder();break;}
         case 'routine-template':{builderScope='personal';const r=D.routines.find(x=>x.id===id);draft={id:C.uid(),name:r.name,description:labels[r.family],mode:'classic',rounds:1,items:r.exerciseIds.map(id=>C.item(exercise(id),{block:r.family,sets:1,load:0,rest:10}))};renderBuilder();break;}
         case 'sheet-add':{
           const ex=exercise(id);closeModal();
