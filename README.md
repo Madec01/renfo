@@ -23,6 +23,12 @@ Application personnelle de renforcement, en français, utilisable sur téléphon
 
 ## Utiliser l’application
 
+**En ligne sur GitHub Pages : [Ouvrir Renfo](https://madec01.github.io/renfo/).**
+
+L’adresse d’accueil ouvre automatiquement l’application dans `dist/`. GitHub Pages publie la branche `main` depuis sa racine ; `.nojekyll` conserve les fichiers statiques tels quels. Les modifications poussées sur cette branche sont publiées automatiquement.
+
+Le stockage du navigateur dépend de l’adresse utilisée. Pour récupérer un carnet commencé sur un autre hébergement, exporter la sauvegarde depuis cet hébergement, puis l’importer dans les réglages de la version GitHub Pages.
+
 Servir le dossier `dist/` avec un serveur statique. Par exemple :
 
 ```sh
