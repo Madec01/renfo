@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0.0",
+  "locale": "fr-FR",
+  "scope": "Repères techniques et orientation prudente après un retour de séance ; aucun diagnostic ni protocole de soin.",
+  "sources": [
+    {
+      "id": "advice-mayo-technique",
+      "title": "Mayo Clinic — Weight training: Do's and don'ts of proper technique",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842",
+      "consulted_on": "2026-11-06",
+      "supports": [
+        "pain_stop",
+        "form_control",
+        "no_automatic_progression"
+      ],
+      "access_note": "Article institutionnel consulté, sections technique, respiration, contrôle et douleur."
+    },
+    {
+      "id": "advice-mayo-muscle-pain",
+      "title": "Mayo Clinic — Muscle pain, when to see a doctor",
+      "url": "https://www.mayoclinic.org/symptoms/muscle-pain/basics/causes/sym-20050866",
+      "consulted_on": "2026-11-06",
+      "supports": [
+        "persistent_pain",
+        "urgent_symptoms"
+      ],
+      "access_note": "Section When to see a doctor consultée ; les conseils de traitement de la page ne sont pas repris."
+    },
+    {
+      "id": "advice-nhs-sensory",
+      "title": "NHS — Pins and needles",
+      "url": "https://www.nhs.uk/symptoms/pins-and-needles/",
+      "consulted_on": "2026-11-06",
+      "supports": [
+        "sensory_change"
+      ],
+      "access_note": "Conseil institutionnel sur les fourmillements persistants ou récurrents ; ne permet pas de déterminer leur cause."
+    },
+    {
+      "id": "advice-sevilmis-perception",
+      "title": "Sevilmiş et al. (2024) — The Disconnect Between Soccer Players’ Perceived and Actual Electromyographic-Measured Muscle Activation",
+      "url": "https://journals.sagepub.com/doi/10.1177/00315125241279086",
+      "doi": "10.1177/00315125241279086",
+      "consulted_on": "2026-11-06",
+      "supports": [
+        "low_muscle_sensation"
+      ],
+      "access_note": "Résumé primaire consulté ; texte intégral à accès restreint.",
+      "evidence_limit": "Étude de 13 footballeurs masculins avec expérience de musculation, six exercices du haut du corps, charges de 4–6 RM. Pas de corrélation significative trouvée entre perception locale et EMG dans ce protocole. Ce résultat ne signifie pas que tout ressenti est inutile, ni que l’EMG prédit directement les progrès."
+    },
+    {
+      "id": "advice-cleveland-doms",
+      "title": "Cleveland Clinic — Delayed onset muscle soreness (DOMS)",
+      "url": "https://my.clevelandclinic.org/health/symptoms/delayed-onset-muscle-soreness",
+      "consulted_on": "2026-11-06",
+      "supports": [
+        "no_soreness"
+      ],
+      "access_note": "Explication institutionnelle consultée ; aucune recommandation de médicament, complément ou traitement n’est transposée."
+    }
+  ],
+  "feedback_labels": [
+    {
+      "id": "muscle_effort",
+      "label": "Effort musculaire ressenti",
+      "meaning": "Perception subjective de travail dans une zone ; distincte d’une douleur."
+    },
+    {
+      "id": "low_muscle_sensation",
+      "label": "Muscle cible peu ressenti",
+      "meaning": "La personne perçoit peu le travail du muscle pendant le geste. Cela ne désigne pas une perte de sensibilité."
+    },
+    {
+      "id": "discomfort",
+      "label": "Gêne",
+      "meaning": "Inconfort décrit librement ; aucune cause n’est attribuée par l’application."
+    },
+    {
+      "id": "pain",
+      "label": "Douleur",
+      "meaning": "Signalement d’une douleur pendant ou après le mouvement ; la localisation ne suffit pas à identifier une lésion."
+    },
+    {
+      "id": "sensory_change",
+      "label": "Engourdissement ou fourmillements",
+      "meaning": "Modification réelle de la sensibilité, distincte d’un muscle peu ressenti à l’effort."
+    }
+  ],
+  "rules": [
+    {
+      "id": "pain_stop",
+      "kind": "safety",
+      "title": "Une douleur pendant le geste",
+      "trigger": "La personne signale une douleur provoquée par l’exercice.",
+      "message": "Arrête cet exercice et note ce que tu as ressenti. Ne force pas pour terminer la série et n’augmente pas la charge pour essayer de corriger la sensation.",
+      "action": "stop_exercise",
+      "source_ids": [
+        "advice-mayo-technique"
+      ],
+      "evidence_note": "La source recommande l’arrêt. Bloquer une hausse de charge est une précaution de conception, sans prescription de reprise."
+    },
+    {
+      "id": "persistent_pain",
+      "kind": "safety",
+      "title": "Douleur qui persiste ou revient",
+      "trigger": "La personne décrit une douleur qui ne s’améliore pas ou qui se répète avec l’exercice.",
+      "message": "Demande un avis à un professionnel de santé avant de poursuivre le mouvement qui déclenche cette douleur. Tu peux lui montrer les séances et les notes enregistrées.",
+      "action": "seek_health_advice",
+      "source_ids": [
+        "advice-mayo-muscle-pain"
+      ],
+      "evidence_note": "La source recommande une consultation pour une douleur qui ne s’améliore pas. L’application ne définit pas de diagnostic ni de délai de guérison."
+    },
+    {
+      "id": "sensory_change",
+      "kind": "safety",
+      "title": "Engourdissement ou fourmillements",
+      "trigger": "Le retour concerne une modification de sensibilité, et non un simple manque de sensation de travail musculaire.",
+      "message": "Ne traite pas cet engourdissement comme un problème d’activation musculaire. Interromps le mouvement qui le déclenche ; si les fourmillements persistent ou reviennent, demande un avis médical.",
+      "action": "pause_and_seek_advice_if_persistent",
+      "source_ids": [
+        "advice-nhs-sensory"
+      ],
+      "evidence_note": "La consultation en cas de symptômes persistants ou récurrents vient du NHS. L’arrêt du geste déclencheur est une précaution de conception ; aucune cause n’est déduite."
+    },
+    {
+      "id": "urgent_symptoms",
+      "kind": "safety",
+      "title": "Signes nécessitant une aide rapide",
+      "trigger": "La personne rapporte une douleur musculaire accompagnée de difficultés respiratoires, de vertiges, d’une faiblesse extrême ou d’une blessure importante empêchant de bouger.",
+      "message": "Arrête l’activité et sollicite rapidement une aide médicale. Une blessure importante avec incapacité de bouger, ou une douleur avec difficultés respiratoires, vertiges ou faiblesse extrême, demande une évaluation urgente.",
+      "action": "urgent_medical_help",
+      "source_ids": [
+        "advice-mayo-muscle-pain"
+      ],
+      "evidence_note": "Repères d’orientation de la source, non exhaustifs. L’application ne peut pas exclure une urgence à partir d’un formulaire."
+    },
+    {
+      "id": "form_control",
+      "kind": "technique",
+      "title": "Le geste devient difficile à contrôler",
+      "trigger": "Sans douleur signalée, la personne décrit une perte de contrôle ou des compensations.",
+      "message": "Reprends le placement et les repères de la fiche. Bouge sans élan et continue à respirer. Si tu ne peux pas garder la technique, réduis la charge ou les répétitions ; en cas de doute, fais observer le geste par un professionnel de l’exercice.",
+      "action": "review_exercise_cues",
+      "source_ids": [
+        "advice-mayo-technique"
+      ],
+      "evidence_note": "Conseils techniques généraux ; aucun seuil calculé selon la douleur."
+    },
+    {
+      "id": "low_muscle_sensation",
+      "kind": "interpretation",
+      "title": "Le muscle cible est peu ressenti",
+      "trigger": "La personne décrit une faible sensation locale, sans douleur ni engourdissement.",
+      "message": "Peu sentir un muscle ne suffit pas à conclure qu’il ne travaille pas. Vérifie le placement et les repères du geste ; garde cette sensation comme une note subjective, sans la transformer en mesure d’activation.",
+      "action": "review_cues_without_activation_claim",
+      "source_ids": [
+        "advice-sevilmis-perception"
+      ],
+      "evidence_note": "Interprétation prudente d’une petite étude : le ressenti local seul ne doit pas servir de test d’activation. La fiche décrit des rôles musculaires attendus, pas une mesure personnelle."
+    },
+    {
+      "id": "no_automatic_progression",
+      "kind": "product_guardrail",
+      "title": "La sensation seule ne déclenche pas une progression",
+      "trigger": "Un retour musculaire est enregistré.",
+      "message": "L’application ne modifie pas automatiquement les charges à partir de la douleur, d’une gêne ou d’un muscle peu ressenti. Toute modification reste visible et choisie par la personne.",
+      "action": "keep_load_user_controlled",
+      "source_ids": [
+        "advice-mayo-technique",
+        "advice-sevilmis-perception"
+      ],
+      "evidence_note": "Règle de conception, sans protocole clinique ni progression prescrite."
+    },
+    {
+      "id": "no_soreness",
+      "kind": "interpretation",
+      "title": "Pas de courbatures après la séance",
+      "trigger": "La personne demande si l’absence de courbatures signifie que la séance n’a servi à rien.",
+      "message": "Une séance peut être utile sans provoquer de courbatures. Leur absence ne justifie pas, à elle seule, d’augmenter l’entraînement.",
+      "action": "avoid_soreness_as_success_score",
+      "source_ids": [
+        "advice-cleveland-doms"
+      ],
+      "evidence_note": "Ne pas utiliser cette explication pour qualifier automatiquement de courbature une douleur signalée."
+    }
+  ],
+  "integration_notes": [
+    "Les règles sont du contenu éditorial contextualisé, pas un outil de diagnostic, de triage exhaustif ou de traitement.",
+    "Afficher en priorité les consignes de sécurité pertinentes si une douleur ou un trouble de sensibilité est déclaré. Ne pas enchaîner avec une suggestion automatique d’étirement ou d’augmentation de charge.",
+    "Pour un retour sans douleur, les conseils spécifiques proviennent des champs setup, key_cues et common_mistakes de la fiche de l’exercice ; ne pas inventer une correction à partir du seul endroit touché sur le schéma.",
+    "Conserver séparément l’effort perçu, la sensation locale de travail, la gêne, la douleur et les changements de sensibilité.",
+    "La carte corporelle représente la déclaration de la personne. Elle ne mesure ni l’activation des muscles ni leur état de santé.",
+    "Les volumes réalisés et les rôles anatomiques attendus restent distincts du ressenti. Ne pas retirer un muscle du récapitulatif parce qu’il a été peu ressenti.",
+    "Les sources sont accessibles depuis les conseils correspondants. Les limites de l’étude sur la perception doivent rester consultables."
+  ]
+}

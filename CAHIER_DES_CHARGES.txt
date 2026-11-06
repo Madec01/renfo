@@ -1,0 +1,91 @@
+RENFO - PROPOSITION D'ARCHITECTURE
+État : proposition à discuter avant de coder l'application.
+Date : 6 novembre 2026.
+
+OBJECTIF
+Une application HTML/CSS/JavaScript personnelle, pensée d'abord pour le téléphone et utilisable sur ordinateur. Préparer une séance modulable, la suivre simplement, conserver ce qui a réellement été fait, consulter les fiches et comprendre quels groupes musculaires ont participé.
+Le dépôt sera nommé « renfo ». Aucun dépôt n'a été créé, modifié ou publié pendant cette phase de conception.
+
+NAVIGATION
+1. Accueil : reprendre une séance interrompue, lancer une séance habituelle, dernière séance, activité de la semaine, raccourci séance libre.
+2. Séances : modèles personnels, duplication, édition, ordre des exercices, blocs, repos, circuits et lancement.
+3. Bibliothèque : quatre rubriques distinctes Renforcement / Échauffement / Mobilisation / Étirements. Recherche, filtres par région, matériel, niveau, durée et position. Favoris et exercices personnalisés.
+4. Historique : calendrier, liste chronologique, détail des résultats, comparaison et duplication d'une séance réalisée.
+5. Bilan : répartition musculaire, fréquence et évolution par exercice. Les réglages et sauvegardes restent accessibles par une icône.
+
+UNE SÉANCE = DES BLOCS MODULABLES
+Blocs possibles : échauffement, renforcement, mobilisation et étirements. Tous sont facultatifs et réordonnables ; une séance peut être uniquement de la mobilité.
+Modifier le nombre d'exercices, séries, répétitions, durée, charge, tempo, repos, ordre, travail par côté et nombre de tours. Prévoir séries classiques et circuits, puis superséries.
+Un modèle est une recette. Au lancement, il est copié dans une séance réelle : modifier cette séance ne change pas le modèle. Un bouton distinct permet de reporter volontairement les ajustements sur le modèle.
+Les séries prévues ne deviennent réalisées que lorsqu'elles sont validées. Une série sautée, interrompue ou modifiée garde son état propre. Les bilans utilisent les données réellement réalisées.
+
+PENDANT L'ENTRAÎNEMENT
+Deux modes complémentaires : mode guidé avec étapes et minuterie, ou journal libre pour enregistrer les séries à son rythme. Les deux utilisent le même modèle de données.
+Un seul exercice au premier plan ; gros boutons utilisables d'une main. Afficher objectif, dernière performance comparable, séries, charge, compteur, repos et accès rapide aux illustrations.
+Valider une série, corriger immédiatement une saisie, annuler la dernière validation, ajouter/supprimer une série, remplacer l'exercice ou passer au suivant. Un ajout ne doit pas effacer ce qui a déjà été enregistré.
+Durée de séance hors pauses volontaires, repos séparés ; temps d'effort uniquement lorsqu'il est chronométré, sinon présenté comme non mesuré ou estimé.
+Sauvegarde locale après chaque action utile et restauration d'une séance interrompue. Chronomètre reconstruit à partir d'horodatages ; pas uniquement à partir d'un compteur JavaScript.
+Retour à l'écran : rétablir le temps restant correct. Les signaux sonores ou vibrations en arrière-plan ne sont pas garantis par tous les navigateurs. Maintien de l'écran actif lorsque disponible.
+
+CHARGES ET RÉPÉTITIONS SANS AMBIGUÏTÉ
+Chaque exercice précise la base de saisie : poids du corps, un haltère, poids par haltère, charge externe totale ou niveau d'élastique.
+Afficher par exemple « 2 haltères de 4 kg = 8 kg externes ». Ne pas deviner si les 6 kg d'un épaulé-développé désignent le total ou chaque haltère.
+Pour un exercice unilatéral, conserver gauche/droite, répétitions par côté et paire de séries. Trois séries par côté ne sont pas présentées comme six séries pour chaque côté.
+Pour les alternances, définir « répétitions totales », « par côté » ou « une paire = une répétition ». Les exercices chronométrés utilisent des secondes, sans inventer des répétitions.
+
+FICHES
+Le catalogue initial comprend 50 exercices de renforcement, dont les six déjà illustrés. Chaque fiche : objectif, matériel, niveau, muscles principaux/assistance/stabilisation, installation, pas à pas, respiration, tempo, repères clés, erreurs fréquentes, options plus faciles/plus difficiles et sources.
+Les illustrations existantes seront reprises en images optimisées avec texte HTML lisible et zoom. Garder aussi un téléchargement PDF. Les 44 autres exercices nécessiteront leur propre illustration et contrôle visuel ; la recherche textuelle ne constitue pas la création des 50 infographies.
+La fiche affiche les dernières réalisations et pourra recevoir une note personnelle. Modifier une fiche ne doit pas réécrire rétroactivement les séances anciennes : conserver un instantané/version de la définition utilisée.
+
+BILAN MUSCULAIRE
+Schéma du corps de face et de dos, régions sélectionnables, légende constante : cible principale, assistance, stabilisation. La carte des sensations est un calque différent.
+Avant la séance : aperçu du programme prévu. Après : bilan calculé sur les séries réalisées. Séparer les phases d'échauffement, renforcement, mobilisation et étirement.
+Au toucher d'une zone : exercices concernés, séries réalisées par rôle, côtés, répétitions/durées et date de dernière sollicitation enregistrée.
+Prévoir un filtre par rôle et afficher séparément les contributions si le même muscle est cible d'un exercice et stabilisateur d'un autre. Les zones non colorées signifient absence de sollicitation répertoriée dans la sélection, pas absence certaine d'activité physiologique.
+Ne pas attribuer de pourcentages physiologiques arbitraires. Une série de gainage ne devient pas l'équivalent d'une série de squat. Le volume externe peut être calculé pour un même exercice selon une convention explicite, mais ne prouve ni l'efficacité ni la récupération d'un muscle.
+La carte ne déduit pas une fatigue, une blessure ou une récupération certaine. « Non ressenti » n'efface pas la sollicitation attendue de l'exercice.
+
+ÉCHAUFFEMENT, MOBILISATION ET ÉTIREMENTS
+Un échauffement prépare une activité ; une mobilisation entraîne un mouvement articulaire contrôlé ; un étirement maintenu vise la souplesse. Un mouvement peut porter plusieurs tags, mais son exécution et son rôle restent explicites.
+Proposer une dizaine de routines d'échauffement modifiables : corps entier, jambes, hanches/fessiers, mollets/chevilles, poussée, tirage, épaules/haut du dos, gainage, sans impact et sans passage au sol. La sélection tient compte des exercices choisis, du matériel, de la durée et des préférences.
+Composer les routines par étapes : mise en mouvement progressive, mobilisations pertinentes, répétitions de préparation des gestes à venir à faible contrainte. Éviter un simple tirage aléatoire d'exercices.
+Mobilisation : accès par articulation/région, petites routines autonomes, amplitude confortable, sans rechercher une amplitude maximale.
+Étirements : minuterie par côté, passage automatique ou manuel, catalogue par zone, routines autonomes ou en fin de séance. Ne pas promettre la suppression des courbatures ou le traitement d'une douleur.
+
+IDÉE FUTURE : RETOUR CORPOREL ET CONSEILS
+Conserver dès la V1 un commentaire libre et un ressenti facultatif. Développer ensuite un schéma face/dos avec zoom par région, points/zones multiples, côté anatomique explicite, légende et historique.
+Types de retour : effort perçu, étirement, courbature signalée, gêne, douleur, absence de sensation musculaire, aucun problème. Les sensations ne constituent pas un diagnostic.
+Pour une douleur : zone/côté, intensité subjective, qualité libre, moment d'apparition (pendant/après/le lendemain), phase du geste, série concernée, répétition du problème et évolution. Séparer explicitement intensité de douleur et difficulté de l'effort.
+Pour une absence de sensation : muscle attendu, muscle ressenti à la place, charge, amplitude et repère technique essayé. Une sensation faible ne signifie pas que le muscle n'a pas travaillé.
+Conseils : moteur de règles documentées par exercice et contexte, avec questions discriminantes, source, version, domaine d'application, incertitude et contre-indications. Conseils techniques précis et limités aux cas pertinents ; pas de diagnostic à partir d'un point sur le corps. Validation professionnelle des règles sensibles avant activation.
+Si les informations sont insuffisantes, demander les précisions manquantes. Si le signalement demande une évaluation clinique, arrêter les recommandations de réglage et orienter. Ne jamais proposer automatiquement une augmentation de charge pour « mieux sentir » un muscle après une douleur.
+Afficher ce qui a été essayé puis « mieux / pareil / pire » dans l'historique. Une IA éventuelle explique des règles validées ; elle n'invente pas de traitement.
+
+ARCHITECTURE TECHNIQUE PROPOSÉE
+Application statique en plusieurs fichiers HTML/CSS/JavaScript dans le dépôt, avec modules distincts pour interface, séances, chronomètres, stockage, catalogue, calculs musculaires et retours corporels.
+PWA installable, servie en HTTPS, avec app et fiches mises en cache pour un usage hors connexion après chargement initial. Une ouverture directe file:// ne sera pas le mode principal d'installation.
+IndexedDB pour les séances, modèles, préférences et notes ; ressources pédagogiques versionnées à part. Données de séances hors du dépôt et non publiées avec le code.
+Export/import JSON complet, indication de dernière sauvegarde, demande de stockage persistant si disponible, migrations versionnées et sauvegarde avant import/remplacement.
+Synchronisation téléphone/ordinateur prévue dans le modèle, mais optionnelle et ultérieure. Sans service de synchronisation, chaque appareil possède ses propres données : aucun partage automatique ne sera promis.
+Mises à jour de l'application appliquées sans interrompre une séance. Pas de calcul ou requête serveur à chaque seconde.
+
+DONNÉES PRINCIPALES
+ExerciseDefinition : id, version, famille, mode, latéralité, matériel, consignes, rôles musculaires, sources et médias.
+WorkoutTemplate : blocs, exercices, paramètres cibles, ordre, tours et repos.
+WorkoutSession : instantané du modèle, états, horodatages, pauses, blocs réellement exécutés et notes.
+PerformedSet : série, côté, répétitions/durée réelles, charge et convention, statut, effort facultatif.
+BodyFeedback : séance/série liée, type de sensation, région, côté, coordonnées normalisées du schéma, temporalité, intensité et commentaire.
+AdviceRule / AdviceResult : règle versionnée, critères, sources, exclusions, conseils affichés et retour utilisateur ; réservés à une phase ultérieure.
+
+ORDRE DE RÉALISATION
+V1 : suivi fiable, bibliothèque50 textuelle, six fiches illustrées existantes, séances modulables, historique, bilan par rôle, échauffements de base, rubriques mobilisation/étirements, sauvegardes et usage téléphone hors ligne.
+V1.1 : catalogue illustré complet, routines de préparation enrichies, circuits/superséries, graphiques comparables et favoris.
+V2 : carte corporelle de sensations avec historique et export ; module de conseils documentés activé progressivement après validation.
+V3 éventuelle : synchronisation entre appareils et accompagnement explicatif, sans dépendance obligatoire à une IA.
+
+COMPLÉMENTS UTILES
+Inventaire personnel du matériel et des incréments de charge disponibles. Reprendre les dernières valeurs comparables sans les augmenter automatiquement. Alternatives par matériel et famille de mouvement, à confirmer manuellement. Notes techniques épinglées sur les exercices. Durée prévisionnelle clairement marquée comme estimation. Objectifs de régularité personnalisables, sans pénalité en cas de pause.
+
+VÉRIFICATIONS AVANT LIVRAISON
+Rechargement en pleine séance ; fermeture puis reprise ; mode hors ligne ; minuteur après retour d'arrière-plan ; unités de charge ; alternance gauche/droite ; modification de modèle sans altération de l'historique ; calcul des seules séries validées ; import/export sans perte ; migration ; contraste, zoom et utilisation tactile.

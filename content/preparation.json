@@ -1,0 +1,1677 @@
+{
+  "schema_version": "1.0.0",
+  "locale": "fr-FR",
+  "scope": "26 fiches de préparation générale, séparées du catalogue de renforcement.",
+  "default_settings_note": "Les durées sont en secondes. Durées et répétitions sont des valeurs de départ pour le minuteur et restent modifiables ; elles ne constituent pas une prescription individuelle. Pour un mouvement unilatéral, la valeur s’applique à chaque côté.",
+  "muscle_roles_note": "Pour ces fiches, les listes sont des repères anatomiques qualitatifs : régions participantes pendant l’échauffement, régions mobilisées ou muscles étirés. Elles ne mesurent ni intensité ni activation et ne doivent pas alimenter le volume de renforcement comme des séries chargées.",
+  "use_notes": [
+    "Un échauffement progresse vers les mouvements de la séance. Une mobilisation explore une amplitude contrôlée. Un étirement maintient une tension légère : les trois rubriques ont des buts distincts.",
+    "Pendant les étirements, conserver une tension confortable et respirer ; revenir en arrière si une douleur apparaît. Ne pas rebondir.",
+    "Les variantes servent à ajuster le confort ou le contrôle. Plus d’amplitude ou d’intensité n’est pas automatiquement préférable.",
+    "Certaines références proviennent de services de soins. Seule la description mécanique du geste est utilisée ; aucun calendrier postopératoire ni protocole de traitement n’est repris."
+  ],
+  "sources": [
+    {
+      "id": "prep-nhs-warmup",
+      "title": "NHS — How to warm up before exercising",
+      "url": "https://www.nhs.uk/live-well/exercise/how-to-warm-up-before-exercising/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-stsft-physical",
+      "title": "South Tyneside and Sunderland NHS Foundation Trust — Physical activity, warm-up exercises",
+      "url": "https://stsft.nhs.uk/patients-and-visitors/advice-and-support/cancer-information-hub/prehabilitation/physical-activity",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-aha-flexibility",
+      "title": "American Heart Association — Stretches for exercise and flexibility",
+      "url": "https://www.heart.org/en/healthy-living/exercise-and-physical-activity/staying-motivated/stretches-for-exercise-and-flexibility",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-kingston-ankles",
+      "title": "Kingston and Richmond NHS — Home exercise programme for falls prevention",
+      "url": "https://www.kingstonandrichmond.nhs.uk/patients-and-families/patient-leaflets/home-exercise-programme-falls-prevention",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-leeds-ankles",
+      "title": "Leeds Teaching Hospitals NHS — Ankle exercises",
+      "url": "https://www.leedsth.nhs.uk/patients/resources/ankle-exercises/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-berkshire-ankles",
+      "title": "Berkshire Healthcare NHS — Ankle sprains, ankle mobility exercise",
+      "url": "https://www.berkshirehealthcare.nhs.uk/advice/ankle-sprains",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-tamu-mobility",
+      "title": "Texas A&M AgriLife Extension — Mobility exercises",
+      "url": "https://howdyhealth.tamu.edu/mobility-exercises/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-hero-9090",
+      "title": "Rehab Hero — 90/90 hip switch",
+      "url": "https://raccoon-accordion-b45l.squarespace.com/exercise/9090-hip-switch",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-ace-catcow",
+      "title": "ACE Exercise Library — Cat-Cow",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/15/cat-cow/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-leeds-openbook",
+      "title": "Leeds Teaching Hospitals NHS — Physiotherapy exercises, open book rotation",
+      "url": "https://www.leedsth.nhs.uk/patients/resources/physiotherapy-exercises-for-breast-pain-with-chest-wall-musculoskeletal-symptoms/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-nhs-seated",
+      "title": "NHS — Sitting exercises",
+      "url": "https://www.nhs.uk/live-well/exercise/sitting-exercises/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-thoracic-commentary",
+      "title": "Johnson et al. — Thoracic rotation measurement techniques: clinical commentary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3096146/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-torokhtiy-shoulder",
+      "title": "Torokhtiy — Shoulder mobility exercises, shoulder controlled articular rotations",
+      "url": "https://torokhtiy.com/blogs/guides/shoulder-mobility-exercises",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-papworth-wall",
+      "title": "Royal Papworth NHS — Physiotherapy information after pectus surgery, wall angels",
+      "url": "https://royalpapworth.nhs.uk/application/files/7517/0774/1302/PI-155-Physiotherapy-information-after-pectus-surgery-vs2.pdf",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-nhs-flexibility",
+      "title": "NHS — Flexibility exercises, neck rotation",
+      "url": "https://www.nhs.uk/live-well/exercise/flexibility-exercises/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-mayo-stretch",
+      "title": "Mayo Clinic — A guide to basic stretches",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/stretching/art-20546848",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-kent-stretch",
+      "title": "Kent Community Health NHS — Stretching exercises, quadriceps",
+      "url": "https://www.kentcht.nhs.uk/leaflet/stretching-exercises/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-nhs-after",
+      "title": "NHS — How to stretch after exercising",
+      "url": "https://www.nhs.uk/live-well/exercise/how-to-stretch-after-exercising/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-ace-butterfly",
+      "title": "ACE Exercise Library — Seated butterfly stretch",
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/216/seated-butterfly-stretch/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-southtees-hip",
+      "title": "South Tees Hospitals NHS — Hip stretch in half kneeling",
+      "url": "https://www.southtees.nhs.uk/resources/hip-stretch-in-half-kneeling/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "prep-aaos-shoulder",
+      "title": "AAOS OrthoInfo — Rotator cuff and shoulder conditioning program, crossover arm stretch",
+      "url": "https://www.orthoinfo.org/bodypart/shoulder/rotator-cuff-and-shoulder-conditioning-program/",
+      "consulted_on": "2026-11-06"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "prep-marche",
+      "name": "Marche sur place progressive",
+      "aliases": [],
+      "category": "echauffement",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "echauffement"
+      ],
+      "execution_mode": "duree",
+      "laterality": "alterne",
+      "repetition_counting": "total",
+      "counting_instructions": "Le minuteur couvre l’ensemble du mouvement, y compris les alternances.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "quadriceps",
+          "flechisseurs_hanche",
+          "gastrocnemiens",
+          "soleaire"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_participants",
+      "session_volume_contribution": false,
+      "objective": "Mettre progressivement le corps en mouvement.",
+      "setup": "Debout, avec de l’espace autour de toi.",
+      "steps": [
+        "Commence à marcher sur place tranquillement.",
+        "Déroule les pieds et accompagne avec les bras.",
+        "Augmente progressivement la cadence si tu restes à l’aise.",
+        "Conserve une marche souple jusqu’à la fin."
+      ],
+      "breathing": "Respire librement.",
+      "tempo": "Progressif, sans courir.",
+      "key_cues": [
+        "Épaules détendues.",
+        "Appuis légers."
+      ],
+      "common_mistakes": [
+        "Démarrer trop vite.",
+        "Bloquer la respiration."
+      ],
+      "easier_variant": "Ralentir et réduire les pas.",
+      "harder_variant": "Ajouter une amplitude de bras confortable.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-nhs-warmup"
+      ],
+      "editorial_notes": [],
+      "default_duration": 60,
+      "target_regions": [
+        "jambes",
+        "chevilles"
+      ]
+    },
+    {
+      "id": "prep-talons",
+      "name": "Talons alternés devant",
+      "aliases": [],
+      "category": "echauffement",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "echauffement"
+      ],
+      "execution_mode": "duree",
+      "laterality": "alterne",
+      "repetition_counting": "total",
+      "counting_instructions": "Le minuteur couvre l’ensemble du mouvement, y compris les alternances.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "quadriceps",
+          "flechisseurs_hanche"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_participants",
+      "session_volume_contribution": false,
+      "objective": "Échauffer les jambes avec des appuis alternés.",
+      "setup": "Debout, genoux souples.",
+      "steps": [
+        "Avance un pied et pose son talon devant.",
+        "Oriente les orteils de ce pied vers le haut.",
+        "Ramène le pied, puis change de jambe.",
+        "Continue sans taper le sol ; accompagne avec les bras."
+      ],
+      "breathing": "Respiration régulière.",
+      "tempo": "Alternance fluide.",
+      "key_cues": [
+        "Pas courts.",
+        "Buste redressé."
+      ],
+      "common_mistakes": [
+        "Verrouiller les genoux.",
+        "S’éloigner trop avec le pied."
+      ],
+      "easier_variant": "Garder une main sur un appui.",
+      "harder_variant": "Coordonner davantage les bras.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-nhs-warmup"
+      ],
+      "editorial_notes": [],
+      "default_duration": 45,
+      "target_regions": [
+        "jambes",
+        "chevilles"
+      ]
+    },
+    {
+      "id": "prep-genoux",
+      "name": "Montées de genoux contrôlées",
+      "aliases": [],
+      "category": "echauffement",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "echauffement"
+      ],
+      "execution_mode": "duree",
+      "laterality": "alterne",
+      "repetition_counting": "total",
+      "counting_instructions": "Le minuteur couvre l’ensemble du mouvement, y compris les alternances.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "flechisseurs_hanche",
+          "quadriceps"
+        ],
+        "assistance": [],
+        "stabilization": [
+          "transverse",
+          "moyen_petit_fessier"
+        ]
+      },
+      "muscle_role_context": "muscles_participants",
+      "session_volume_contribution": false,
+      "objective": "Préparer une alternance active des jambes.",
+      "setup": "Debout, pieds sous le bassin.",
+      "steps": [
+        "Monte un genou à une hauteur confortable.",
+        "Avance la main opposée vers ce genou.",
+        "Repose doucement le pied.",
+        "Alterne sans sauter et sans pencher le buste."
+      ],
+      "breathing": "Respire sans apnée.",
+      "tempo": "Régulier, maîtrisé.",
+      "key_cues": [
+        "Grandis-toi.",
+        "Bassin stable."
+      ],
+      "common_mistakes": [
+        "Chercher le genou avec le dos.",
+        "Retomber lourdement."
+      ],
+      "easier_variant": "Monter moins haut, avec appui.",
+      "harder_variant": "Retirer l’appui si l’équilibre le permet.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-stsft-physical"
+      ],
+      "editorial_notes": [],
+      "default_duration": 45,
+      "target_regions": [
+        "hanches",
+        "jambes"
+      ]
+    },
+    {
+      "id": "prep-flexions",
+      "name": "Petites flexions de genoux",
+      "aliases": [],
+      "category": "echauffement",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "echauffement"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Un aller-retour complet vaut une répétition.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "quadriceps",
+          "grand_fessier"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_participants",
+      "session_volume_contribution": false,
+      "objective": "Préparer la flexion des jambes.",
+      "setup": "Pieds largeur d’épaules, pointes légèrement ouvertes.",
+      "steps": [
+        "Garde tout le pied en appui.",
+        "Plie légèrement hanches et genoux.",
+        "Oriente les genoux comme les pieds.",
+        "Redresse-toi tranquillement, puis recommence."
+      ],
+      "breathing": "Expire en te redressant.",
+      "tempo": "Petite amplitude fluide.",
+      "key_cues": [
+        "Talons posés.",
+        "Dos confortable."
+      ],
+      "common_mistakes": [
+        "Genoux vers l’intérieur.",
+        "Descendre trop bas."
+      ],
+      "easier_variant": "Tenir un support stable.",
+      "harder_variant": "Garder les mêmes flexions sans appui.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-stsft-physical"
+      ],
+      "editorial_notes": [],
+      "default_reps": 8,
+      "target_regions": [
+        "hanches",
+        "genoux"
+      ]
+    },
+    {
+      "id": "mob-roules-epaules",
+      "name": "Roulements d’épaules",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Un aller-retour complet vaut une répétition.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "trapeze_superieur",
+          "trapeze_moyen"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Mobiliser doucement la ceinture des épaules.",
+      "setup": "Debout ou assis, bras relâchés.",
+      "steps": [
+        "Monte doucement les épaules vers les oreilles.",
+        "Fais-les passer vers l’arrière.",
+        "Laisse-les redescendre, puis revenir devant.",
+        "Poursuis des cercles confortables, sans bouger la tête."
+      ],
+      "breathing": "Respire normalement.",
+      "tempo": "Lent et continu.",
+      "key_cues": [
+        "Nuque souple.",
+        "Petit cercle permis."
+      ],
+      "common_mistakes": [
+        "Forcer vers l’arrière.",
+        "Cambrer le dos."
+      ],
+      "easier_variant": "Réduire le cercle.",
+      "harder_variant": "Agrandir seulement si le geste reste facile.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-aha-flexibility"
+      ],
+      "editorial_notes": [],
+      "default_reps": 6,
+      "target_regions": [
+        "epaules",
+        "omoplates"
+      ]
+    },
+    {
+      "id": "mob-chevilles-cercles",
+      "name": "Cercles de chevilles",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "gastrocnemiens",
+          "soleaire"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Explorer une mobilité douce de cheville.",
+      "setup": "Assis, un pied légèrement décollé du sol.",
+      "steps": [
+        "Garde la cuisse et le genou immobiles.",
+        "Dessine de petits cercles avec la pointe du pied.",
+        "Inverse doucement le sens à mi-parcours.",
+        "Repose le pied avant de changer de cheville."
+      ],
+      "breathing": "Respire librement.",
+      "tempo": "Lent, sans à-coups.",
+      "key_cues": [
+        "Mouvement dans la cheville.",
+        "Amplitude confortable."
+      ],
+      "common_mistakes": [
+        "Faire tourner toute la jambe.",
+        "Chercher un cercle maximal."
+      ],
+      "easier_variant": "Réduire les cercles.",
+      "harder_variant": "Tracer un cercle plus régulier, sans forcer.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-kingston-ankles"
+      ],
+      "editorial_notes": [
+        "Le dictionnaire musculaire ne représente pas tous les petits muscles de cheville ; la région articulaire est la cible principale."
+      ],
+      "default_duration": 30,
+      "target_regions": [
+        "chevilles"
+      ]
+    },
+    {
+      "id": "mob-chevilles-flexion",
+      "name": "Flexion-extension de cheville assis",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Un aller-retour vaut une répétition du côté actif ; effectue ensuite le même nombre de l’autre côté.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "gastrocnemiens",
+          "soleaire"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Mobiliser la cheville d’avant en arrière.",
+      "setup": "Assis, jambe confortablement soutenue, pied libre.",
+      "steps": [
+        "Oriente doucement les orteils vers toi.",
+        "Laisse le genou et la cuisse tranquilles.",
+        "Pointe ensuite le pied loin de toi.",
+        "Reviens sans forcer et répète avant de changer de côté."
+      ],
+      "breathing": "Respiration naturelle.",
+      "tempo": "Aller-retour lent.",
+      "key_cues": [
+        "Pied dans l’axe.",
+        "Aucune poussée forcée."
+      ],
+      "common_mistakes": [
+        "Crisper les orteils.",
+        "Bouger toute la jambe."
+      ],
+      "easier_variant": "Raccourcir le déplacement.",
+      "harder_variant": "Mieux contrôler chaque extrémité du geste.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-leeds-ankles"
+      ],
+      "editorial_notes": [
+        "Adaptation assise d’un mouvement de cheville sans charge. Les releveurs du pied ne sont pas encore individualisés dans le dictionnaire."
+      ],
+      "default_reps": 8,
+      "target_regions": [
+        "chevilles"
+      ]
+    },
+    {
+      "id": "mob-cheville-demi-genou",
+      "name": "Avancée contrôlée du genou en demi-agenouillé",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Un aller-retour vaut une répétition du côté actif ; effectue ensuite le même nombre de l’autre côté.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "soleaire",
+          "gastrocnemiens"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Explorer la flexion de la cheville avant.",
+      "setup": "Un genou au sol sur un coussin, l’autre pied devant.",
+      "steps": [
+        "Pose entièrement le pied avant.",
+        "Avance doucement le genou dans la direction des orteils.",
+        "Arrête-toi avant que le talon se soulève.",
+        "Recule légèrement, puis répète ; change de jambe ensuite."
+      ],
+      "breathing": "Expire pendant l’avancée.",
+      "tempo": "Contrôlé, sans rebond.",
+      "key_cues": [
+        "Talon au sol.",
+        "Genou dans l’axe du pied."
+      ],
+      "common_mistakes": [
+        "Écraser le pied vers l’intérieur.",
+        "Forcer en butée."
+      ],
+      "easier_variant": "Tenir un support stable et raccourcir l’avancée.",
+      "harder_variant": "Augmenter légèrement l’avancée seulement si le talon reste posé.",
+      "substitution_ids": [
+        "mob-chevilles-flexion"
+      ],
+      "source_ids": [
+        "prep-berkshire-ankles"
+      ],
+      "editorial_notes": [
+        "Le mouvement est repris comme mobilité générale ; aucun protocole de prise en charge d’entorse n’est transposé."
+      ],
+      "default_reps": 6,
+      "target_regions": [
+        "chevilles"
+      ]
+    },
+    {
+      "id": "mob-hanches-90-90",
+      "name": "Transitions de hanches 90/90",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "intermediaire",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "alterne",
+      "repetition_counting": "paire",
+      "counting_instructions": "Un passage à gauche puis à droite constitue une paire.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "grand_fessier",
+          "moyen_petit_fessier",
+          "adducteurs"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Explorer les rotations des hanches assis.",
+      "setup": "Assis, genoux fléchis, pieds écartés ; mains derrière toi en appui.",
+      "steps": [
+        "Laisse les deux genoux aller vers un côté, dans une amplitude confortable.",
+        "Approche une position en zigzag, genoux autour d’un angle droit, sans les forcer.",
+        "Reviens doucement vers le centre, puis de l’autre côté.",
+        "Alterne en gardant les mains en appui si nécessaire."
+      ],
+      "breathing": "Expire pendant la transition.",
+      "tempo": "Très lent, sans bascule brusque.",
+      "key_cues": [
+        "Genoux libres.",
+        "Amplitude ajustable."
+      ],
+      "common_mistakes": [
+        "Plaquer les genoux au sol.",
+        "Tourner en force malgré une gêne."
+      ],
+      "easier_variant": "S’asseoir sur un coussin et réduire la bascule.",
+      "harder_variant": "Alléger l’appui des mains si le bassin reste maîtrisé.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-hero-9090",
+        "prep-tamu-mobility"
+      ],
+      "editorial_notes": [
+        "90/90 décrit une position approximative, pas un angle à imposer aux articulations. Une répétition enregistrée est une paire gauche-droite."
+      ],
+      "default_reps": 4,
+      "target_regions": [
+        "hanches"
+      ]
+    },
+    {
+      "id": "mob-chat-vache",
+      "name": "Chat-vache contrôlé",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Un aller-retour complet vaut une répétition.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "erecteurs_rachis",
+          "multifides",
+          "droit_abdomen"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Mobiliser progressivement le dos en flexion et extension.",
+      "setup": "À quatre pattes, mains sous les épaules, genoux sous les hanches.",
+      "steps": [
+        "Pousse doucement le sol et arrondis le dos.",
+        "Laisse la tête accompagner sans tirer le menton.",
+        "Inverse lentement : ouvre la poitrine et laisse le dos se creuser légèrement.",
+        "Reviens vers le dos arrondi dans une amplitude confortable."
+      ],
+      "breathing": "Expire en arrondissant ; inspire en ouvrant.",
+      "tempo": "Lent, sans chercher les extrêmes.",
+      "key_cues": [
+        "Bouger progressivement.",
+        "Nuque dans le prolongement."
+      ],
+      "common_mistakes": [
+        "Forcer la cambrure.",
+        "Jeter la tête en arrière."
+      ],
+      "easier_variant": "Réduire la courbure dans les deux sens.",
+      "harder_variant": "Chercher un mouvement plus fluide, pas plus profond.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-ace-catcow"
+      ],
+      "editorial_notes": [],
+      "default_reps": 6,
+      "target_regions": [
+        "colonne"
+      ]
+    },
+    {
+      "id": "mob-livre-ouvert",
+      "name": "Livre ouvert sur le côté",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Un aller-retour vaut une répétition du côté actif ; effectue ensuite le même nombre de l’autre côté.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "obliques",
+          "erecteurs_rachis",
+          "pectoraux"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Accompagner une rotation confortable du haut du buste.",
+      "setup": "Sur le côté, genoux pliés superposés, bras tendus devant, mains réunies.",
+      "steps": [
+        "Garde les genoux l’un sur l’autre.",
+        "Ouvre le bras du dessus vers l’arrière en tournant le thorax.",
+        "Suis la main du regard si la nuque le permet ; arrête avant de tirer.",
+        "Ramène doucement la main devant, puis répète et change de côté."
+      ],
+      "breathing": "Expire pendant l’ouverture.",
+      "tempo": "Lent ; la main n’a pas à toucher le sol.",
+      "key_cues": [
+        "Genoux superposés.",
+        "Ouverture confortable."
+      ],
+      "common_mistakes": [
+        "Emporter le bassin en arrière.",
+        "Forcer la main au sol."
+      ],
+      "easier_variant": "Ouvrir moins loin, tête soutenue par un coussin.",
+      "harder_variant": "Faire le même mouvement avec un meilleur contrôle du bassin.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-leeds-openbook"
+      ],
+      "editorial_notes": [
+        "Les consignes de mobilité sont reprises sans le protocole thérapeutique associé à la source."
+      ],
+      "default_reps": 6,
+      "target_regions": [
+        "haut_du_dos",
+        "poitrine"
+      ]
+    },
+    {
+      "id": "mob-rotation-assise",
+      "name": "Rotation douce du buste assis",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "alterne",
+      "repetition_counting": "paire",
+      "counting_instructions": "Un passage à gauche puis à droite constitue une paire.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "obliques",
+          "erecteurs_rachis"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Mobiliser la rotation du buste.",
+      "setup": "Assis droit, pieds posés, bras croisés devant la poitrine.",
+      "steps": [
+        "Garde le bassin face à l’avant.",
+        "Tourne doucement le buste à gauche.",
+        "Reviens au centre, puis tourne à droite.",
+        "Reviens sans tirer avec les bras."
+      ],
+      "breathing": "Expire en tournant.",
+      "tempo": "Lent et confortable.",
+      "key_cues": [
+        "Pieds stables.",
+        "Grandis-toi."
+      ],
+      "common_mistakes": [
+        "Tourner les hanches.",
+        "Forcer en butée."
+      ],
+      "easier_variant": "Réduire la rotation.",
+      "harder_variant": "Affiner le contrôle, sans chercher plus loin.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-nhs-seated"
+      ],
+      "editorial_notes": [],
+      "default_reps": 4,
+      "target_regions": [
+        "haut_du_dos"
+      ]
+    },
+    {
+      "id": "mob-rotation-demi-genou",
+      "name": "Rotation thoracique en demi-agenouillé",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "intermediaire",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Un aller-retour vaut une répétition du côté actif ; effectue ensuite le même nombre de l’autre côté.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "obliques",
+          "erecteurs_rachis"
+        ],
+        "assistance": [],
+        "stabilization": [
+          "grand_fessier",
+          "transverse"
+        ]
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Explorer une rotation du thorax avec le bassin stable.",
+      "setup": "Un genou sur un coussin, pied opposé devant ; bras croisés sur la poitrine.",
+      "steps": [
+        "Redresse le buste au-dessus du bassin.",
+        "Oriente les deux hanches vers l’avant.",
+        "Tourne doucement le thorax vers la jambe avant, sans pencher sur le côté.",
+        "Reviens au centre ; répète avant de changer la position des jambes."
+      ],
+      "breathing": "Expire en tournant, inspire au retour.",
+      "tempo": "Petite rotation maîtrisée.",
+      "key_cues": [
+        "Bassin stable.",
+        "Buste vertical."
+      ],
+      "common_mistakes": [
+        "Emporter les hanches.",
+        "Cambrer pour tourner davantage."
+      ],
+      "easier_variant": "Faire la rotation assis sur une chaise.",
+      "harder_variant": "Maintenir le même contrôle avec moins d’appui.",
+      "substitution_ids": [
+        "mob-rotation-assise"
+      ],
+      "source_ids": [
+        "prep-thoracic-commentary"
+      ],
+      "editorial_notes": [
+        "Adaptation de la position décrite pour l’observation de la rotation ; aucune mesure diagnostique ni norme angulaire n’est proposée."
+      ],
+      "default_reps": 6,
+      "target_regions": [
+        "haut_du_dos"
+      ]
+    },
+    {
+      "id": "mob-epaule-controlee",
+      "name": "Rotation contrôlée d’épaule",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Un aller-retour vaut une répétition du côté actif ; effectue ensuite le même nombre de l’autre côté.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "deltoide_anterieur",
+          "deltoide_moyen",
+          "deltoide_posterieur",
+          "coiffe_rotateurs"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Explorer lentement la mobilité de l’épaule.",
+      "setup": "Debout, pieds stables, un bras libre le long du corps.",
+      "steps": [
+        "Monte lentement le bras devant toi, pouce vers le haut.",
+        "Poursuis dans un arc confortable ; laisse la paume tourner naturellement.",
+        "Ramène le bras par le côté sans déformer le buste.",
+        "Répète puis change de bras ; réduis l’arc si un cercle complet est inconfortable."
+      ],
+      "breathing": "Respire en continu.",
+      "tempo": "Très lent, sans élan.",
+      "key_cues": [
+        "Côtes calmes.",
+        "Trajet confortable."
+      ],
+      "common_mistakes": [
+        "Cambrer pour lever plus haut.",
+        "Forcer le bras derrière soi."
+      ],
+      "easier_variant": "Faire un simple arc devant le corps.",
+      "harder_variant": "Contrôler un arc un peu plus large sans compensation.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-torokhtiy-shoulder"
+      ],
+      "editorial_notes": [
+        "Les muscles indiqués décrivent une région participante, sans mesure d’activation. Un cercle complet n’est pas obligatoire."
+      ],
+      "default_reps": 4,
+      "target_regions": [
+        "epaules"
+      ]
+    },
+    {
+      "id": "mob-anges-mur",
+      "name": "Glissement des bras au mur",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "mur"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Un aller-retour complet vaut une répétition.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "deltoide_anterieur",
+          "deltoide_moyen",
+          "dentelle_anterieur",
+          "trapeze_inferieur"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Coordonner la montée des bras et le mouvement des omoplates.",
+      "setup": "Dos près d’un mur, pieds légèrement avancés, coudes pliés en W.",
+      "steps": [
+        "Garde une position de dos confortable, sans l’écraser au mur.",
+        "Fais glisser ou monter les bras lentement vers le haut.",
+        "Arrête avant de cambrer ou de forcer les épaules.",
+        "Redescends vers le W en gardant le même contrôle."
+      ],
+      "breathing": "Expire à la montée, inspire au retour.",
+      "tempo": "Montée et descente lentes.",
+      "key_cues": [
+        "Côtes au-dessus du bassin.",
+        "Amplitude modérée."
+      ],
+      "common_mistakes": [
+        "Forcer les mains contre le mur.",
+        "Cambrer pour gagner de la hauteur."
+      ],
+      "easier_variant": "Décoller légèrement les mains et réduire l’élévation.",
+      "harder_variant": "Garder un contact léger plus régulier si confortable.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-papworth-wall"
+      ],
+      "editorial_notes": [
+        "Adaptation générale de wall angels ; les étapes et restrictions postopératoires du document source ne sont pas transposées."
+      ],
+      "default_reps": 6,
+      "target_regions": [
+        "epaules",
+        "omoplates"
+      ]
+    },
+    {
+      "id": "mob-nuque-rotation",
+      "name": "Rotation douce de la nuque",
+      "aliases": [],
+      "category": "mobilisation",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "mobilisation"
+      ],
+      "execution_mode": "repetitions",
+      "laterality": "alterne",
+      "repetition_counting": "paire",
+      "counting_instructions": "Un passage à gauche puis à droite constitue une paire.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "zones_mobilisees",
+      "session_volume_contribution": false,
+      "objective": "Explorer une rotation confortable de la tête.",
+      "setup": "Assis droit, épaules détendues, regard devant.",
+      "steps": [
+        "Tourne doucement la tête vers la gauche.",
+        "Arrête avant de forcer, sans tirer avec une main.",
+        "Reviens au centre, puis tourne vers la droite.",
+        "Reviens devant en gardant les épaules immobiles."
+      ],
+      "breathing": "Respire normalement.",
+      "tempo": "Lent, sans cercles de tête.",
+      "key_cues": [
+        "Menton à hauteur naturelle.",
+        "Épaules relâchées."
+      ],
+      "common_mistakes": [
+        "Tourner aussi le buste.",
+        "Forcer la fin de course."
+      ],
+      "easier_variant": "Réduire l’angle de rotation.",
+      "harder_variant": "Aucune difficulté supplémentaire nécessaire : garder le geste facile.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-nhs-flexibility"
+      ],
+      "editorial_notes": [
+        "Les muscles cervicaux ne sont pas encore individualisés dans le dictionnaire. Les listes musculaires restent donc vides plutôt que d’attribuer la rotation à un groupe inadapté."
+      ],
+      "default_reps": 4,
+      "target_regions": [
+        "nuque"
+      ]
+    },
+    {
+      "id": "stretch-mollet-tendu",
+      "name": "Mollet au mur, genou arrière tendu",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "mur"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "gastrocnemiens"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étendre doucement le mollet arrière.",
+      "setup": "Mains au mur, un pied derrière l’autre.",
+      "steps": [
+        "Oriente les pieds vers l’avant.",
+        "Garde le talon arrière posé et le genou arrière allongé.",
+        "Plie le genou avant pour avancer doucement.",
+        "Maintiens une tension légère, puis relâche et change de côté."
+      ],
+      "breathing": "Respire librement.",
+      "tempo": "Statique, sans rebond.",
+      "key_cues": [
+        "Talon posé.",
+        "Tension confortable."
+      ],
+      "common_mistakes": [
+        "Décoller le talon.",
+        "Forcer l’avancée."
+      ],
+      "easier_variant": "Rapprocher les pieds.",
+      "harder_variant": "Aucune intensification nécessaire.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-mayo-stretch"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "mollets"
+      ]
+    },
+    {
+      "id": "stretch-mollet-flechi",
+      "name": "Mollet au mur, genou arrière légèrement fléchi",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "mur"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "soleaire"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer le mollet avec le genou fléchi.",
+      "setup": "Mains au mur, pieds décalés.",
+      "steps": [
+        "Pose bien le talon arrière.",
+        "Fléchis légèrement le genou arrière.",
+        "Avance doucement le corps jusqu’à une tension confortable.",
+        "Maintiens, puis relâche et change de jambe."
+      ],
+      "breathing": "Respiration calme.",
+      "tempo": "Statique, sans rebond.",
+      "key_cues": [
+        "Pied dans l’axe.",
+        "Talon au sol."
+      ],
+      "common_mistakes": [
+        "Soulever le talon.",
+        "Forcer le genou."
+      ],
+      "easier_variant": "Réduire la flexion.",
+      "harder_variant": "Privilégier une tenue confortable.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-mayo-stretch"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "mollets"
+      ]
+    },
+    {
+      "id": "stretch-quadriceps",
+      "name": "Quadriceps debout avec appui",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "appui_stable"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "quadriceps"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer doucement l’avant de la cuisse.",
+      "setup": "Debout près d’un appui solide, une main posée dessus.",
+      "steps": [
+        "Plie un genou et attrape la cheville du même côté.",
+        "Rapproche doucement le talon de la fesse, sans tirer fort.",
+        "Garde les genoux proches et le buste vertical.",
+        "Maintiens sans cambrer, puis relâche lentement et change de côté."
+      ],
+      "breathing": "Respire sans bloquer.",
+      "tempo": "Statique, tension légère.",
+      "key_cues": [
+        "Appui stable.",
+        "Bassin tranquille."
+      ],
+      "common_mistakes": [
+        "Cambrer le dos.",
+        "Tirer le genou loin derrière."
+      ],
+      "easier_variant": "Réduire le rapprochement du talon ; éviter le geste si la prise est impossible.",
+      "harder_variant": "Aucune difficulté supplémentaire nécessaire.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-kent-stretch"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "avant_cuisses"
+      ]
+    },
+    {
+      "id": "stretch-ischios",
+      "name": "Ischio-jambiers allongé",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "ischio_jambiers"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer l’arrière de la cuisse.",
+      "setup": "Sur le dos, un pied au sol, genou plié.",
+      "steps": [
+        "Lève l’autre jambe, genou légèrement fléchi.",
+        "Tiens derrière la cuisse, sans presser le genou.",
+        "Rapproche doucement la cuisse vers toi.",
+        "Maintiens, puis repose et change de jambe."
+      ],
+      "breathing": "Respire calmement.",
+      "tempo": "Tenue sans rebond.",
+      "key_cues": [
+        "Tête posée.",
+        "Genou souple."
+      ],
+      "common_mistakes": [
+        "Tirer derrière le genou.",
+        "Crisper la nuque."
+      ],
+      "easier_variant": "Fléchir davantage la jambe levée.",
+      "harder_variant": "Ne pas rechercher davantage de tension.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-nhs-after"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "arriere_cuisses"
+      ]
+    },
+    {
+      "id": "stretch-fessiers",
+      "name": "Fessiers allongé, cheville sur cuisse opposée",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "grand_fessier"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer la région fessière.",
+      "setup": "Sur le dos, genoux pliés.",
+      "steps": [
+        "Pose une cheville sur la cuisse opposée, au-dessus du genou.",
+        "Saisis derrière la cuisse restée dessous.",
+        "Rapproche-la doucement, tête posée.",
+        "Maintiens, puis relâche et inverse les jambes."
+      ],
+      "breathing": "Respire librement.",
+      "tempo": "Statique, confortable.",
+      "key_cues": [
+        "Bassin posé.",
+        "Genou libre."
+      ],
+      "common_mistakes": [
+        "Pousser le genou croisé.",
+        "Tirer brusquement."
+      ],
+      "easier_variant": "Garder le pied d’appui au sol.",
+      "harder_variant": "Privilégier une tenue détendue.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-nhs-after"
+      ],
+      "editorial_notes": [
+        "Le côté étiré est celui de la cheville croisée, pas celui de la cuisse tenue."
+      ],
+      "default_duration": 20,
+      "target_regions": [
+        "fessiers"
+      ]
+    },
+    {
+      "id": "stretch-adducteurs",
+      "name": "Adducteurs assis, plantes de pieds réunies",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Le minuteur couvre l’ensemble du mouvement, y compris les alternances.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "adducteurs"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer doucement l’intérieur des cuisses.",
+      "setup": "Assis, plantes de pieds réunies devant toi, mains autour des pieds.",
+      "steps": [
+        "Laisse les genoux s’ouvrir naturellement.",
+        "Grandis le buste sans creuser le bas du dos.",
+        "Si confortable, incline légèrement le buste depuis les hanches.",
+        "Maintiens une tension douce, puis reviens et détends les jambes."
+      ],
+      "breathing": "Respiration lente et libre.",
+      "tempo": "Statique, sans rebond.",
+      "key_cues": [
+        "Aucune pression sur les genoux.",
+        "Dos confortable."
+      ],
+      "common_mistakes": [
+        "Forcer les genoux vers le sol.",
+        "S’arrondir pour aller plus loin."
+      ],
+      "easier_variant": "S’asseoir sur un coussin et éloigner les pieds.",
+      "harder_variant": "Chercher une position plus stable, sans pousser plus bas.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-ace-butterfly"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "interieur_cuisses"
+      ]
+    },
+    {
+      "id": "stretch-hanche-avant",
+      "name": "Avant de hanche en demi-agenouillé",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "tapis"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "flechisseurs_hanche"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer l’avant de la hanche arrière.",
+      "setup": "Un genou sur un coussin, l’autre pied devant, hanches face à l’avant.",
+      "steps": [
+        "Redresse le buste sans cambrer.",
+        "Garde le bassin au-dessus de la jambe arrière.",
+        "Avance très légèrement le bassin jusqu’à une tension devant cette hanche.",
+        "Maintiens, puis recule et inverse les jambes."
+      ],
+      "breathing": "Respire calmement.",
+      "tempo": "Statique ; faible déplacement.",
+      "key_cues": [
+        "Côtes au-dessus du bassin.",
+        "Genou confortablement soutenu."
+      ],
+      "common_mistakes": [
+        "Creuser le dos.",
+        "Se projeter loin vers l’avant."
+      ],
+      "easier_variant": "Tenir un appui et réduire le déplacement.",
+      "harder_variant": "Aucune intensification nécessaire.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-southtees-hip"
+      ],
+      "editorial_notes": [
+        "Le côté étiré est celui du genou posé au sol."
+      ],
+      "default_duration": 20,
+      "target_regions": [
+        "avant_hanches"
+      ]
+    },
+    {
+      "id": "stretch-epaule",
+      "name": "Arrière d’épaule, bras devant la poitrine",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "La durée indiquée s’applique à chaque côté ; change de côté après le minuteur.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "deltoide_posterieur"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Étirer doucement l’arrière de l’épaule.",
+      "setup": "Debout ou assis, épaules relâchées.",
+      "steps": [
+        "Amène un bras devant la poitrine.",
+        "Soutiens le haut de ce bras avec la main opposée.",
+        "Rapproche doucement sans appuyer sur le coude.",
+        "Maintiens une tension légère, puis relâche et change de bras."
+      ],
+      "breathing": "Respiration naturelle.",
+      "tempo": "Statique, sans traction brusque.",
+      "key_cues": [
+        "Épaule détendue.",
+        "Pression sur le haut du bras."
+      ],
+      "common_mistakes": [
+        "Pousser sur le coude.",
+        "Hausser l’épaule vers l’oreille."
+      ],
+      "easier_variant": "Réduire le rapprochement du bras.",
+      "harder_variant": "Aucune intensification nécessaire.",
+      "substitution_ids": [],
+      "source_ids": [
+        "prep-aaos-shoulder"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "arriere_epaules"
+      ]
+    },
+    {
+      "id": "stretch-pectoraux",
+      "name": "Pectoraux en appui dans un angle de mur",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "angle_mur"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Le minuteur couvre l’ensemble du mouvement, y compris les alternances.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "pectoraux"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Ouvrir doucement la poitrine.",
+      "setup": "Face à un angle de mur, pieds décalés, avant-bras en appui.",
+      "steps": [
+        "Place les coudes à une hauteur confortable.",
+        "Garde le buste droit.",
+        "Avance doucement jusqu’à une légère tension devant la poitrine.",
+        "Maintiens, puis recule pour relâcher."
+      ],
+      "breathing": "Respire calmement.",
+      "tempo": "Statique, sans rebond.",
+      "key_cues": [
+        "Appuis stables.",
+        "Épaules confortables."
+      ],
+      "common_mistakes": [
+        "Cambrer le dos.",
+        "Forcer les épaules."
+      ],
+      "easier_variant": "Baisser les coudes et moins avancer.",
+      "harder_variant": "Aucune intensification nécessaire.",
+      "substitution_ids": [
+        "stretch-poitrine-assis"
+      ],
+      "source_ids": [
+        "prep-aha-flexibility"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "poitrine"
+      ]
+    },
+    {
+      "id": "stretch-poitrine-assis",
+      "name": "Ouverture douce de la poitrine assis",
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [
+        "chaise_stable"
+      ],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "bilateral",
+      "repetition_counting": "total",
+      "counting_instructions": "Le minuteur couvre l’ensemble du mouvement, y compris les alternances.",
+      "load_input": "none",
+      "load_instructions": "Aucune charge externe à saisir.",
+      "muscle_roles": {
+        "primary": [
+          "pectoraux"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "objective": "Ouvrir doucement l’avant du buste.",
+      "setup": "Assis loin du dossier, pieds à plat.",
+      "steps": [
+        "Ouvre les bras bas sur les côtés.",
+        "Oriente doucement les épaules vers l’arrière.",
+        "Laisse la poitrine s’ouvrir sans creuser le dos.",
+        "Maintiens puis relâche les bras."
+      ],
+      "breathing": "Respire naturellement.",
+      "tempo": "Tenue douce.",
+      "key_cues": [
+        "Épaules détendues.",
+        "Pieds posés."
+      ],
+      "common_mistakes": [
+        "Cambrer fortement.",
+        "Tirer les bras en force."
+      ],
+      "easier_variant": "Ouvrir moins les bras.",
+      "harder_variant": "Garder la position confortable.",
+      "substitution_ids": [
+        "stretch-pectoraux"
+      ],
+      "source_ids": [
+        "prep-nhs-seated"
+      ],
+      "editorial_notes": [],
+      "default_duration": 20,
+      "target_regions": [
+        "poitrine"
+      ]
+    }
+  ]
+}
