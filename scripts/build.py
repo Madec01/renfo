@@ -6,13 +6,15 @@ ROOT=Path(__file__).resolve().parent.parent
 DIST=ROOT/'dist'
 strength=json.loads((ROOT/'content/strength.json').read_text())
 prep=json.loads((ROOT/'content/preparation.json').read_text())
+extra=json.loads((ROOT/'content/preparation-extra.json').read_text())
+program_catalog=json.loads((ROOT/'content/session-programs.json').read_text())
 advice=json.loads((ROOT/'content/advice-sources.json').read_text())
 warmups=json.loads((ROOT/'content/warmup-routines.json').read_text())
-exercises=strength['exercises']+prep['exercises']
+exercises=strength['exercises']+prep['exercises']+extra['exercises']
 for e in exercises:
     if (DIST/f'assets/exercises/{e["id"]}.webp').exists(): e['image']=f'assets/exercises/{e["id"]}.webp'
     elif (DIST/f'assets/exercises/{e["id"]}.png').exists(): e['image']=f'assets/exercises/{e["id"]}.png'
-sources={s['id']:s for s in strength['sources']+prep['sources']+advice['sources']+warmups['sources']}
+sources={s['id']:s for s in strength['sources']+prep['sources']+extra['sources']+advice['sources']+warmups['sources']+program_catalog['sources']}
 routines=list(warmups['routines'])
 routines += [
  {'id':'mob-ankle-hip','name':'Chevilles & hanches','family':'mobilisation','exerciseIds':['mob-chevilles-cercles','mob-cheville-demi-genou','mob-hanches-90-90']},
@@ -23,7 +25,7 @@ routines += [
  {'id':'stretch-upper','name':'Haut du corps','family':'etirements','exerciseIds':['stretch-epaule','stretch-pectoraux','stretch-poitrine-assis']},
  {'id':'stretch-global','name':'Corps entier','family':'etirements','exerciseIds':['stretch-mollet-flechi','stretch-hanche-avant','stretch-adducteurs','stretch-epaule','stretch-pectoraux']},
 ]
-assert len({e['id'] for e in exercises})==76
+assert len({e['id'] for e in exercises})==len(exercises)
 ids={e['id'] for e in exercises}
 assert all(i in ids for r in routines for i in r['exerciseIds'])
 assert len({r['id'] for r in routines})==len(routines)
@@ -35,11 +37,32 @@ for r in warmups['routines']:
 for e in exercises:
     assert all(s in sources for s in e['source_ids']),e['id']
     assert all(m in strength['muscles'] for group in e['muscle_roles'].values() for m in group),e['id']
-data={'version':'3.0.1','exercises':exercises,'muscles':strength['muscles'],'sources':list(sources.values()),'adviceSources':advice['sources'],'adviceRules':advice['rules'],'routines':routines,'warmupFilters':warmups['filters'],'warmupUseNotes':warmups['use_notes'],'warmupDurationNote':warmups['duration_note']}
+by_id={e['id']:e for e in exercises}
+warmup_by_id={r['id']:r for r in warmups['routines']}
+programs=[]
+for source in program_catalog['programs']:
+    warmup=warmup_by_id[source['warmupRoutineId']]
+    program={**source,'mode':'classic','rounds':1,'blockOrder':['echauffement','renforcement','mobilisation','etirements']}
+    program['items']=[{'band':'','tempo':'',**item,'id':source['id']+'-'+str(i)} for i,item in enumerate(warmup['items']+source['items'])]
+    assert all(m in strength['muscles'] for m in source['targetMuscles']),source['id']
+    assert all(s in sources for s in source['source_ids']),source['id']
+    assert any(i['block']=='etirements' for i in program['items']),source['id']
+    for i in program['items']:
+        e=by_id[i['exerciseId']]
+        assert i['block'] in program['blockOrder'],source['id']
+        assert 1<=i['sets']<=20 and 0<=i['rest']<=3600 and i['load']==0,source['id']
+        assert i['duration']>0 if e['execution_mode']=='duree' else i['reps']>0,(source['id'],e['id'])
+        if i['block']!='renforcement':assert i['loadMode']=='none',(source['id'],e['id'])
+        if i['block'] in ['mobilisation','etirements']:assert e['category']==i['block'],(source['id'],e['id'])
+    programs.append(program)
+assert len({p['id'] for p in programs})==len(programs)
+muscles={**strength['muscles'],'avant_bras':'Muscles de l’avant-bras'}
+app_version=json.loads((ROOT/'package.json').read_text())['version']
+data={'version':app_version,'exercises':exercises,'muscles':muscles,'sources':list(sources.values()),'adviceSources':advice['sources'],'adviceRules':advice['rules'],'routines':routines,'warmupFilters':warmups['filters'],'warmupUseNotes':warmups['use_notes'],'warmupDurationNote':warmups['duration_note'],'sessionPrograms':programs,'sessionProgramNotes':program_catalog['useNotes']}
 manifest=json.loads((DIST/'manifest.webmanifest').read_text())
 manifest['icons']=[{'src':'assets/icon-192.png','sizes':'192x192','type':'image/png','purpose':'any'},{'src':'assets/icon-512.png','sizes':'512x512','type':'image/png','purpose':'any'},{'src':'assets/icon.svg','sizes':'any','type':'image/svg+xml'}]
 (DIST/'manifest.webmanifest').write_text(json.dumps(manifest,ensure_ascii=False))
-shell=['./','index.html','css/app.css','css/v3.css','css/library-v3.css','js/install.js','js/data.js','js/core.js','js/storage.js','js/body.js','js/app.js','manifest.webmanifest','assets/icon.svg','assets/icon-192.png','assets/icon-512.png']
+shell=['./','index.html','css/app.css','css/v3.css','css/library-v3.css','css/programs.css','js/install.js','js/data.js','js/core.js','js/storage.js','js/body.js','js/app.js','manifest.webmanifest','assets/icon.svg','assets/icon-192.png','assets/icon-512.png']
 missing=[name for name in shell if name not in ['./','js/data.js'] and not (DIST/name).is_file()]
 assert not missing,'Missing service-worker shell files: '+', '.join(missing)
 core_files=[p for p in DIST.rglob('*') if p.is_file() and p.suffix in ['.css','.js','.html','.webp','.webmanifest','.svg','.png','.pdf'] and p.name not in ['data.js','sw.js'] and not p.name.startswith('qa-')]
@@ -119,4 +142,4 @@ self.addEventListener('fetch',event=>{
 });
 '''
 (DIST/'sw.js').write_text(sw.replace('__VERSION__',json.dumps(version)).replace('__SHELL__',json.dumps(shell)).replace('__REVISIONS__',json.dumps(asset_revisions,separators=(',',':'))))
-print(json.dumps({'exercises':len(exercises),'illustrated':sum(bool(e.get('image')) for e in exercises),'routines':len(routines),'sources':len(sources),'cache_version':version}))
+print(json.dumps({'exercises':len(exercises),'illustrated':sum(bool(e.get('image')) for e in exercises),'routines':len(routines),'session_programs':len(programs),'sources':len(sources),'cache_version':version}))

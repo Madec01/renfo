@@ -1,0 +1,2021 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "programmes-nhs-strength-flexibility",
+      "title": "NHS · How to improve your strength and flexibility",
+      "url": "https://www.nhs.uk/live-well/exercise/how-to-improve-strength-flexibility/"
+    },
+    {
+      "id": "programmes-aha-warmup-cooldown",
+      "title": "American Heart Association · Warm Up, Cool Down",
+      "url": "https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/warm-up-cool-down"
+    }
+  ],
+  "useNotes": [
+    "Ces séances sont des propositions éditoriales modulables. Les sources fondent les principes généraux et les fiches de gestes ; elles ne valident pas chaque assemblage ni les réglages proposés.",
+    "Choisis une séance selon ton objectif ; les séances ciblées ne sont pas une liste à enchaîner toutes le même jour. Répartis les groupes musculaires sur la semaine selon ta récupération.",
+    "Les séries, répétitions, durées et repos sont des points de départ modifiables. Ajuste-les pour conserver des gestes contrôlés et une respiration libre.",
+    "Aucun poids n’est imposé : règle la charge de chaque personne avant la séance. Pour les exercices chargés, ajoute si nécessaire une série préparatoire facile avec une charge choisie explicitement.",
+    "Commence l’échauffement doucement et augmente progressivement. Les formats courts des séances de mobilité ne sont pas à eux seuls un échauffement complet pour une séance de renforcement intense.",
+    "Après un effort soutenu, diminue progressivement le rythme avant les étirements. Les positions maintenues restent confortables, sans rebond ni recherche de douleur ; elles ne sont pas une garantie contre les courbatures.",
+    "L’échauffement, la mobilité et les étirements sont suivis à part des séries de renforcement. Le temps annoncé reste une estimation : les changements de position peuvent l’allonger."
+  ],
+  "programs": [
+    {
+      "id": "programme-quadriceps",
+      "name": "Quadriceps · avant des cuisses",
+      "kind": "targeted",
+      "region": "lower",
+      "focusLabel": "Quadriceps",
+      "targetMuscles": [
+        "quadriceps"
+      ],
+      "description": "Squat, travail sur un appui et glissement au mur pour varier les façons de solliciter l’avant des cuisses.",
+      "warmupRoutineId": "warmup-8-avant-squats",
+      "warmupReason": "La marche, les mobilisations de cheville et les squats faciles reprennent les appuis de la séance.",
+      "stretchReason": "Le quadriceps est étiré directement ; l’avant de hanche complète le travail autour du bassin.",
+      "notes": [
+        "Les fessiers participent aussi aux squats et au split squat. Choisis une amplitude que tu contrôles."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "squat-poids-corps",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "split-squat",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "squat-mur",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-quadriceps",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-ischios",
+      "name": "Ischio-jambiers · arrière des cuisses",
+      "kind": "targeted",
+      "region": "lower",
+      "focusLabel": "Ischio-jambiers",
+      "targetMuscles": [
+        "ischio_jambiers"
+      ],
+      "description": "Une charnière de hanches et un pont au sol : l’arrière des cuisses et les fessiers travaillent ensemble.",
+      "warmupRoutineId": "warmup-8-hanches-fessiers",
+      "warmupReason": "La mise en mouvement du bassin et les ponts faciles préparent l’extension de hanche.",
+      "stretchReason": "Étirements de l’arrière des cuisses et des fessiers, deux régions sollicitées pendant la séance.",
+      "notes": [
+        "Le pont vise surtout les fessiers, avec les ischio-jambiers en assistance.",
+        "Avant les séries chargées, répète la charnière de hanches avec une difficulté facile et choisis ta charge."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "souleve-terre-roumain",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-ischios",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-fessiers",
+      "name": "Fessiers · extension de hanche",
+      "kind": "targeted",
+      "region": "lower",
+      "focusLabel": "Fessiers",
+      "targetMuscles": [
+        "grand_fessier"
+      ],
+      "description": "Ponts, fentes arrière et travail latéral de hanche pour solliciter les fessiers sous plusieurs angles.",
+      "warmupRoutineId": "warmup-8-hanches-fessiers",
+      "warmupReason": "Les ponts et les mouvements de hanche faciles préparent les mêmes articulations que le travail principal.",
+      "stretchReason": "Les fessiers sont étirés directement ; l’avant de hanche est proposé en complément.",
+      "notes": [],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "pont-fessier",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "fente-arriere",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "coquillage",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-adducteurs",
+      "name": "Adducteurs · intérieur des cuisses",
+      "kind": "targeted",
+      "region": "lower",
+      "focusLabel": "Adducteurs",
+      "targetMuscles": [
+        "adducteurs"
+      ],
+      "description": "Un mouvement ciblé couché sur le côté, puis des fentes latérales où les adducteurs assistent les jambes.",
+      "warmupRoutineId": "warmup-8-hanches-fessiers",
+      "warmupReason": "Les transitions de hanche et la mise en mouvement des jambes préparent le déplacement latéral.",
+      "stretchReason": "L’étirement assis cible les adducteurs ; celui des fessiers concerne une région associée aux fentes.",
+      "notes": [
+        "Dans la fente latérale, les quadriceps et les fessiers restent les moteurs principaux."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "adduction-hanche-couchee",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "fente-laterale",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-adducteurs",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-abducteurs",
+      "name": "Côté des hanches · moyens fessiers",
+      "kind": "targeted",
+      "region": "lower",
+      "focusLabel": "Abducteurs de hanche",
+      "targetMuscles": [
+        "moyen_petit_fessier"
+      ],
+      "description": "Deux mouvements sur le côté pour travailler l’ouverture de hanche et le contrôle du bassin.",
+      "warmupRoutineId": "warmup-8-hanches-fessiers",
+      "warmupReason": "Les rotations de hanche et le coquillage facile préparent les mouvements latéraux.",
+      "stretchReason": "Retour au calme autour des fessiers et des hanches ; ces étirements n’isolent pas les moyens et petits fessiers.",
+      "notes": [
+        "Garde le bassin stable et limite l’amplitude avant de chercher à lever davantage la jambe."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "coquillage",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "abduction-hanche-couchee",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-adducteurs",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mollets",
+      "name": "Mollets · chevilles et appuis",
+      "kind": "targeted",
+      "region": "lower",
+      "focusLabel": "Mollets",
+      "targetMuscles": [
+        "gastrocnemiens",
+        "soleaire"
+      ],
+      "description": "Élévations sur les deux pieds puis sur un pied, avec un appui disponible pour garder l’équilibre.",
+      "warmupRoutineId": "warmup-5-chevilles-actives",
+      "warmupReason": "La marche et les mouvements de cheville préparent la montée sur l’avant-pied.",
+      "stretchReason": "Le genou tendu met l’accent sur le gastrocnémien ; le genou fléchi sur le soléaire.",
+      "notes": [
+        "La charge des élévations à deux pieds reste à choisir ; le poids du corps est une option."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mollets-debout",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 10,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "mollets-unilateral",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-mollet-tendu",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-mollet-flechi",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-pectoraux",
+      "name": "Pectoraux · mouvements de poussée",
+      "kind": "targeted",
+      "region": "upper",
+      "focusLabel": "Pectoraux",
+      "targetMuscles": [
+        "pectoraux"
+      ],
+      "description": "Pompes inclinées et développé au sol pour travailler la poussée, avec participation des triceps et des épaules.",
+      "warmupRoutineId": "warmup-5-poussee-mur",
+      "warmupReason": "Les épaules sont mises en mouvement, puis les pompes au mur répètent une poussée facile.",
+      "stretchReason": "L’ouverture de poitrine cible les pectoraux ; le bras devant la poitrine concerne l’arrière de l’épaule.",
+      "notes": [
+        "Ajuste la hauteur de l’appui des pompes et la charge du développé avant de commencer."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "pompes-inclinees",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "developpe-sol",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-pectoraux",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-epaule",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-dos",
+      "name": "Dos · tirages et omoplates",
+      "kind": "targeted",
+      "region": "upper",
+      "focusLabel": "Dos",
+      "targetMuscles": [
+        "grand_dorsal",
+        "rhomboides",
+        "trapeze_moyen",
+        "trapeze_inferieur"
+      ],
+      "description": "Un tirage avec appui et deux gestes au sol pour associer grand dorsal et contrôle des omoplates.",
+      "warmupRoutineId": "warmup-8-avant-dos",
+      "warmupReason": "Le haut du dos bouge progressivement ; les W et T faciles préparent le travail des omoplates.",
+      "stretchReason": "Le grand dorsal et l’arrière des épaules sont les régions étirées après les tirages.",
+      "notes": [
+        "Les biceps assistent le tirage. Choisis une charge qui permet de garder le buste stable."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "rowing-unilateral",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "w-sol",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "t-sol",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-grand-dorsal",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-epaule",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-epaules",
+      "name": "Épaules · élévations contrôlées",
+      "kind": "targeted",
+      "region": "upper",
+      "focusLabel": "Épaules",
+      "targetMuscles": [
+        "deltoide_anterieur",
+        "deltoide_moyen",
+        "deltoide_posterieur"
+      ],
+      "description": "Élévations latérales, élévations en V et oiseau assis pour répartir le travail autour des épaules.",
+      "warmupRoutineId": "warmup-8-haut-sans-sol",
+      "warmupReason": "Les rotations d’épaule et les glissements au mur préparent l’élévation des bras.",
+      "stretchReason": "Étirement de l’arrière de l’épaule et ouverture de la poitrine, sans chercher à isoler chaque faisceau du deltoïde.",
+      "notes": [
+        "Les charges sont à régler séparément pour chaque mouvement ; une amplitude confortable prime sur la hauteur."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "elevations-laterales",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "scaption",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "oiseau",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-epaule",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-pectoraux",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-biceps",
+      "name": "Biceps · flexion des coudes",
+      "kind": "targeted",
+      "region": "upper",
+      "focusLabel": "Biceps",
+      "targetMuscles": [
+        "biceps",
+        "brachial"
+      ],
+      "description": "Un curl assis puis un curl unilatéral pour suivre séparément le contrôle de chaque bras.",
+      "warmupRoutineId": "warmup-5-dos-sans-sol",
+      "warmupReason": "La routine prépare le haut du corps. Complète par quelques curls faciles avec une charge choisie avant les séries de travail.",
+      "stretchReason": "L’étirement de biceps cible l’avant du bras ; l’ouverture de poitrine concerne la ceinture scapulaire associée.",
+      "notes": [
+        "Le poids reste à choisir. Un curl préparatoire facile ne remplace pas une série de travail dans le suivi."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "curl-supination",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "curl-concentration",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-biceps",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-poitrine-assis",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-triceps",
+      "name": "Triceps · extension des coudes",
+      "kind": "targeted",
+      "region": "upper",
+      "focusLabel": "Triceps",
+      "targetMuscles": [
+        "triceps"
+      ],
+      "description": "Une extension avec appui puis une extension au-dessus de la tête, réglables indépendamment.",
+      "warmupRoutineId": "warmup-5-poussee-mur",
+      "warmupReason": "Les pompes au mur sollicitent doucement la poussée ; répète ensuite l’extension prévue avec une difficulté facile.",
+      "stretchReason": "L’étirement au-dessus de la tête concerne le triceps ; celui de l’épaule complète le retour au calme.",
+      "notes": [
+        "Si la position bras au-dessus de la tête n’est pas confortable, remplace ce mouvement dans les réglages."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "extension-triceps-kickback",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "extension-triceps-dessus-tete",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-triceps",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-epaule",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-avant-bras",
+      "name": "Avant-bras · prise et portés",
+      "kind": "targeted",
+      "region": "upper",
+      "focusLabel": "Avant-bras et préhension",
+      "targetMuscles": [
+        "avant_bras"
+      ],
+      "description": "Porté à deux mains puis à une main pour travailler la tenue des charges et la stabilité du buste.",
+      "warmupRoutineId": "warmup-5-dos-sans-sol",
+      "warmupReason": "La routine mobilise le haut du corps. Prends ensuite les charges et essaie un porté très court et facile avant les séries.",
+      "stretchReason": "Les deux étirements de poignet visent les faces palmaire et dorsale des avant-bras.",
+      "notes": [
+        "Le tronc et les épaules stabilisent aussi les portés. Le trajet doit rester libre et les charges contrôlables."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "marche-fermier",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 0,
+          "duration": 20,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "marche-valise",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 0,
+          "duration": 20,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-poignet-flechisseurs",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-poignet-extenseurs",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-abdominaux",
+      "name": "Abdominaux · contrôle du tronc",
+      "kind": "targeted",
+      "region": "core",
+      "focusLabel": "Abdominaux",
+      "targetMuscles": [
+        "droit_abdomen",
+        "transverse"
+      ],
+      "description": "Deadbug, crunch contrôlé et planche courte pour varier coordination, flexion et maintien.",
+      "warmupRoutineId": "warmup-8-avant-gainage",
+      "warmupReason": "Le tronc se met en mouvement puis le deadbug facile prépare le contrôle des bras et des jambes.",
+      "stretchReason": "Le retour au calme concerne les hanches et les fessiers ; il ne cherche pas un étirement abdominal par une cambrure forcée.",
+      "notes": [
+        "Réduis la durée ou l’amplitude si tu ne gardes plus le contrôle du bassin ou de la respiration."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "deadbug",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "crunch",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "planche",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 0,
+          "duration": 20,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-obliques",
+      "name": "Obliques · stabilité latérale",
+      "kind": "targeted",
+      "region": "core",
+      "focusLabel": "Obliques",
+      "targetMuscles": [
+        "obliques",
+        "carre_lombes"
+      ],
+      "description": "Planche latérale adaptée et porté à une main pour résister à l’inclinaison du buste.",
+      "warmupRoutineId": "warmup-8-avant-gainage",
+      "warmupReason": "La mise en mouvement globale et les appuis au sol préparent la stabilisation du tronc.",
+      "stretchReason": "L’inclinaison latérale étire surtout le grand dorsal et la région latérale du tronc ; les hanches sont proposées en complément.",
+      "notes": [
+        "Une durée courte avec respiration libre vaut mieux qu’un maintien qui déforme la position."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "planche-laterale-genoux",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 0,
+          "duration": 15,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "marche-valise",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 0,
+          "duration": 20,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-livre-ouvert",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-grand-dorsal",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-stabilisation-lombaire",
+      "name": "Dos bas · stabilisation du bassin",
+      "kind": "targeted",
+      "region": "core",
+      "focusLabel": "Stabilisation lombaire",
+      "targetMuscles": [
+        "multifides",
+        "erecteurs_rachis",
+        "transverse"
+      ],
+      "description": "Bird dog, pont et deadbug pour coordonner le bassin et le tronc, sans recherche de cambrure maximale.",
+      "warmupRoutineId": "warmup-8-avant-gainage",
+      "warmupReason": "Le chat-vache et les mouvements croisés faciles préparent le contrôle du tronc.",
+      "stretchReason": "Les étirements portent sur les fessiers et l’avant de hanche, avec une mobilisation douce du dos en complément.",
+      "notes": [
+        "Il s’agit d’une séance de contrôle du tronc, pas d’un protocole pour traiter une douleur lombaire."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "bird-dog",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "pont-fessier",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "deadbug",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-corps-entier-mobilite",
+      "name": "Corps entier + mobilité",
+      "kind": "mixed",
+      "region": "full",
+      "focusLabel": "Corps entier",
+      "targetMuscles": [
+        "quadriceps",
+        "grand_fessier",
+        "pectoraux",
+        "grand_dorsal",
+        "transverse"
+      ],
+      "description": "Une séance complète avec squat, poussée, tirage et gainage, puis un temps dédié aux hanches et au haut du dos.",
+      "warmupRoutineId": "warmup-8-global-debout",
+      "warmupReason": "La marche, les squats faciles et les pompes au mur reprennent les grands gestes de la séance.",
+      "stretchReason": "Les étirements concernent les jambes, les fessiers et la poitrine après le travail global.",
+      "notes": [],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "squat-poids-corps",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "pompes-mur",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "rowing-unilateral",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "deadbug",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-livre-ouvert",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-quadriceps",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-pectoraux",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-haut-corps-mobilite",
+      "name": "Haut du corps + mobilité",
+      "kind": "mixed",
+      "region": "upper",
+      "focusLabel": "Haut du corps",
+      "targetMuscles": [
+        "pectoraux",
+        "grand_dorsal",
+        "deltoide_moyen",
+        "biceps"
+      ],
+      "description": "Poussée, tirage, épaules et bras, suivis de mouvements contrôlés des épaules et du haut du dos.",
+      "warmupRoutineId": "warmup-8-haut-sans-sol",
+      "warmupReason": "Les épaules bougent dans plusieurs directions avant les pompes et les exercices chargés.",
+      "stretchReason": "Poitrine, grand dorsal et biceps : trois régions sollicitées dans ce programme.",
+      "notes": [],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "pompes-inclinees",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "rowing-unilateral",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "single_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "elevations-laterales",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "curl-supination",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-rotation-assise",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-pectoraux",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-grand-dorsal",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-biceps",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-bas-corps-mobilite",
+      "name": "Bas du corps + mobilité",
+      "kind": "mixed",
+      "region": "lower",
+      "focusLabel": "Bas du corps",
+      "targetMuscles": [
+        "quadriceps",
+        "ischio_jambiers",
+        "grand_fessier",
+        "moyen_petit_fessier",
+        "gastrocnemiens",
+        "soleaire"
+      ],
+      "description": "Squat, charnière de hanches, travail latéral et mollets, avec de la mobilité de cheville et de hanche.",
+      "warmupRoutineId": "warmup-8-avant-squats",
+      "warmupReason": "Les appuis, chevilles et jambes se préparent progressivement avant les mouvements de travail.",
+      "stretchReason": "Les étirements couvrent l’avant et l’arrière des cuisses ainsi que les mollets.",
+      "notes": [
+        "Choisis une charge facile à maîtriser pour la charnière de hanches et les mollets."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "squat-poids-corps",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "souleve-terre-roumain",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "coquillage",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mollets-debout",
+          "block": "renforcement",
+          "sets": 2,
+          "reps": 10,
+          "duration": 0,
+          "rest": 60,
+          "load": 0,
+          "loadMode": "per_dumbbell",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-cheville-demi-genou",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "block": "mobilisation",
+          "sets": 1,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-quadriceps",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-ischios",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-mollet-tendu",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mobilite-globale",
+      "name": "Mobilité · tour du corps",
+      "kind": "mobility",
+      "region": "full",
+      "focusLabel": "Mobilité globale",
+      "targetMuscles": [
+        "gastrocnemiens",
+        "soleaire",
+        "grand_fessier",
+        "adducteurs",
+        "erecteurs_rachis",
+        "deltoide_anterieur"
+      ],
+      "description": "Chevilles, hanches, colonne et épaules : une séance de mouvement contrôlé, sans séries de renforcement.",
+      "warmupRoutineId": "warmup-3-reveil-debout",
+      "warmupReason": "Une courte mise en route debout avant une séance de mobilité à faible intensité.",
+      "stretchReason": "Quelques positions maintenues complètent les mouvements actifs pour les hanches et la poitrine.",
+      "notes": [
+        "Explore une amplitude confortable et régulière. L’objectif est de bouger, sans chercher une fatigue musculaire importante."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-cheville-demi-genou",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-pectoraux",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mobilite-hanches",
+      "name": "Mobilité · hanches et bassin",
+      "kind": "mobility",
+      "region": "lower",
+      "focusLabel": "Mobilité des hanches",
+      "targetMuscles": [
+        "grand_fessier",
+        "moyen_petit_fessier",
+        "adducteurs",
+        "flechisseurs_hanche"
+      ],
+      "description": "Transitions de hanches et mouvement du bassin, puis étirements de trois faces de la hanche.",
+      "warmupRoutineId": "warmup-3-reveil-debout",
+      "warmupReason": "La marche et les petites flexions donnent une mise en route générale avant de passer au tapis.",
+      "stretchReason": "Fessiers, adducteurs et avant de hanche complètent les rotations actives.",
+      "notes": [
+        "Les transitions se comptent en paires gauche + droite. Réduis l’amplitude ou prends un appui avec les mains si nécessaire."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-hanches-90-90",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-chat-vache",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-adducteurs",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mobilite-chevilles",
+      "name": "Mobilité · chevilles et appuis",
+      "kind": "mobility",
+      "region": "lower",
+      "focusLabel": "Mobilité des chevilles",
+      "targetMuscles": [
+        "gastrocnemiens",
+        "soleaire"
+      ],
+      "description": "Cercles, flexion-extension et avancée du genou, puis étirements du mollet avec deux positions du genou.",
+      "warmupRoutineId": "warmup-3-reveil-debout",
+      "warmupReason": "Une mise en mouvement debout prépare progressivement les appuis avant le travail de cheville.",
+      "stretchReason": "Les étirements genou tendu et genou fléchi concernent les deux grandes composantes du mollet.",
+      "notes": [],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chevilles-cercles",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 0,
+          "duration": 20,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-chevilles-flexion",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-cheville-demi-genou",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-mollet-tendu",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-mollet-flechi",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mobilite-epaules",
+      "name": "Mobilité · épaules et haut du dos",
+      "kind": "mobility",
+      "region": "upper",
+      "focusLabel": "Mobilité des épaules",
+      "targetMuscles": [
+        "deltoide_anterieur",
+        "deltoide_moyen",
+        "deltoide_posterieur",
+        "coiffe_rotateurs",
+        "trapeze_inferieur",
+        "erecteurs_rachis"
+      ],
+      "description": "Des mouvements actifs des épaules et du thorax, avec un mur et un tapis comme repères.",
+      "warmupRoutineId": "warmup-3-epaules-mur",
+      "warmupReason": "Les petits cercles et les glissements faciles introduisent progressivement les mouvements des bras.",
+      "stretchReason": "Arrière d’épaule, poitrine et grand dorsal complètent le travail actif du haut du corps.",
+      "notes": [],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-epaule-controlee",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-anges-mur",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-livre-ouvert",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-epaule",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-pectoraux",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-grand-dorsal",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mobilite-colonne",
+      "name": "Mobilité · colonne et rotations",
+      "kind": "mobility",
+      "region": "core",
+      "focusLabel": "Mobilité de la colonne",
+      "targetMuscles": [
+        "erecteurs_rachis",
+        "multifides",
+        "obliques"
+      ],
+      "description": "Mouvements du dos et rotations thoraciques dans plusieurs positions, avec des amplitudes choisies.",
+      "warmupRoutineId": "warmup-3-rotations-assis",
+      "warmupReason": "Quelques mouvements assis préparent le haut du dos et les épaules avant les positions au sol.",
+      "stretchReason": "Fessiers et avant de hanche sont étirés en complément ; aucune cambrure lombaire maximale n’est recherchée.",
+      "notes": [
+        "Le bassin reste aussi stable que possible pendant les rotations du haut du dos. Cette séance ne vise pas à traiter une douleur."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chat-vache",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-livre-ouvert",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-rotation-demi-genou",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 5,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-fessiers",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-hanche-avant",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    },
+    {
+      "id": "programme-mobilite-assis",
+      "name": "Mobilité · tout sur une chaise",
+      "kind": "mobility",
+      "region": "full",
+      "focusLabel": "Mobilité assise",
+      "targetMuscles": [
+        "gastrocnemiens",
+        "soleaire",
+        "trapeze_superieur",
+        "trapeze_moyen",
+        "obliques",
+        "erecteurs_rachis"
+      ],
+      "description": "Chevilles, épaules, buste et nuque avec une chaise stable, sans passage au sol.",
+      "warmupRoutineId": "warmup-3-rotations-assis",
+      "warmupReason": "Une première courte série douce fait découvrir les mouvements avant de les reprendre tranquillement.",
+      "stretchReason": "L’ouverture de poitrine se pratique assis et complète la mobilisation des épaules et du buste.",
+      "notes": [
+        "Choisis une chaise sans roulettes et des pieds bien en appui. Les rotations de nuque restent lentes et confortables."
+      ],
+      "source_ids": [
+        "programmes-nhs-strength-flexibility",
+        "programmes-aha-warmup-cooldown"
+      ],
+      "items": [
+        {
+          "exerciseId": "mob-chevilles-flexion",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 8,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-roules-epaules",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 6,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-rotation-assise",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "mob-nuque-rotation",
+          "block": "mobilisation",
+          "sets": 2,
+          "reps": 4,
+          "duration": 0,
+          "rest": 10,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        },
+        {
+          "exerciseId": "stretch-poitrine-assis",
+          "block": "etirements",
+          "sets": 1,
+          "reps": 0,
+          "duration": 20,
+          "rest": 5,
+          "load": 0,
+          "loadMode": "none",
+          "band": ""
+        }
+      ]
+    }
+  ]
+}

@@ -22,6 +22,12 @@
     return item(e, {...(warmup ? {sets:1,rest:10,...dose,load:0,loadMode:'none',band:''} : {}),id:uid(),block,...overrides});
   }
   const blocks = ['echauffement','renforcement','mobilisation','etirements'];
+  function programTemplate(program, participantIds = []) {
+    // Catalogue updates never overwrite a saved personal version or an active session.
+    return {id:uid(),sourceProgramId:program.id,name:program.name,description:program.description,
+      mode:'classic',rounds:1,blockOrder:[...blocks],participantIds:[...participantIds],variants:{},
+      items:program.items.map(p=>({...clone(p),id:uid()}))};
+  }
   const profileDefaults = () => ({favorites:[],exerciseNotes:{},activeId:null,preferences:{sounds:false,voice:false,wakeLock:true,equipment:[],weeklyGoal:3,visibility:'normal'}});
   function newState(templates = []) {
     const personal=profileDefaults();
@@ -344,7 +350,7 @@
     if(s.activeId!=null&&!s.sessions.some(x=>x.id===s.activeId&&x.status==='active'&&x.profileId===s.currentProfileId))throw Error('La séance en cours est introuvable.');
     const result=Object.assign(newState(),s);captureProfile(result);return result;
   }
-  const api = {libraryExercises,itemForBlock,createWorkout,addWorkout,getWorkout,workoutSession,finishWorkout,pauseWorkout,resumeWorkout,syncActivePointers,mergeStates,sideCount,blocks,profileDefaults,captureProfile,switchProfile,migrate,personalSessions,templateForProfile,orderedItems,clone, uid, number, finite, family, parameters, item, newState, makeRows, makeEntry, createSession, elapsed, pause, resume, finish, complete, undo, totals, lastPerformance, estimate, validateBackup};
+  const api = {programTemplate,libraryExercises,itemForBlock,createWorkout,addWorkout,getWorkout,workoutSession,finishWorkout,pauseWorkout,resumeWorkout,syncActivePointers,mergeStates,sideCount,blocks,profileDefaults,captureProfile,switchProfile,migrate,personalSessions,templateForProfile,orderedItems,clone, uid, number, finite, family, parameters, item, newState, makeRows, makeEntry, createSession, elapsed, pause, resume, finish, complete, undo, totals, lastPerformance, estimate, validateBackup};
   root.RenfoCore = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

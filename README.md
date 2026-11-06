@@ -4,13 +4,15 @@ Application personnelle de renforcement, en français, utilisable sur téléphon
 
 ## Fonctionnalités
 
+- Catalogue de 24 séances disponibles aussi sur les carnets existants : 15 groupes musculaires, 3 renforcement + mobilité et 6 mobilité. Échauffement lié, étirements adaptés, aperçu des blocs et personnalisation par personne. Les modèles personnels restent séparés du catalogue.
+
 - Séances communes : Les personnes choisies apparaissent ensemble. Chacun conserve ses séries, répétitions, charges, chronos, exercices et commentaires. Le choix de profil filtre uniquement le suivi.
 - Onglet Séances avec deux entrées : choisir un programme ou créer en trois étapes (participants, mouvements, réglages personnels).
 - Quatre blocs facultatifs et réordonnables : échauffement, renforcement, mobilisation, étirements. Séries classiques ou circuit, routines dosées, exercices interchangeables par participant.
 - Un mouvement courant et des commandes personnelles de validation. L’action d’une personne ne valide rien pour les autres. Programme complet et ajustements accessibles à la demande.
 - Mode Normal, mode Actif à distance sur PC, interface téléphone compacte, pause commune et minuteurs individuels. Sons et voix facultatifs. Les séries ne sont jamais validées automatiquement par le chrono.
 - Démarrer alors qu’une séance est inachevée ouvre un choix explicite : reprendre, terminer puis commencer, annuler. Les anciennes séances actives restent accessibles.
-- 76 mouvements illustrés (50 renforcement, 26 préparation) ; 24 routines d’échauffement dosées de 3/5/8/10 min et 7 routines de mobilisation/étirement. Les formats courts et assis précisent leurs limites.
+- 81 mouvements illustrés (50 renforcement, 31 préparation) ; 24 routines d’échauffement dosées de 3/5/8/10 min et 7 routines de mobilisation/étirement. Les formats courts et assis précisent leurs limites.
 - Bibliothèque avec recherche et filtres repliables. Fiches Geste/Muscles, installation et étapes visibles ; compléments, notes et sources en accordéons, impression complète.
 - Bilan musculaire par personne, rôles principaux/assistance/stabilisation, historique, progression, commentaires corporels sur schéma face/dos.
 - Repères techniques sourcés, sans diagnostic ni augmentation automatique des charges sur un signal de douleur.
@@ -55,8 +57,8 @@ npm run build
 - `dist/js/body.js` : carte corporelle SVG et zones.
 - `dist/js/app.js` : navigation, formulaires et interactions.
 - `dist/js/data.js` : catalogue assemblé ; généré par le build.
-- `content/` : 76 fiches, références, routines et règles de conseil.
-- `dist/assets/exercises/` : 76 illustrations WebP ; aucun fichier utilisateur.
+- `content/` : 81 fiches, références, routines et règles de conseil.
+- `dist/assets/exercises/` : 81 illustrations WebP ; aucun fichier utilisateur.
 - `tests/core.test.cjs` : vérifications des calculs, instantanés, pauses, circuits et sauvegardes.
 
 ## Conventions et limites
@@ -67,7 +69,7 @@ Les profils sont des carnets locaux, sans authentification individuelle ni clois
 
 Les commentaires restent privés dans le navigateur. Ils ne sont pas transmis aux sources citées, à GitHub ou à un service d’IA. Il n’y a pas de synchronisation automatique entre appareils dans cette version : utiliser export/import pour transférer le carnet. Changer de navigateur ou d’adresse d’hébergement change le stockage utilisé.
 
-Les conseils sont des repères généraux sourcés, avec des limites explicites. Le module n’identifie pas la cause d’une douleur et ne remplace pas une évaluation professionnelle. Les 76 fiches associent une illustration du geste aux consignes détaillées et à une carte corporelle simplifiée ; la nuque est représentée comme une région de mobilisation.
+Les conseils sont des repères généraux sourcés, avec des limites explicites. Le module n’identifie pas la cause d’une douleur et ne remplace pas une évaluation professionnelle. Les 81 fiches associent une illustration du geste aux consignes détaillées et à une carte corporelle simplifiée ; la nuque est représentée comme une région de mobilisation.
 
 Les navigateurs peuvent suspendre les minuteurs sonores en arrière-plan. Le temps affiché est reconstruit à partir d’horodatages au retour. Les données locales peuvent être supprimées par le navigateur ou l’utilisateur : conserver des exports réguliers.
 

@@ -1,0 +1,317 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "extra-columbia-biceps",
+      "title": "ColumbiaDoctors / WebMD Ignite — Biceps stretch",
+      "url": "https://www.columbiadoctors.org/health-library/multimedia/biceps-stretch-1/",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "extra-mayo-upper",
+      "title": "Mayo Clinic — Upper body stretches for the workplace",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/shoulder-stretches/vid-20084699",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "extra-mayo-wrist",
+      "title": "Mayo Clinic — Wrist and forearm stretches for the workplace",
+      "url": "https://www.mayoclinic.org/healthy-lifestyle/adult-health/multimedia/forearm-stretches/vid-20084698",
+      "consulted_on": "2026-11-06"
+    },
+    {
+      "id": "extra-columbia-stretches",
+      "title": "ColumbiaDoctors / WebMD Ignite — Stretches",
+      "url": "https://www.columbiadoctors.org/health-library/multimedia/stretches/",
+      "consulted_on": "2026-11-06"
+    }
+  ],
+  "exercises": [
+    {
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Le temps indiqué est à tenir de chaque côté. Relâche avant de changer.",
+      "load_input": "none",
+      "load_instructions": "Sans charge.",
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "breathing": "Respire librement.",
+      "tempo": "Tenue douce, sans rebond.",
+      "easier_variant": "Réduis l’amplitude.",
+      "harder_variant": "Recherche le confort, sans tirer davantage.",
+      "substitution_ids": [],
+      "editorial_notes": [
+        "La fiche décrit un geste général, sans protocole de rééducation."
+      ],
+      "default_duration": 20,
+      "id": "stretch-biceps",
+      "name": "Biceps, bras bas sur le côté",
+      "muscle_roles": {
+        "primary": [
+          "biceps"
+        ],
+        "assistance": [
+          "avant_bras"
+        ],
+        "stabilization": []
+      },
+      "target_regions": [
+        "bras"
+      ],
+      "objective": "Étirement doux de l’avant du bras.",
+      "setup": "Debout, épaules relâchées, tête droite.",
+      "steps": [
+        "Écarte légèrement un bras, main à hauteur de hanche.",
+        "Garde le coude allongé sans le verrouiller.",
+        "Étends doucement le poignet, doigts vers le sol, puis maintiens et relâche."
+      ],
+      "key_cues": [
+        "Garde la tête droite.",
+        "Cherche une légère tension."
+      ],
+      "common_mistakes": [
+        "Tirer le bras loin derrière.",
+        "Insister sur une sensation électrique ou des fourmillements."
+      ],
+      "source_ids": [
+        "extra-columbia-biceps"
+      ]
+    },
+    {
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Le temps indiqué est à tenir de chaque côté. Relâche avant de changer.",
+      "load_input": "none",
+      "load_instructions": "Sans charge.",
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "breathing": "Respire librement.",
+      "tempo": "Tenue douce, sans rebond.",
+      "easier_variant": "Réduis l’amplitude.",
+      "harder_variant": "Recherche le confort, sans tirer davantage.",
+      "substitution_ids": [],
+      "editorial_notes": [
+        "La fiche décrit un geste général, sans protocole de rééducation."
+      ],
+      "default_duration": 20,
+      "id": "stretch-triceps",
+      "name": "Triceps, main derrière la tête",
+      "muscle_roles": {
+        "primary": [
+          "triceps"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "target_regions": [
+        "bras"
+      ],
+      "objective": "Étirer doucement l’arrière du bras.",
+      "setup": "Debout ou assis, buste droit.",
+      "steps": [
+        "Lève un bras puis plie le coude, main derrière la tête.",
+        "Pose l’autre main sur le coude, sans tirer fort.",
+        "Maintiens une position confortable, relâche et change de côté."
+      ],
+      "key_cues": [
+        "Nuque libre.",
+        "Garde les côtes au-dessus du bassin."
+      ],
+      "common_mistakes": [
+        "Creuser le bas du dos.",
+        "Forcer un coude trop loin derrière la tête."
+      ],
+      "source_ids": [
+        "extra-mayo-upper"
+      ]
+    },
+    {
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Le temps indiqué est à tenir de chaque côté. Relâche avant de changer.",
+      "load_input": "none",
+      "load_instructions": "Sans charge.",
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "breathing": "Respire librement.",
+      "tempo": "Tenue douce, sans rebond.",
+      "easier_variant": "Réduis l’amplitude.",
+      "harder_variant": "Recherche le confort, sans tirer davantage.",
+      "substitution_ids": [],
+      "editorial_notes": [
+        "La fiche décrit un geste général, sans protocole de rééducation."
+      ],
+      "default_duration": 20,
+      "id": "stretch-poignet-flechisseurs",
+      "name": "Avant-bras, paume vers le haut",
+      "muscle_roles": {
+        "primary": [
+          "avant_bras"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "target_regions": [
+        "avant_bras"
+      ],
+      "objective": "Étirer le côté de l’avant-bras situé vers la paume.",
+      "setup": "Bras devant toi, coude souple, paume orientée vers le haut.",
+      "steps": [
+        "Laisse la main basculer doucement, doigts vers le sol.",
+        "Accompagne-la légèrement avec l’autre main.",
+        "Garde la position puis relâche avant de changer de bras."
+      ],
+      "key_cues": [
+        "Épaule détendue.",
+        "Pas de traction forte."
+      ],
+      "common_mistakes": [
+        "Verrouiller le coude.",
+        "Forcer sur les doigts."
+      ],
+      "source_ids": [
+        "extra-mayo-wrist"
+      ]
+    },
+    {
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Le temps indiqué est à tenir de chaque côté. Relâche avant de changer.",
+      "load_input": "none",
+      "load_instructions": "Sans charge.",
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "breathing": "Respire librement.",
+      "tempo": "Tenue douce, sans rebond.",
+      "easier_variant": "Réduis l’amplitude.",
+      "harder_variant": "Recherche le confort, sans tirer davantage.",
+      "substitution_ids": [],
+      "editorial_notes": [
+        "La fiche décrit un geste général, sans protocole de rééducation."
+      ],
+      "default_duration": 20,
+      "id": "stretch-poignet-extenseurs",
+      "name": "Avant-bras, paume vers le bas",
+      "muscle_roles": {
+        "primary": [
+          "avant_bras"
+        ],
+        "assistance": [],
+        "stabilization": []
+      },
+      "target_regions": [
+        "avant_bras"
+      ],
+      "objective": "Étirer le côté dorsal de l’avant-bras.",
+      "setup": "Bras devant toi, paume orientée vers le sol.",
+      "steps": [
+        "Fléchis doucement le poignet, doigts vers le sol.",
+        "L’autre main accompagne le dos de la main sans forcer.",
+        "Maintiens puis relâche et change de bras."
+      ],
+      "key_cues": [
+        "Coude souple.",
+        "Respiration libre."
+      ],
+      "common_mistakes": [
+        "Appuyer brutalement sur la main.",
+        "Insister si le poignet est douloureux."
+      ],
+      "source_ids": [
+        "extra-mayo-wrist"
+      ]
+    },
+    {
+      "aliases": [],
+      "category": "etirements",
+      "equipment": [],
+      "difficulty": "debutant",
+      "movement_patterns": [
+        "etirements"
+      ],
+      "execution_mode": "duree",
+      "laterality": "unilateral",
+      "repetition_counting": "par_cote",
+      "counting_instructions": "Le temps indiqué est à tenir de chaque côté. Relâche avant de changer.",
+      "load_input": "none",
+      "load_instructions": "Sans charge.",
+      "muscle_role_context": "muscles_etires",
+      "session_volume_contribution": false,
+      "breathing": "Respire librement.",
+      "tempo": "Tenue douce, sans rebond.",
+      "easier_variant": "Réduis l’amplitude.",
+      "harder_variant": "Recherche le confort, sans tirer davantage.",
+      "substitution_ids": [],
+      "editorial_notes": [
+        "La fiche décrit un geste général, sans protocole de rééducation."
+      ],
+      "default_duration": 20,
+      "id": "stretch-grand-dorsal",
+      "name": "Dos et flanc, bras au-dessus de la tête",
+      "muscle_roles": {
+        "primary": [
+          "grand_dorsal"
+        ],
+        "assistance": [
+          "obliques",
+          "carre_lombes"
+        ],
+        "stabilization": []
+      },
+      "target_regions": [
+        "dos",
+        "flancs"
+      ],
+      "objective": "Étirer doucement le côté du dos et du tronc.",
+      "setup": "Debout, pieds largeur du bassin ; assis si plus stable.",
+      "steps": [
+        "Lève les bras et tiens une main avec l’autre.",
+        "Grandis-toi puis incline légèrement le buste sur le côté, bassin centré.",
+        "Maintiens la tension confortable puis reviens au centre et change de côté."
+      ],
+      "key_cues": [
+        "Pas de rotation.",
+        "Inclinaison petite et contrôlée."
+      ],
+      "common_mistakes": [
+        "Pousser le bassin de côté.",
+        "Tirer fort sur l’épaule."
+      ],
+      "source_ids": [
+        "extra-columbia-stretches"
+      ]
+    }
+  ]
+}

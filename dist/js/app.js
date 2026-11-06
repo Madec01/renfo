@@ -203,7 +203,7 @@
       <fieldset class="sheet-visual-switch"><legend class="sr-only">Choisir une illustration</legend>
         <input class="sheet-view-input" type="radio" name="sheet-visual" id="sheet-view-gesture" checked><label for="sheet-view-gesture">Geste</label>
         <input class="sheet-view-input" type="radio" name="sheet-visual" id="sheet-view-muscles"><label for="sheet-view-muscles">${family==='etirements'||family==='mobilisation'?'Zones du corps':'Muscles'}</label>
-        <figure class="sheet-visual-gesture">${e.image?`<button type="button" class="zoom-image" data-action="zoom-gesture" data-id="${e.id}" data-block="${sheetBlock}" data-routine="${context.routineId||''}" aria-label="Agrandir les positions du mouvement">${photo(e,'','eager')}</button>`:photo(e,'','eager')}<figcaption>${e.image?'Toucher l’image pour agrandir':'Positions clés du mouvement'}</figcaption></figure>
+        <figure class="sheet-visual-gesture">${e.image?`<button type="button" class="zoom-image" data-action="zoom-gesture" data-id="${e.id}" data-block="${sheetBlock}" data-routine="${context.routineId||''}" data-program="${context.programId||''}" aria-label="Agrandir les positions du mouvement">${photo(e,'','eager')}</button>`:photo(e,'','eager')}<figcaption>${e.image?'Toucher l’image pour agrandir':'Positions clés du mouvement'}</figcaption></figure>
         <div class="sheet-visual-muscles"><figure>${B.maps(e.muscle_roles,{targetRegions:e.target_regions})}<figcaption>${roleContext}</figcaption></figure>${roleLegend(family)}<div class="muscle-details">${Object.entries({primary:family==='etirements'?'Zones étirées':family==='mobilisation'?'Zones mobilisées':'Muscles principaux',assistance:'En assistance',stabilization:'En stabilisation'}).map(([r,l])=>`<div><strong>${l}</strong><p>${e.muscle_roles[r].map(m=>esc(D.muscles[m]||m)).join(', ')||'—'}</p></div>`).join('')}</div><p class="map-note">Carte simplifiée. Les muscles profonds sont représentés par leur région. Les couleurs indiquent un rôle, pas une intensité mesurée.</p></div>
       </fieldset>
       <section class="sheet-essentials"><h3>Installe-toi</h3><p>${esc(e.setup)}</p><h3>Le mouvement</h3><ol class="step-list">${e.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section>
@@ -212,7 +212,7 @@
     <details class="sheet-extra"><summary>Adapter le mouvement et compter</summary><div class="sheet-extra-content"><p><strong>Plus accessible :</strong> ${esc(e.easier_variant)}</p><p><strong>Progression :</strong> ${esc(e.harder_variant)}</p><h3>Répétitions et charge</h3><p>${esc(e.counting_instructions||'Enregistre la durée ou les répétitions de chaque côté séparément si nécessaire.')}</p><p>${esc(e.load_instructions||loadNames[e.load_input]||'Sans charge externe.')}</p></div></details>
     <details class="sheet-extra" ${note?'open':''}><summary>Note de ${esc(participantName(sheetPerson))}${note?' · enregistrée':''}</summary><div class="sheet-extra-content"><label class="field">Un repère pour la prochaine fois<textarea id="pinned-note" rows="3" maxlength="3000" placeholder="Le réglage ou le conseil qui t’aide…">${esc(note)}</textarea></label>${btn('Enregistrer ma note','save-note',`data-id="${e.id}"`)}</div></details>
     <details class="sheet-extra source-details"><summary>Sources et précisions</summary><div class="sheet-extra-content"><ul>${sourceLinks(e.source_ids)}</ul>${(e.editorial_notes||[]).map(x=>`<p>${esc(x)}</p>`).join('')}</div></details>
-    <div class="sheet-actions-v3">${context.routineId?btn(icon('back')+' Retour à la routine','warmup-detail',`data-id="${context.routineId}"`):''}${btn(icon('plus')+' Ajouter à une séance','sheet-add',`data-id="${e.id}" data-block="${sheetBlock}"`,'primary')}${btn(icon('download')+' Imprimer / PDF','print-sheet','','plain')}</div>
+    <div class="sheet-actions-v3">${context.programId?btn(icon('back')+' Retour à la séance','program-detail',`data-id="${context.programId}"`):''}${context.routineId?btn(icon('back')+' Retour à la routine','warmup-detail',`data-id="${context.routineId}"`):''}${btn(icon('plus')+' Ajouter à une séance','sheet-add',`data-id="${e.id}" data-block="${sheetBlock}"`,'primary')}${btn(icon('download')+' Imprimer / PDF','print-sheet','','plain')}</div>
   </section>`,true);
 }
 
@@ -435,6 +435,7 @@
   }
   // Shared workouts: the viewed follow-up profile never selects the training participant.
   let sheetPerson=null,trainingPerson=null, templatesView='hub', builderStep=1, builderBlock='renforcement', builderPerson=null, builderSlot=null, pendingStart=null, routineFilter='all';
+  let sessionSource='programs',programKind='all',programRegion='all',programSearch='';
   const workout=()=>C.getWorkout(state);
   const participantName=id=>state.profiles.find(p=>p.id===id)?.name||'Participant';
   const trainingPrefs=()=>state.trainingPreferences ||= {visibility:'normal',sounds:false,voice:false,wakeLock:true};
@@ -453,8 +454,40 @@
     return heading('VOTRE ESPACE','On bouge ensemble ?','Une séance commune. Un suivi pour chacun.')+activeWorkoutCards()+`<section class="start-panel"><div><span class="eyebrow">À VOTRE RYTHME</span><h2>Préparer la prochaine séance</h2><p>Choisissez un programme, puis adaptez les mouvements et les charges de chacun.</p>${btn('Aller aux séances '+icon('arrow'),'go-templates','','primary')}</div><div class="start-image">${photo(exercise('squat-goblet'),'','eager')}</div></section><div class="home-shortcuts"><a href="#library">${icon('library')} Les gestes et les muscles ${icon('arrow')}</a><a href="#history">${icon('history')} ${last?'Retrouver votre dernière séance':'Consulter le suivi individuel'} ${icon('arrow')}</a></div>${!window.RenfoInstall?.getState().installed?`<div class="install-link">${btn(icon('download')+' Installer Renfo sur le téléphone','install-open','','plain')}</div>`:''}`;
   }
   function sharedTemplates(){
-    if(templatesView==='choose')return heading('SÉANCES','Choisir une séance','Les paramètres de chacun restent modifiables.',btn(icon('back')+' Retour','sessions-hub'))+`<div class="template-grid">${state.templates.map(sharedTemplateCard).join('')||empty('workout','Aucun programme','Composez votre première séance.',btn('Créer une séance','new-template'))}</div>`;
-    return heading('SÉANCES','Votre prochaine séance','Seul ou ensemble, un programme à votre mesure.')+activeWorkoutCards()+`<div class="session-choices"><button data-action="choose-sessions" class="session-choice"><span>${icon('workout')}</span><h2>Choisir une séance</h2><p>Retrouver un programme enregistré et le démarrer.</p><strong>Voir les séances ${icon('arrow')}</strong></button><button data-action="new-template" class="session-choice"><span>${icon('plus')}</span><h2>${draft?'Reprendre la création':'Créer une séance'}</h2><p>Échauffement, renforcement, mobilisation et étirements.</p><strong>${draft?'Continuer le brouillon':'Composer en 3 étapes'} ${icon('arrow')}</strong></button></div>`;
+    if(templatesView==='choose')return sessionChooser();
+    return heading('SÉANCES','Votre prochaine séance','Seul ou ensemble, un programme à votre mesure.')+activeWorkoutCards()+`<div class="session-choices"><button data-action="choose-sessions" class="session-choice"><span>${icon('workout')}</span><h2>Choisir une séance</h2><p>Un groupe musculaire, de la mobilité ou vos séances enregistrées.</p><strong>Voir les séances ${icon('arrow')}</strong></button><button data-action="new-template" class="session-choice"><span>${icon('plus')}</span><h2>${draft?'Reprendre la création':'Créer une séance'}</h2><p>Échauffement, renforcement, mobilisation et étirements.</p><strong>${draft?'Continuer le brouillon':'Composer en 3 étapes'} ${icon('arrow')}</strong></button></div>`;
+  }
+  function sessionChooser() {
+    const presets=sessionSource==='programs';
+    return heading('SÉANCES','Choisir une séance','Des programmes prêts à adapter, seul ou ensemble.',btn(icon('back')+' Retour','sessions-hub'))+
+      `<div class="session-source" role="group" aria-label="Origine des séances">${[['programs','Programmes proposés',D.sessionPrograms.length],['saved','Mes séances',state.templates.length]].map(([id,label,count])=>`<button data-action="session-source" data-id="${id}" aria-pressed="${sessionSource===id}">${label}<span>${count}</span></button>`).join('')}</div>`+
+      (presets?`<div class="program-kinds" role="group" aria-label="Type de séance">${[['all','Toutes'],['targeted','Par muscle'],['mixed','Renfo + mobilité'],['mobility','Mobilité']].map(([id,label])=>`<button class="btn ${programKind===id?'primary':'secondary'}" data-action="program-kind" data-id="${id}" aria-pressed="${programKind===id}">${label}</button>`).join('')}</div><div class="program-search-row"><label class="search-field">${icon('search')}<input id="program-search" type="search" value="${esc(programSearch)}" placeholder="Ex. épaules, jambes, assis…" aria-label="Rechercher une séance"></label><label class="field program-zone">Zone<select id="program-region">${[['all','Tout le corps'],['upper','Haut du corps'],['lower','Bas du corps'],['core','Tronc'],['full','Global']].map(([id,name])=>`<option value="${id}" ${programRegion===id?'selected':''}>${name}</option>`).join('')}</select></label></div><div id="program-results">${programResults()}</div>`:
+        `<div class="saved-programs-heading"><p>Vos modèles et vos réglages personnels.</p>${btn(icon('plus')+' Créer','new-template')}</div><div class="template-grid">${state.templates.map(sharedTemplateCard).join('')||empty('workout','Aucune séance enregistrée','Personnalisez un programme proposé ou composez le vôtre.',btn('Créer une séance','new-template'))}</div>`);
+  }
+  function programResults() {
+    const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    const programs=D.sessionPrograms.filter(p=>(programKind==='all'||p.kind===programKind)&&(programRegion==='all'||p.region===programRegion)&&(!programSearch||normalize([p.name,p.focusLabel,p.description,...p.targetMuscles.map(m=>D.muscles[m]||m),...p.items.filter(i=>i.block==='renforcement'||i.block==='mobilisation').map(i=>exercise(i.exerciseId)?.name)].join(' ')).includes(normalize(programSearch))));
+    return `<div class="library-results-bar"><p class="results-count" role="status" aria-live="polite">${programs.length} séance${programs.length>1?'s':''}</p>${programSearch||programKind!=='all'||programRegion!=='all'?btn('Tout afficher','program-reset','','plain'):''}</div><div class="session-program-grid">${programs.map(p=>{
+      const main=p.items.filter(i=>i.block===(p.kind==='mobility'?'mobilisation':'renforcement'));
+      return `<article class="session-program-card"><div class="session-program-visual">${photo(exercise(main[0].exerciseId))}<span>${p.kind==='mobility'?'Mobilité':p.kind==='mixed'?'Renfo + mobilité':'Renforcement ciblé'}</span></div><div class="session-program-copy"><span class="eyebrow">≈ ${C.estimate(p,catalog())} MIN · ${main.length} MOUVEMENTS ${p.kind==='mobility'?'DE MOBILITÉ':'DE RENFO'}</span><h2>${esc(p.name)}</h2><p>${esc(p.description)}</p><div class="program-includes">Échauffement + ${p.kind==='mobility'?'mobilité':p.items.some(i=>i.block==='mobilisation')?'renfo + mobilité':'renfo'} + étirements</div>${btn('Voir la séance '+icon('arrow'),'program-detail',`data-id="${p.id}"`,'primary')}</div></article>`;
+    }).join('')||empty('search','Aucune séance trouvée','Essaie une autre zone ou enlève un filtre.',btn('Tout afficher','program-reset'))}</div>`;
+  }
+  function programDose(p) {
+    const e=exercise(p.exerciseId),value=e.execution_mode==='duree'?`${p.duration} s`:`${p.reps} ${e.repetition_counting==='paire'?'paires':'rép.'}`;
+    return `${p.sets} × ${value}${C.sideCount(e)===2?' par côté':''}${p.rest?` · repos ${p.rest} s`:''}`;
+  }
+  function openSessionProgram(id) {
+    const p=D.sessionPrograms.find(p=>p.id===id);if(!p)return;
+    const equipment=[...new Set(p.items.flatMap(i=>exercise(i.exerciseId).equipment))].filter(x=>x!=='sans_materiel');
+    const mainBlock=p.kind==='mobility'?'mobilisation':'renforcement';
+    showModal(esc(p.name),`<div class="program-detail"><p>${esc(p.description)}</p><div class="program-meta"><span>${icon('timer')} ≈ ${C.estimate(p,catalog())} min</span><span>${p.items.length} mouvements au total</span></div><p class="program-equipment"><strong>À prévoir :</strong> ${equipment.length?equipment.map(x=>esc(equipmentNames[x]||x.replaceAll('_',' '))).join(', '):'sans matériel'}</p><div class="program-blocks">${C.blocks.filter(b=>p.items.some(i=>i.block===b)).map(b=>{
+      const items=p.items.filter(i=>i.block===b);
+      return `<details class="program-block" ${b===mainBlock?'open':''}><summary><span class="phase-chip ${b}">${labels[b]}</span><span>${items.length} mouvement${items.length>1?'s':''} · ≈ ${C.estimate({items,mode:'classic'},catalog())} min</span></summary>${b==='echauffement'?`<p class="program-block-reason">${esc(p.warmupReason)}</p>`:b==='etirements'?`<p class="program-block-reason">${esc(p.stretchReason)}</p>`:''}<ol>${items.map(i=>`<li><div class="program-step-image">${photo(exercise(i.exerciseId))}</div><div><strong>${esc(exercise(i.exerciseId).name)}</strong><p>${programDose(i)}</p><button class="text-btn" data-action="sheet" data-id="${i.exerciseId}" data-block="${b}" data-program="${p.id}">Geste et muscles ${icon('arrow')}</button></div></li>`).join('')}</ol></details>`;
+    }).join('')}</div><details class="sheet-extra"><summary>Conseils et sources</summary><div class="sheet-extra-content"><ul>${[...(p.notes||[]),...(D.sessionProgramNotes||[])].map(note=>`<li>${esc(note)}</li>`).join('')}</ul><p>Durées indicatives : elles incluent les repos prévus et le travail des deux côtés. Les réglages et transitions peuvent les allonger.</p><ul>${sourceLinks(p.source_ids)}</ul></div></details><div class="program-actions">${btn('Personnaliser','program-customize',`data-id="${id}"`)}${btn(icon('play')+' Démarrer','program-start',`data-id="${id}"`,'primary')}</div></div>`,true);
+  }
+  function prepareSessionProgram(id) {
+    const p=D.sessionPrograms.find(p=>p.id===id);if(!p)return;
+    draft=C.programTemplate(p,state.profiles.map(p=>p.id));builderBlock=p.kind==='mobility'?'mobilisation':'renforcement';openSharedBuilder();
   }
   function sharedTemplateCard(t){return `<article class="template-card simple-template"><span class="eyebrow">${t.items.length} MOUVEMENTS · ≈ ${C.estimate(t,catalog())} MIN</span><h3>${esc(t.name)}</h3><p>${esc(t.description||t.items.slice(0,3).map(p=>exercise(p.exerciseId)?.name).join(' · '))}</p><div class="phase-chips">${C.blocks.filter(b=>t.items.some(p=>p.block===b)).map(b=>`<span class="phase-chip ${b}">${labels[b]}</span>`).join('')}</div><div class="card-actions">${btn('Choisir','start-template',`data-id="${t.id}"`,'primary')}${ibtn('edit','Modifier '+t.name,'edit-template',`data-id="${t.id}"`)}${ibtn('copy','Dupliquer '+t.name,'duplicate-template',`data-id="${t.id}"`)}${ibtn('trash','Supprimer '+t.name,'delete-template',`data-id="${t.id}"`)}</div></article>`;}
   function openSharedBuilder(id){
@@ -491,11 +524,11 @@
     draft.items=C.orderedItems(draft);
     for(const v of Object.values(draft.variants)){v.mode=draft.mode;v.rounds=draft.rounds;v.blockOrder=[...draft.blockOrder];v.items.sort((a,b)=>draft.items.findIndex(x=>x.id===a.id)-draft.items.findIndex(x=>x.id===b.id));}
     const i=state.templates.findIndex(t=>t.id===draft.id),copy=C.clone(draft);if(i<0)state.templates.push(copy);else state.templates[i]=copy;
-    if(!await save())return;draft=null;templatesView='choose';closeModal();navigate('templates');toast('Séance commune enregistrée.');
+    if(!await save())return;draft=null;templatesView='choose';sessionSource='saved';closeModal();navigate('templates');toast('Séance commune enregistrée.');
   }
   function chooseParticipants(t,defs){
     pendingStart={template:C.clone(t),catalog:defs||catalog(),ids:t.participantIds||state.profiles.map(p=>p.id)};
-    showModal(esc(t.name),`<p>Qui participe à cette séance ?</p><fieldset class="participant-picker">${state.profiles.map(p=>`<label><input type="checkbox" data-start-person="${p.id}" ${pendingStart.ids.includes(p.id)?'checked':''}>${esc(p.name)}</label>`).join('')}</fieldset><p class="subtle">Les exercices et les réglages personnels apparaîtront ensemble.</p><details><summary>Voir le programme · ${t.items.length} mouvements</summary><ol>${t.items.map(p=>`<li>${esc((defs||catalog()).find(e=>e.id===p.exerciseId)?.name)} <small>${labels[p.block]}</small></li>`).join('')}</ol></details><div class="dialog-footer">${btn('Annuler','close-modal')}${btn('Commencer la séance','confirm-start','','primary')}</div>`);
+    showModal(esc(t.name),`<p>Qui participe à cette séance ?</p><fieldset class="participant-picker">${state.profiles.map(p=>`<label><input type="checkbox" data-start-person="${p.id}" ${pendingStart.ids.includes(p.id)?'checked':''}>${esc(p.name)}</label>`).join('')}</fieldset><p class="subtle">Les exercices et les réglages personnels apparaîtront ensemble.</p>${t.sourceProgramId&&t.items.some(i=>i.block==='renforcement')?'<p class="program-load-note">Choisissez vos charges dans le tableau de séance, ou personnalisez le programme avant de démarrer. Aucune charge n’est imposée.</p>':''}<details><summary>Voir le programme · ${t.items.length} mouvements</summary><ol>${t.items.map(p=>`<li>${esc((defs||catalog()).find(e=>e.id===p.exerciseId)?.name)} <small>${labels[p.block]}</small></li>`).join('')}</ol></details><div class="dialog-footer">${btn('Annuler','close-modal')}${btn('Commencer la séance','confirm-start','','primary')}</div>`);
   }
   async function requestSharedStart(){
     if(!pendingStart?.ids.length){toast('Choisis au moins une personne.');return;}
@@ -539,6 +572,13 @@
     const id=button.dataset.id,pid=button.dataset.person||trainingPerson,w=workout();
     if(button.dataset.person)selectParticipant(pid);
     switch(action){
+      case 'session-source':sessionSource=id;render();return true;
+      case 'program-kind':programKind=id;render();return true;
+      case 'program-reset':programSearch='';programKind='all';programRegion='all';render();return true;
+      case 'program-detail':openSessionProgram(id);return true;
+      case 'program-start':{const p=D.sessionPrograms.find(p=>p.id===id);if(p)chooseParticipants(C.programTemplate(p,state.profiles.map(p=>p.id)));return true;}
+      case 'program-customize':if(draft&&(draft.items.length||draft.name.trim())){askConfirm('Un brouillon est déjà ouvert',`Le brouillon « ${esc(draft.name||'Sans titre')} » sera remplacé par ce programme. Pour le conserver, annulez puis reprenez sa création dans l’onglet Séances.`,'program-customize-confirm',`data-id="${id}"`);return true;}prepareSessionProgram(id);return true;
+      case 'program-customize-confirm':prepareSessionProgram(id);return true;
       case 'choose-sessions':templatesView='choose';navigate('templates');return true;
       case 'sessions-hub':templatesView='hub';render();return true;
       case 'go-templates':templatesView='hub';closeModal();navigate('templates');return true;
@@ -662,9 +702,9 @@
         case 'close-modal':closeModal();break;
         case 'go-templates':closeModal();navigate('templates');break;
         case 'go-history':closeModal();activeHistory=null;navigate('history');break;
-        case 'sheet':openSheet(id,undefined,{block:button.dataset.block,routineId:button.dataset.routine});break;
+        case 'sheet':openSheet(id,undefined,{block:button.dataset.block,routineId:button.dataset.routine,programId:button.dataset.program});break;
         case 'session-sheet':openSheet(entry.exerciseId,entry.definition,{block:entry.plan.block});break;
-        case 'zoom-gesture':{const e=exercise(id);showModal(esc(e.name),`<div class="image-large"><img src="${esc(e.image)}" alt="${esc(e.name)}"></div>${btn('Revenir à la fiche','sheet',`data-id="${e.id}" data-block="${button.dataset.block||C.family(e)}" data-routine="${button.dataset.routine||''}"`)}`,true);break;}
+        case 'zoom-gesture':{const e=exercise(id);showModal(esc(e.name),`<div class="image-large"><img src="${esc(e.image)}" alt="${esc(e.name)}"></div>${btn('Revenir à la fiche','sheet',`data-id="${e.id}" data-block="${button.dataset.block||C.family(e)}" data-routine="${button.dataset.routine||''}" data-program="${button.dataset.program||''}"`)}`,true);break;}
         case 'print-sheet':window.print();break;
         case 'library-tab':activeTab=id;render();break;
         case 'filter-favorites':onlyFavorites=!onlyFavorites;render();break;
@@ -677,7 +717,8 @@
         case 'delete-template':askConfirm('Supprimer ce modèle ?','Ce modèle et ses versions personnelles seront retirés pour tout le monde. Les séances déjà réalisées seront conservées.','confirm-delete-template',`data-id="${id}"`);break;
         case 'confirm-delete-template':state.templates=state.templates.filter(t=>t.id!==id);await save();closeModal();render();break;
         case 'builder-add':pickerBlock=button.dataset.block||null;openPicker('builder',pickerBlock||'all');break;
-        case 'builder-routine':pickerBlock=button.dataset.block;routineFilter='all';routineTarget='builder';chooseWarmup();break;
+        case 'builder-routine':pickerBlock=button.dataset.block;routineFilter='all';
+  let sessionSource='programs',programKind='all',programRegion='all',programSearch='';routineTarget='builder';chooseWarmup();break;
         case 'builder-warmup':pickerBlock='echauffement';routineTarget='builder';chooseWarmup();break;
         case 'builder-up':case 'builder-down':{const same=draft.items.map((p,i)=>p.block===draft.items[index].block?i:-1).filter(i=>i>=0),pos=same.indexOf(index),to=same[pos+(action==='builder-up'?-1:1)];if(to===undefined)break;[draft.items[index],draft.items[to]]=[draft.items[to],draft.items[index]];renderBuilder();break;}
         case 'builder-remove':draft.items.splice(index,1);renderBuilder();break;
@@ -765,6 +806,7 @@
       if(row){row[key]=key==='band'?el.value:(key==='effort'&&el.value===''?'':Number(el.value));save();}
     }
     if(el.id==='entry-note'){const session=currentSession();if(session?.entries[session.cursor]){session.entries[session.cursor].note=el.value;save();}}
+    if(el.id==='program-search'){programSearch=el.value;$('#program-results').innerHTML=programResults();}
     if(el.id==='exercise-search'){search=el.value;$('#exercise-results').innerHTML=exerciseResults();}
     if(el.id==='picker-search')$('#picker-list').innerHTML=pickerList(el.value,el.dataset.category);
     if(el.id==='template-name'&&draft)draft.name=el.value;
@@ -783,6 +825,7 @@
       if(el.dataset.plan){const p=draft.items[Number(el.dataset.index)],key=el.dataset.plan;p[key]=['sets','reps','duration','load','rest'].includes(key)?Number(el.value):el.value;if(['block','loadMode'].includes(key))renderBuilder();return;}
       if(el.dataset.setField){const target=s.entries.find(x=>x.id===el.dataset.entry),row=target.rows.find(x=>x.id===el.dataset.row),key=el.dataset.setField;row[key]=key==='band'?el.value:(key==='effort'&&el.value===''?'':Number(el.value));await save();return;}
       switch(el.id){
+        case 'program-region':programRegion=el.value;$('#program-results').innerHTML=programResults();break;
         case 'profile-select':C.switchProfile(state,el.value);activeHistory=null;window.speechSynthesis?.cancel();restNotified=null;effortNotified=null;await save();closeModal();render();requestWakeLock();break;
         case 'builder-scope':{builderScope=el.value;const base=state.templates.find(t=>t.id===draft.id);draft=builderScope==='base'?C.clone(base):personalTemplate(base);renderBuilder();break;}
         case 'entry-block':entry.plan.block=el.value;await save();render();break;
