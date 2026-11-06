@@ -70,3 +70,38 @@ test('catalogue availability does not depend on reseeding or migrating an existi
  assert.equal(restored.templates.length,1);assert.equal(restored.templates[0].id,'personal');
  assert.ok(restored.sessions.length);assert.equal(D.sessionPrograms.length,24);
 });
+
+test('multi-group composition merges programmes without duplicates or multiplying warmups',()=>{
+ const targeted=D.sessionPrograms.filter(p=>p.kind==='targeted'),before=JSON.stringify(D);
+ for(let a=0;a<targeted.length;a++)for(let b=a+1;b<targeted.length;b++){
+  const ids=[targeted[a].id,targeted[b].id],p=C.composeProgram(D.sessionPrograms,D.routines,ids,{perGroup:2,mobility:true});
+  assert.deepEqual(p.targetGroupIds,ids);
+  const warmup=D.routines.find(r=>r.id===p.warmupRoutineId);
+  assert.deepEqual(p.items.filter(i=>i.block==='echauffement').map(i=>i.exerciseId),warmup.exerciseIds);
+  for(const block of C.blocks){const items=p.items.filter(i=>i.block===block);assert.equal(new Set(items.map(i=>i.exerciseId)).size,items.length);}
+  assert.ok(p.items.some(i=>i.block==='mobilisation'));
+  assert.ok(p.items.some(i=>i.block==='etirements'));
+  const template=C.programTemplate(p,['martin','severine']),state=C.newState([template]);
+  C.addWorkout(state,template,D.exercises,template.participantIds,now);C.validateBackup(state);
+ }
+ assert.equal(JSON.stringify(D),before);
+ const short=C.composeProgram(D.sessionPrograms,D.routines,['programme-dos','programme-biceps']);
+ assert.equal(short.items.filter(i=>i.block==='renforcement').length,2);
+ assert.equal(short.items.filter(i=>i.block==='mobilisation').length,0);
+ assert.equal(short.warmupRoutineId,'warmup-8-haut-sans-sol');
+ assert.throws(()=>C.composeProgram(D.sessionPrograms,D.routines,['programme-dos','programme-dos']),/deux groupes/);
+ const full=C.composeProgram(D.sessionPrograms,D.routines,targeted.map(p=>p.id),{perGroup:2,mobility:true});
+ assert.ok(full.name.length<=100);assert.ok(C.estimate(full,D.exercises)>0);
+});
+
+test('muscle filters use OR across groups and distinguish primary, assisting and stabilizing muscles',()=>{
+ const groups=D.sessionPrograms.filter(p=>['programme-dos','programme-biceps','programme-abdominaux'].includes(p.id));
+ const e={muscle_roles:{primary:['grand_dorsal'],assistance:['biceps'],stabilization:['transverse']}};
+ assert.deepEqual(C.exerciseGroupMatches(e,groups).map(m=>[m.id,m.role]),[['programme-dos','primary']]);
+ assert.deepEqual(C.exerciseGroupMatches(e,groups,'assistance').map(m=>m.id),['programme-dos','programme-biceps']);
+ assert.deepEqual(C.exerciseGroupMatches(e,groups,'all').map(m=>m.role),['primary','assistance','stabilization']);
+ assert.equal(C.exerciseGroupMatches(e,[]).length,0);
+ assert.equal(C.exerciseGroupMatches({muscle_roles:{primary:[]}},groups).length,0);
+ const custom={muscle_roles:{primary:['biceps'],assistance:[],stabilization:[]}};
+ assert.equal(C.exerciseGroupMatches(custom,groups)[0].id,'programme-biceps');
+});

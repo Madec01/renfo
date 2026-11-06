@@ -60,8 +60,8 @@ test('a rejected browser prompt is recoverable and never reports success',async(
 });
 
 const base='https://example.test/renfo/dist/';
-function swEnvironment(){
-  const stores=new Map(),events=new Map();
+function swEnvironment({installFailure=false}={}){
+  const stores=new Map(),events=new Map();let installedRequests=[],activated=0;
   const key=input=>new URL(typeof input==='string'?input:input.url,base).href;
   const caches={
     keys:async()=>[...stores.keys()],delete:async name=>stores.delete(name),
@@ -75,13 +75,13 @@ function swEnvironment(){
           return entry?.[1].clone();
         },
         keys:async()=>[...store.keys()].map(url=>new Request(url)),
-        addAll:async()=>{}
+        addAll:async requests=>{installedRequests=requests;if(installFailure)throw Error('offline');}
       };
     }
   };
-  const self={location:new URL('sw.js',base),clients:{claim:async()=>{}},addEventListener:(type,fn)=>events.set(type,fn)};
-  vm.runInNewContext(fs.readFileSync(path.join(root,'dist/sw.js'),'utf8'),{self,caches,URL,Uint8Array,Response,crypto:webcrypto,fetch:async()=>{throw Error('offline');}});
-  return {caches,events,stores};
+  const self={location:new URL('sw.js',base),skipWaiting:async()=>{activated++;},clients:{claim:async()=>{}},addEventListener:(type,fn)=>events.set(type,fn)};
+  vm.runInNewContext(fs.readFileSync(path.join(root,'dist/sw.js'),'utf8'),{self,caches,URL,Uint8Array,Request,Response,crypto:webcrypto,fetch:async()=>{throw Error('offline');}});
+  return {caches,events,stores,installState:()=>({installedRequests,activated})};
 }
 test('service worker retains only unchanged images and leaves other scopes untouched',async()=>{
   const {caches,events,stores}=swEnvironment();
@@ -108,4 +108,12 @@ test('service worker ignores another app path and uses the shell for offline nav
   await (await caches.open('renfo@%2Frenfo%2Fdist%2F:shell-'+version)).put('index.html',new Response('Renfo offline'));
   let response;events.get('fetch')({request:{method:'GET',url:base+'unknown',mode:'navigate'},respondWith:promise=>{response=promise;}});
   assert.equal(await (await response).text(),'Renfo offline');
+});
+
+test('service-worker installation refreshes the entire shell before automatic activation',async()=>{
+ const e=swEnvironment();let task;e.events.get('install')({waitUntil:p=>{task=p;}});await task;
+ const state=e.installState();assert.equal(state.activated,1);assert.ok(state.installedRequests.length>10);
+ assert.ok(state.installedRequests.every(r=>r.cache==='reload'));assert.ok(state.installedRequests.some(r=>r.url.endsWith('/js/updates.js')));
+ const failed=swEnvironment({installFailure:true});failed.events.get('install')({waitUntil:p=>{task=p;}});await assert.rejects(task,/offline/);assert.equal(failed.installState().activated,0);
+ let response;e.events.get('message')({data:{type:'GET_VERSION'},source:{postMessage:r=>{response=r;}}});assert.equal(response.type,'RENFO_VERSION');assert.equal(typeof response.version,'string');
 });

@@ -62,7 +62,7 @@ data={'version':app_version,'exercises':exercises,'muscles':muscles,'sources':li
 manifest=json.loads((DIST/'manifest.webmanifest').read_text())
 manifest['icons']=[{'src':'assets/icon-192.png','sizes':'192x192','type':'image/png','purpose':'any'},{'src':'assets/icon-512.png','sizes':'512x512','type':'image/png','purpose':'any'},{'src':'assets/icon.svg','sizes':'any','type':'image/svg+xml'}]
 (DIST/'manifest.webmanifest').write_text(json.dumps(manifest,ensure_ascii=False))
-shell=['./','index.html','css/app.css','css/v3.css','css/library-v3.css','css/programs.css','js/install.js','js/data.js','js/core.js','js/storage.js','js/body.js','js/app.js','manifest.webmanifest','assets/icon.svg','assets/icon-192.png','assets/icon-512.png']
+shell=['./','index.html','css/app.css','css/v3.css','css/library-v3.css','css/programs.css','js/install.js','js/updates.js','js/data.js','js/core.js','js/storage.js','js/body.js','js/app.js','manifest.webmanifest','assets/icon.svg','assets/icon-192.png','assets/icon-512.png']
 missing=[name for name in shell if name not in ['./','js/data.js'] and not (DIST/name).is_file()]
 assert not missing,'Missing service-worker shell files: '+', '.join(missing)
 core_files=[p for p in DIST.rglob('*') if p.is_file() and p.suffix in ['.css','.js','.html','.webp','.webmanifest','.svg','.png','.pdf'] and p.name not in ['data.js','sw.js'] and not p.name.startswith('qa-')]
@@ -85,8 +85,17 @@ const SHELL=PREFIX+'shell-'+VERSION,ASSETS=PREFIX+'assets-'+VERSION;
 const FILES=__SHELL__;
 const ASSET_REVISIONS=__REVISIONS__;
 const inScope=url=>url.origin===BASE.origin&&url.pathname.startsWith(BASE.pathname);
-self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(FILES))));
-// No skipWaiting: a session keeps its version until every open Renfo tab closes.
+self.addEventListener('install',event=>event.waitUntil((async()=>{
+  const cache=await caches.open(SHELL);
+  // Download a complete fresh shell before activating, independently of the HTTP cache.
+  await cache.addAll(FILES.map(path=>new Request(new URL(path,BASE).href,{cache:'reload'})));
+  await self.skipWaiting();
+})()));
+self.addEventListener('message',event=>{
+  if(event.data?.type==='SKIP_WAITING')event.waitUntil(self.skipWaiting());
+  if(event.data?.type==='GET_VERSION')event.source?.postMessage({type:'RENFO_VERSION',version:VERSION});
+});
+// Loaded pages keep their forms until the client updater can reload safely.
 self.addEventListener('activate',event=>event.waitUntil((async()=>{
   const keys=await caches.keys(),assets=await caches.open(ASSETS);
   const oldAssets=keys.filter(key=>key!==ASSETS&&(key.startsWith(PREFIX+'assets-')||/^renfo-assets-/.test(key)));

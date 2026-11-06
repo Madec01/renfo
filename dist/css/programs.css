@@ -69,3 +69,43 @@
  .program-actions { display:grid; grid-template-columns:1fr 1fr; }
  .program-actions .btn { min-height:48px; padding:10px; font-size:14px; }
 }
+.compose-program-link { display:flex; width:100%; align-items:center; gap:12px; border:1px solid #dcd3e8; background:#f2eef8; border-radius:12px; padding:14px 16px; margin:0 0 18px; font:inherit; color:var(--ink); text-align:left; cursor:pointer; }
+.compose-program-link span { flex:1; }
+.compose-program-link strong,.compose-program-link small { display:block; }
+.compose-program-link strong { font-size:15px; }
+.compose-program-link small { margin-top:4px; color:#675b72; font-size:12px; }
+.muscle-group-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:16px 0; }
+.muscle-group-choices fieldset { margin:0; padding:10px; border:1px solid var(--line); border-radius:12px; min-width:0; }
+.muscle-group-choices legend { font-size:13px; font-weight:650; padding:0 5px; }
+.muscle-group-choices label { display:flex; align-items:center; gap:9px; min-height:46px; padding:7px; font-size:14px; cursor:pointer; border-radius:8px; line-height:1.35; }
+.muscle-group-choices label:has(input:checked) { background:#ece5f5; }
+.muscle-group-choices input { width:19px; height:19px; flex-shrink:0; accent-color:#634d88; }
+.group-composer > p { font-size:14px; line-height:1.6; }
+.composition-options { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
+.composition-options .field { margin-bottom:0; flex:1; }
+.composition-options .checkbox-field { min-height:48px; font-size:14px; }
+.composition-footer { position:sticky; bottom:0; padding:14px 0 0; background:#fff; display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid var(--line); margin-top:18px; }
+.composition-footer p { font-size:13px; color:#675b72; margin:0; line-height:1.5; }
+.picker-muscle-filter { border:1px solid var(--line); border-radius:12px; padding:0 12px; margin:12px 0; }
+.picker-muscle-filter summary { padding:12px 0; min-height:48px; cursor:pointer; font-size:14px; font-weight:650; }
+.picker-muscle-filter summary span { display:block; font-size:12px; color:#675b72; font-weight:400; margin:5px 0 0 16px; line-height:1.5; }
+.picker-muscle-filter > p { font-size:13px; line-height:1.5; }
+.picker-muscle-filter .field { max-width:360px; }
+.picker-results-count { font-size:12px; color:#675b72; }
+.picker-row .picker-muscle-match { color:#5a4174; font-size:11px; line-height:1.45; }
+.exercise-picker .dialog-footer { position:sticky; bottom:0; background:#fff; padding:12px 0 0; }
+@media(max-width:700px) {
+ .muscle-group-choices { display:block; }
+ .muscle-group-choices fieldset { display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-bottom:14px; padding:7px; }
+ .muscle-group-choices label { font-size:13px; min-height:48px; }
+ .composition-options { display:block; }
+ .composition-options .field { margin-bottom:8px; }
+ .composition-footer { display:block; }
+ .composition-footer .btn { width:100%; margin-top:10px; min-height:48px; }
+ .exercise-picker .picker-row { gap:8px; padding:8px; }
+ .exercise-picker .picker-thumb { width:48px; }
+ .exercise-picker .picker-row > div:nth-child(2) { min-width:0; }
+ .exercise-picker .picker-row .btn { min-width:44px; min-height:44px; padding:9px; }
+ .exercise-picker .picker-list { max-height:none; overflow:visible; padding-right:0; }
+ .compose-program-link { padding:12px; }
+}

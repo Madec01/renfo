@@ -26,7 +26,42 @@
     // Catalogue updates never overwrite a saved personal version or an active session.
     return {id:uid(),sourceProgramId:program.id,name:program.name,description:program.description,
       mode:'classic',rounds:1,blockOrder:[...blocks],participantIds:[...participantIds],variants:{},
+      targetGroupIds:clone(program.targetGroupIds||[program.id]),
       items:program.items.map(p=>({...clone(p),id:uid()}))};
+  }
+  function exerciseGroupMatches(exercise, groups, role = 'primary') {
+    const roles = role === 'all' ? ['primary','assistance','stabilization'] : role === 'assistance' ? ['primary','assistance'] : ['primary'];
+    return groups.flatMap(group => {
+      const matched = roles.find(r => (exercise.muscle_roles?.[r] || []).some(m => group.targetMuscles.includes(m)));
+      return matched ? [{id:group.id,label:group.focusLabel,role:matched}] : [];
+    });
+  }
+  function composeProgram(programs, routines, selectedIds, options = {}) {
+    const selected = programs.filter(p => p.kind === 'targeted' && selectedIds.includes(p.id));
+    if (selected.length < 2) throw Error('Choisissez au moins deux groupes musculaires.');
+    const perGroup = options.perGroup === 2 ? 2 : 1;
+    const regions = [...new Set(selected.map(p => p.region))];
+    const region = regions.length === 1 ? regions[0] : 'full';
+    const warmupId = region === 'upper' ? 'warmup-8-haut-sans-sol' : region === 'core' ? 'warmup-8-avant-gainage' : region === 'lower' ?
+      (selected.every(p => p.warmupRoutineId === 'warmup-8-hanches-fessiers') ? 'warmup-8-hanches-fessiers' : 'warmup-8-avant-squats') : 'warmup-8-global-debout';
+    const warmup = routines.find(r => r.id === warmupId);
+    if (!warmup?.items?.length) throw Error('Échauffement indisponible.');
+    const unique = items => [...new Map(items.map(i => [i.exerciseId,i])).values()].map(clone);
+    const work = unique(selected.flatMap(p => p.items.filter(i => i.block === 'renforcement').slice(0,perGroup)));
+    const mobilityIds = region === 'upper' ? ['programme-haut-corps-mobilite'] : region === 'lower' ? ['programme-bas-corps-mobilite'] :
+      region === 'core' ? ['programme-abdominaux','programme-obliques'] : ['programme-haut-corps-mobilite','programme-bas-corps-mobilite'];
+    const mobility = options.mobility ? unique(programs.filter(p => mobilityIds.includes(p.id)).flatMap(p => p.items.filter(i => i.block === 'mobilisation'))) : [];
+    const stretches = unique(selected.flatMap(p => p.items.filter(i => i.block === 'etirements')));
+    const groupNames = selected.map(p => p.focusLabel);
+    return {id:'programme-compose',kind:'multigroup',region,targetGroupIds:selected.map(p=>p.id),
+      targetMuscles:[...new Set(selected.flatMap(p=>p.targetMuscles))],focusLabel:groupNames.join(' + '),
+      name:selected.length <= 3 ? groupNames.join(' + ').slice(0,100) : 'Multi-groupes · '+selected.length+' groupes',
+      description:'Une séance pour '+groupNames.join(', ')+'. '+perGroup+' mouvement'+(perGroup>1?'s':'')+' proposé'+(perGroup>1?'s':'')+' par groupe ; les mouvements communs ne sont comptés qu’une fois dans chaque bloc.',
+      warmupRoutineId:warmup.id,warmupReason:'Un échauffement commun adapté aux zones choisies. Avant un exercice chargé, ajoute quelques répétitions faciles de ce geste avec une charge légère.',
+      stretchReason:'Les étirements des groupes choisis sont réunis ici, sans doublon. Les mouvements de tronc utilisent aussi des étirements des hanches et du dos.',
+      notes:['Cette composition est une proposition modulable, pas une prescription individuelle. Vérifiez la durée et le matériel, puis adaptez les exercices et les séries à chacun.'],
+      source_ids:[...new Set([...selected.flatMap(p=>p.source_ids),...(warmup.source_ids||[])])],
+      mode:'classic',rounds:1,blockOrder:[...blocks],items:[...clone(warmup.items),...work,...mobility,...stretches].map(i=>({...i,id:uid()}))};
   }
   const profileDefaults = () => ({favorites:[],exerciseNotes:{},activeId:null,preferences:{sounds:false,voice:false,wakeLock:true,equipment:[],weeklyGoal:3,visibility:'normal'}});
   function newState(templates = []) {
@@ -350,7 +385,7 @@
     if(s.activeId!=null&&!s.sessions.some(x=>x.id===s.activeId&&x.status==='active'&&x.profileId===s.currentProfileId))throw Error('La séance en cours est introuvable.');
     const result=Object.assign(newState(),s);captureProfile(result);return result;
   }
-  const api = {programTemplate,libraryExercises,itemForBlock,createWorkout,addWorkout,getWorkout,workoutSession,finishWorkout,pauseWorkout,resumeWorkout,syncActivePointers,mergeStates,sideCount,blocks,profileDefaults,captureProfile,switchProfile,migrate,personalSessions,templateForProfile,orderedItems,clone, uid, number, finite, family, parameters, item, newState, makeRows, makeEntry, createSession, elapsed, pause, resume, finish, complete, undo, totals, lastPerformance, estimate, validateBackup};
+  const api = {exerciseGroupMatches,composeProgram,programTemplate,libraryExercises,itemForBlock,createWorkout,addWorkout,getWorkout,workoutSession,finishWorkout,pauseWorkout,resumeWorkout,syncActivePointers,mergeStates,sideCount,blocks,profileDefaults,captureProfile,switchProfile,migrate,personalSessions,templateForProfile,orderedItems,clone, uid, number, finite, family, parameters, item, newState, makeRows, makeEntry, createSession, elapsed, pause, resume, finish, complete, undo, totals, lastPerformance, estimate, validateBackup};
   root.RenfoCore = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

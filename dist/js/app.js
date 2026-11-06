@@ -28,7 +28,7 @@
   let state, route = 'home', activeTab = 'renforcement', search = '', filterMuscle = '', filterEquipment = '', onlyFavorites = false;
   let draft = null, pickerTarget = null, feedbackDraft = null, modalReturnFocus, activeHistory = null, toastTimer, wakeLock;
   let statsPeriod = 'week', statsRole = 'all', selectedStatsMuscle = '', historyMonth = new Date().toISOString().slice(0,7), historyDay = '';
-  let channel, pendingExternal = null, saveStatus = 'saved', initialized = false, onlyMyEquipment = false;
+  let channel, pendingExternal = null, saveStatus = 'saved', pendingSaves = 0, initialized = false, onlyMyEquipment = false;
   const catalog = () => [...D.exercises, ...state.customExercises];
   const exercise = id => catalog().find(e => e.id === id);
   let warmupView='routines', warmupLibraryFilter='all';
@@ -64,9 +64,10 @@
     if (pendingExternal) { toast('Une autre fenêtre a modifié les données. Recharge avant de continuer.'); return false; }
     syncEditedWorkouts();
     C.captureProfile(state);
-    state.revision++; state.updatedAt = Date.now(); saveStatus='saving'; updateSaveStatus();
-    try { await RenfoStorage.save(state); saveStatus='saved'; channel?.postMessage({revision:state.revision,updatedAt:state.updatedAt}); updateSaveStatus(); return true; }
+    state.revision++; state.updatedAt = Date.now(); pendingSaves++; saveStatus='saving'; updateSaveStatus();
+    try { await RenfoStorage.save(state); saveStatus=pendingSaves>1?'saving':'saved'; channel?.postMessage({revision:state.revision,updatedAt:state.updatedAt}); updateSaveStatus(); return true; }
     catch(e) { saveStatus='error'; updateSaveStatus(); toast('Sauvegarde impossible. Exporte tes données avant de fermer.'); return false; }
+    finally {pendingSaves--;}
   }
   function updateSaveStatus() { $$('.save-status').forEach(el=>{el.innerHTML=icon(saveStatus==='error'?'info':'check')+(saveStatus==='saved'?'Enregistré sur cet appareil':saveStatus==='saving'?'Enregistrement…':'Échec de sauvegarde'); el.classList.toggle('error',saveStatus==='error');}); }
   function seeds() {
@@ -223,15 +224,29 @@
     const duration=e.execution_mode==='duree', isCircuit=draft.mode==='circuit'&&p.block==='renforcement';
     return `<article class="builder-item"><div class="builder-item-head"><span class="number-badge">${i+1}</span><div><strong>${esc(e.name)}</strong><span>${C.sideCount(e)===2?'Saisie par côté':e.repetition_counting==='paire'?'Paires gauche + droite':'Deux côtés ensemble'} · ${labels[p.block]}</span></div><div class="reorder-actions">${ibtn('up','Monter cet exercice','builder-up',`data-index="${i}" ${!draft.items.slice(0,i).some(q=>q.block===p.block)?'disabled':''}`)}${ibtn('down','Descendre cet exercice','builder-down',`data-index="${i}" ${!draft.items.slice(i+1).some(q=>q.block===p.block)?'disabled':''}`)}${ibtn('trash','Retirer cet exercice','builder-remove',`data-index="${i}"`)}</div></div><div class="builder-fields"><label class="field">Bloc<select data-plan="block" data-index="${i}">${Object.entries(labels).map(([k,l])=>`<option value="${k}" ${p.block===k?'selected':''}>${l}</option>`).join('')}</select></label><label class="field">${isCircuit?'Série / tour':'Séries'}<input type="number" min="1" max="20" value="${isCircuit?1:p.sets}" data-plan="sets" data-index="${i}" ${isCircuit?'disabled':''}></label><label class="field">${duration?'Durée (s)':e.repetition_counting==='paire'?'Paires G + D':'Répétitions'}<input type="number" min="1" max="${duration?3600:1000}" data-plan="${duration?'duration':'reps'}" data-index="${i}" value="${duration?p.duration:p.reps}"></label><label class="field">Type de charge<select data-plan="loadMode" data-index="${i}">${Object.entries(loadNames).map(([k,l])=>`<option value="${k}" ${p.loadMode===k?'selected':''}>${l}</option>`).join('')}</select></label>${p.loadMode==='band'?`<label class="field">Élastique<input data-plan="band" data-index="${i}" value="${esc(p.band||'')}" placeholder="Couleur / résistance" maxlength="80"></label>`:!['none','band'].includes(p.loadMode)?`<label class="field">${p.loadMode==='per_dumbbell'?'Kg / haltère':'Kg'}<input type="number" min="0" max="1000" step="0.25" data-plan="load" data-index="${i}" value="${p.load}"></label>`:''}<label class="field">Repos (s)<input type="number" min="0" max="3600" step="5" data-plan="rest" data-index="${i}" value="${p.rest}"></label></div></article>`;
   }
-  function openPicker(target, category='all') {
+  function openPicker(target, category='all', preserve=false) {
     pickerTarget=target;
-    showModal(target==='builder'?'Ajouter des exercices':'Choisir un exercice',`<label class="search-field">${icon('search')}<input id="picker-search" type="search" placeholder="Nom ou muscle…" aria-label="Rechercher dans les exercices"></label><div class="picker-categories">${['all',...Object.keys(labels)].map(k=>btn(k==='all'?'Tout':labels[k],'picker-category',`data-id="${k}"`,k===category?'primary':'plain')).join('')}</div><div id="picker-list">${pickerList('',category)}</div><div class="dialog-footer">${btn(target==='builder'?'Revenir à ma séance':'Fermer','picker-done')}</div>`,true);
-    $('#picker-search').dataset.category=category;
+    const owner=target==='builder'?'builder:'+draft?.id:target;
+    if(!preserve){
+      if(pickerFilters.owner!==owner)pickerFilters={groups:target==='builder'?(draft?.targetGroupIds||[]).filter(id=>muscleGroups().some(p=>p.id===id)):[],role:'primary',q:'',category,owner};
+      pickerFilters.q='';
+    }
+    pickerFilters.category=category;
+    showModal(target==='builder'?'Ajouter des exercices':'Choisir un exercice',`<div class="exercise-picker"><label class="search-field">${icon('search')}<input id="picker-search" type="search" value="${esc(pickerFilters.q)}" placeholder="Nom ou muscle…" aria-label="Rechercher dans les exercices"></label><div class="picker-categories">${['all',...Object.keys(labels)].map(k=>btn(k==='all'?'Tout':labels[k],'picker-category',`data-id="${k}" aria-pressed="${k===category}"`,k===category?'primary':'plain')).join('')}</div><details class="picker-muscle-filter"><summary>Groupes musculaires <span id="picker-filter-summary"></span></summary><p>Choisissez un ou plusieurs groupes : les exercices d’au moins un groupe seront affichés.</p>${groupChoices(pickerFilters.groups,'data-picker-group')}<label class="field">Muscles recherchés<select id="picker-role"><option value="primary" ${pickerFilters.role==='primary'?'selected':''}>Cibles principales</option><option value="assistance" ${pickerFilters.role==='assistance'?'selected':''}>Cibles + assistance</option><option value="all" ${pickerFilters.role==='all'?'selected':''}>Tous, avec stabilisation</option></select></label><p class="map-note">Selon les muscles renseignés dans chaque fiche.</p>${btn('Effacer les groupes','picker-clear-groups','','plain')}</details><div id="picker-list">${pickerList()}</div><div class="dialog-footer">${btn(target==='builder'?'Revenir à ma séance':'Fermer','picker-done')}</div></div>`,true);
+    updatePickerSummary();
   }
-  function pickerList(q, category) {
+  function updatePickerSummary() {
+    const groups=muscleGroups().filter(p=>pickerFilters.groups.includes(p.id));
+    $('#picker-filter-summary').textContent=groups.length?groups.map(p=>p.focusLabel).join(' + '):'Tous';
+  }
+  function pickerList() {
+    const {q,category,groups:groupIds,role}=pickerFilters,groups=muscleGroups().filter(p=>groupIds.includes(p.id));
     const low=q.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-    return `<div class="picker-list">${familyExercises(category).filter(e=>(e.name+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]).join(' ')).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(low)).map(e=>`<div class="picker-row"><div class="picker-thumb">${photo(e)}</div><div><strong>${esc(e.name)}</strong><small>${labels[category==='echauffement'?category:C.family(e)]} · ${esc(e.equipment.map(x=>equipmentNames[x]||x).slice(0,2).join(', '))}</small></div>${btn(icon('plus')+(pickerTarget==='replace'?' Remplacer':' Ajouter'),'pick-exercise',`data-id="${e.id}" data-block="${category==='all'?'':category}"`)}</div>`).join('')}</div>`;
+    const matches=familyExercises(category).map(e=>({e,matched:C.exerciseGroupMatches(e,groups,role)})).filter(({e,matched})=>(!groups.length||matched.length)&&(e.name+' '+Object.values(e.muscle_roles).flat().map(m=>D.muscles[m]).join(' ')).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(low));
+    const roleNames={primary:'Cible',assistance:'Assistance',stabilization:'Stabilisation'};
+    return `<p class="picker-results-count" role="status" aria-live="polite">${matches.length} mouvement${matches.length>1?'s':''}${groups.length?' · '+(role==='primary'?'cibles principales':role==='assistance'?'cibles et assistance':'tous les rôles'):''}</p><div class="picker-list">${matches.map(({e,matched})=>`<div class="picker-row"><div class="picker-thumb">${photo(e)}</div><div><strong>${esc(e.name)}</strong><small>${labels[category==='echauffement'?category:C.family(e)]} · ${esc(e.equipment.map(x=>equipmentNames[x]||x).slice(0,2).join(', '))}</small>${matched.length?`<small class="picker-muscle-match">${matched.map(m=>roleNames[m.role]+' : '+esc(m.label)).join(' · ')}</small>`:''}</div>${btn(icon('plus')+(['replace','shared-replace','builder-alternative'].includes(pickerTarget)?' Remplacer':' Ajouter'),'pick-exercise',`data-id="${e.id}" data-block="${category==='all'?'':category}"`)}</div>`).join('')||empty('search','Aucun mouvement avec ces filtres','Choisissez un autre groupe, incluez les muscles en assistance ou effacez la recherche.',btn('Effacer les filtres','picker-reset'))}</div>`;
   }
+  function refreshPickerResults(){updatePickerSummary();$('#picker-list').innerHTML=pickerList();}
   function chooseWarmup(){
     const family=pickerBlock||'echauffement',rs=(D.routines||[]).filter(r=>r.family===family).filter(r=>routineFilter==='all'||routineFilter==='noFloor'&&r.noFloor||String(r.durationMinutes)===routineFilter);
     showModal('Choisir une routine · '+labels[family],`<p>Les durées, répétitions et séries sont déjà réglées. Vous pourrez les adapter.</p>${family==='echauffement'?`<div class="picker-categories">${[['all','Toutes'],['noFloor','Sans sol'],['3','3 min'],['5','5 min'],['8','8 min'],['10','10 min']].map(([k,l])=>btn(l,'routine-filter',`data-id="${k}"`,routineFilter===k?'primary':'secondary')).join('')}</div>`:''}<div class="routine-grid">${rs.map(r=>`<article class="routine-card"><span class="eyebrow">${esc(r.durationLabel||'Routine modulable')}${r.noFloor?' · SANS SOL':''}</span><h3>${esc(r.name)}</h3><p>${esc(r.description||'')}</p><details><summary>${r.exerciseIds.length} mouvements</summary><p>${r.exerciseIds.map(id=>esc(exercise(id)?.name)).join(' · ')}</p></details>${btn('Ajouter cette routine','insert-warmup',`data-id="${r.id}"`,'primary')}</article>`).join('')}</div>`,true);
@@ -395,7 +410,7 @@
     return {...base,message:'Observe la qualité du geste et garde une respiration régulière. Ces repères concernent la technique générale ; ils ne déterminent pas la cause d’une gêne.',cues:e.definition.key_cues.slice(0,2)};
   }
   function openSettings() {
-    showModal('Mon carnet & mes réglages',`<div class="settings-summary">${icon('save')}<div><strong>${esc(RenfoStorage.mode)}</strong><p>Les séances et commentaires restent sur cet appareil. Ils ne sont pas envoyés dans le dépôt ou vers un service d’IA.</p></div></div><form id="settings-form"><div class="form-grid"><label class="field">Objectif de séances / semaine<input name="weeklyGoal" type="number" min="1" max="14" value="${state.preferences.weeklyGoal||3}"></label><label class="checkbox-field"><input name="sounds" type="checkbox" ${trainingPrefs().sounds?'checked':''}> Signal sonore à la fin des minuteurs</label><label class="checkbox-field"><input name="wakeLock" type="checkbox" ${trainingPrefs().wakeLock?'checked':''}> Garder l’écran actif si disponible</label></div><h3>Mon matériel</h3><p class="subtle">À retrouver dans les filtres de la bibliothèque.</p><div class="equipment-checks">${Object.entries(equipmentNames).filter(([id])=>id!=='sans_materiel').map(([id,name])=>`<label><input type="checkbox" name="equipment" value="${id}" ${state.preferences.equipment?.includes(id)?'checked':''}>${name}</label>`).join('')}</div><button type="submit" class="btn primary">Enregistrer les réglages</button></form><hr><h3>Personnes suivies</h3><p>Chaque profil a ses séries, ses charges, ses notes et son historique. Les profils sont locaux à cet appareil, sans compte ni synchronisation entre appareils.</p>${btn('Gérer les personnes','profiles')}<hr><h3>Garder une copie</h3><p>Une sauvegarde exportée contient tous les profils, leurs séances, modèles, notes et points corporels. Conserve-la dans un endroit personnel. Sans synchronisation, chaque appareil a son propre carnet.</p><p class="subtle">Dernier export : ${state.lastExport?date(state.lastExport,{hour:'2-digit',minute:'2-digit'}):'Pas encore d’export'}</p><div class="row-actions">${btn(icon('download')+' Exporter une sauvegarde','export')}${btn('Importer une sauvegarde','import-open')}${btn('Demander un stockage persistant','persist-storage','','plain')}</div><input type="file" id="import-file" accept="application/json,.json" hidden><hr><h3>Sur ton téléphone</h3>${btn('Installer Renfo','install-open','','primary')}<p>Utilise « Ajouter à l’écran d’accueil » dans le menu du navigateur. Après un premier chargement connecté, le contenu peut être conservé hors ligne.</p><p class="map-note">Le navigateur peut suspendre les sons et vibrations en arrière-plan. Les temps sont recalculés au retour à l’écran.</p><div class="row-actions">${btn('Préparer les images hors ligne','cache-images')}${btn('Vérifier les mises à jour','check-update','','plain')}</div><div id="offline-status" class="subtle" role="status"></div><hr><a href="assets/Fiches_initiales.pdf" target="_blank" rel="noopener">Télécharger les six fiches A4 initiales</a>`);
+    showModal('Mon carnet & mes réglages',`<div class="settings-summary">${icon('save')}<div><strong>${esc(RenfoStorage.mode)}</strong><p>Les séances et commentaires restent sur cet appareil. Ils ne sont pas envoyés dans le dépôt ou vers un service d’IA.</p></div></div><form id="settings-form"><div class="form-grid"><label class="field">Objectif de séances / semaine<input name="weeklyGoal" type="number" min="1" max="14" value="${state.preferences.weeklyGoal||3}"></label><label class="checkbox-field"><input name="sounds" type="checkbox" ${trainingPrefs().sounds?'checked':''}> Signal sonore à la fin des minuteurs</label><label class="checkbox-field"><input name="wakeLock" type="checkbox" ${trainingPrefs().wakeLock?'checked':''}> Garder l’écran actif si disponible</label></div><h3>Mon matériel</h3><p class="subtle">À retrouver dans les filtres de la bibliothèque.</p><div class="equipment-checks">${Object.entries(equipmentNames).filter(([id])=>id!=='sans_materiel').map(([id,name])=>`<label><input type="checkbox" name="equipment" value="${id}" ${state.preferences.equipment?.includes(id)?'checked':''}>${name}</label>`).join('')}</div><button type="submit" class="btn primary">Enregistrer les réglages</button></form><hr><h3>Personnes suivies</h3><p>Chaque profil a ses séries, ses charges, ses notes et son historique. Les profils sont locaux à cet appareil, sans compte ni synchronisation entre appareils.</p>${btn('Gérer les personnes','profiles')}<hr><h3>Garder une copie</h3><p>Une sauvegarde exportée contient tous les profils, leurs séances, modèles, notes et points corporels. Conserve-la dans un endroit personnel. Sans synchronisation, chaque appareil a son propre carnet.</p><p class="subtle">Dernier export : ${state.lastExport?date(state.lastExport,{hour:'2-digit',minute:'2-digit'}):'Pas encore d’export'}</p><div class="row-actions">${btn(icon('download')+' Exporter une sauvegarde','export')}${btn('Importer une sauvegarde','import-open')}${btn('Demander un stockage persistant','persist-storage','','plain')}</div><input type="file" id="import-file" accept="application/json,.json" hidden><hr><h3>Sur ton téléphone</h3>${btn('Installer Renfo','install-open','','primary')}<p>Utilise « Ajouter à l’écran d’accueil » dans le menu du navigateur. Après un premier chargement connecté, le contenu peut être conservé hors ligne.</p><p class="map-note">Le navigateur peut suspendre les sons et vibrations en arrière-plan. Les temps sont recalculés au retour à l’écran.</p><div class="row-actions">${btn('Préparer les images hors ligne','cache-images')}${btn('Vérifier les mises à jour','check-update','','plain')}</div><p class="map-note">Les mises à jour se téléchargent automatiquement à l’ouverture et au retour dans l’application. Le rafraîchissement attend la fin d’une saisie ou d’un minuteur en cours.</p><p id="app-update-status" class="subtle" role="status">Version ${esc(D.version)} · mise à jour automatique</p><div id="offline-status" class="subtle" role="status"></div><hr><a href="assets/Fiches_initiales.pdf" target="_blank" rel="noopener">Télécharger les six fiches A4 initiales</a>`);
   }
   function downloadJSON(value, filename) {
     const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json'}), url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
@@ -436,6 +451,10 @@
   // Shared workouts: the viewed follow-up profile never selects the training participant.
   let sheetPerson=null,trainingPerson=null, templatesView='hub', builderStep=1, builderBlock='renforcement', builderPerson=null, builderSlot=null, pendingStart=null, routineFilter='all';
   let sessionSource='programs',programKind='all',programRegion='all',programSearch='';
+  let compositionIds=[],compositionCount=1,compositionMobility=false,composedProgram=null;
+  let pickerFilters={groups:[],role:'primary',q:'',category:'all',owner:null};
+  const muscleGroups=()=>D.sessionPrograms.filter(p=>p.kind==='targeted');
+  const findProgram=id=>id==='programme-compose'?composedProgram:D.sessionPrograms.find(p=>p.id===id);
   const workout=()=>C.getWorkout(state);
   const participantName=id=>state.profiles.find(p=>p.id===id)?.name||'Participant';
   const trainingPrefs=()=>state.trainingPreferences ||= {visibility:'normal',sounds:false,voice:false,wakeLock:true};
@@ -461,7 +480,7 @@
     const presets=sessionSource==='programs';
     return heading('SÉANCES','Choisir une séance','Des programmes prêts à adapter, seul ou ensemble.',btn(icon('back')+' Retour','sessions-hub'))+
       `<div class="session-source" role="group" aria-label="Origine des séances">${[['programs','Programmes proposés',D.sessionPrograms.length],['saved','Mes séances',state.templates.length]].map(([id,label,count])=>`<button data-action="session-source" data-id="${id}" aria-pressed="${sessionSource===id}">${label}<span>${count}</span></button>`).join('')}</div>`+
-      (presets?`<div class="program-kinds" role="group" aria-label="Type de séance">${[['all','Toutes'],['targeted','Par muscle'],['mixed','Renfo + mobilité'],['mobility','Mobilité']].map(([id,label])=>`<button class="btn ${programKind===id?'primary':'secondary'}" data-action="program-kind" data-id="${id}" aria-pressed="${programKind===id}">${label}</button>`).join('')}</div><div class="program-search-row"><label class="search-field">${icon('search')}<input id="program-search" type="search" value="${esc(programSearch)}" placeholder="Ex. épaules, jambes, assis…" aria-label="Rechercher une séance"></label><label class="field program-zone">Zone<select id="program-region">${[['all','Tout le corps'],['upper','Haut du corps'],['lower','Bas du corps'],['core','Tronc'],['full','Global']].map(([id,name])=>`<option value="${id}" ${programRegion===id?'selected':''}>${name}</option>`).join('')}</select></label></div><div id="program-results">${programResults()}</div>`:
+      (presets?`<button class="compose-program-link" data-action="compose-groups">${icon('plus')}<span><strong>Composer plusieurs groupes</strong><small>Ex. dos + biceps, jambes + abdominaux</small></span>${icon('arrow')}</button><div class="program-kinds" role="group" aria-label="Type de séance">${[['all','Toutes'],['targeted','Par muscle'],['mixed','Renfo + mobilité'],['mobility','Mobilité']].map(([id,label])=>`<button class="btn ${programKind===id?'primary':'secondary'}" data-action="program-kind" data-id="${id}" aria-pressed="${programKind===id}">${label}</button>`).join('')}</div><div class="program-search-row"><label class="search-field">${icon('search')}<input id="program-search" type="search" value="${esc(programSearch)}" placeholder="Ex. épaules, jambes, assis…" aria-label="Rechercher une séance"></label><label class="field program-zone">Zone<select id="program-region">${[['all','Tout le corps'],['upper','Haut du corps'],['lower','Bas du corps'],['core','Tronc'],['full','Global']].map(([id,name])=>`<option value="${id}" ${programRegion===id?'selected':''}>${name}</option>`).join('')}</select></label></div><div id="program-results">${programResults()}</div>`:
         `<div class="saved-programs-heading"><p>Vos modèles et vos réglages personnels.</p>${btn(icon('plus')+' Créer','new-template')}</div><div class="template-grid">${state.templates.map(sharedTemplateCard).join('')||empty('workout','Aucune séance enregistrée','Personnalisez un programme proposé ou composez le vôtre.',btn('Créer une séance','new-template'))}</div>`);
   }
   function programResults() {
@@ -477,16 +496,30 @@
     return `${p.sets} × ${value}${C.sideCount(e)===2?' par côté':''}${p.rest?` · repos ${p.rest} s`:''}`;
   }
   function openSessionProgram(id) {
-    const p=D.sessionPrograms.find(p=>p.id===id);if(!p)return;
+    const p=findProgram(id);if(!p)return;
     const equipment=[...new Set(p.items.flatMap(i=>exercise(i.exerciseId).equipment))].filter(x=>x!=='sans_materiel');
     const mainBlock=p.kind==='mobility'?'mobilisation':'renforcement';
-    showModal(esc(p.name),`<div class="program-detail"><p>${esc(p.description)}</p><div class="program-meta"><span>${icon('timer')} ≈ ${C.estimate(p,catalog())} min</span><span>${p.items.length} mouvements au total</span></div><p class="program-equipment"><strong>À prévoir :</strong> ${equipment.length?equipment.map(x=>esc(equipmentNames[x]||x.replaceAll('_',' '))).join(', '):'sans matériel'}</p><div class="program-blocks">${C.blocks.filter(b=>p.items.some(i=>i.block===b)).map(b=>{
+    showModal(esc(p.name),`<div class="program-detail">${p.id==='programme-compose'?btn(icon('back')+' Changer les groupes','compose-groups','','plain'):''}<p>${esc(p.description)}</p><div class="program-meta"><span>${icon('timer')} ≈ ${C.estimate(p,catalog())} min</span><span>${p.items.length} mouvements au total</span></div><p class="program-equipment"><strong>À prévoir :</strong> ${equipment.length?equipment.map(x=>esc(equipmentNames[x]||x.replaceAll('_',' '))).join(', '):'sans matériel'}</p><div class="program-blocks">${C.blocks.filter(b=>p.items.some(i=>i.block===b)).map(b=>{
       const items=p.items.filter(i=>i.block===b);
       return `<details class="program-block" ${b===mainBlock?'open':''}><summary><span class="phase-chip ${b}">${labels[b]}</span><span>${items.length} mouvement${items.length>1?'s':''} · ≈ ${C.estimate({items,mode:'classic'},catalog())} min</span></summary>${b==='echauffement'?`<p class="program-block-reason">${esc(p.warmupReason)}</p>`:b==='etirements'?`<p class="program-block-reason">${esc(p.stretchReason)}</p>`:''}<ol>${items.map(i=>`<li><div class="program-step-image">${photo(exercise(i.exerciseId))}</div><div><strong>${esc(exercise(i.exerciseId).name)}</strong><p>${programDose(i)}</p><button class="text-btn" data-action="sheet" data-id="${i.exerciseId}" data-block="${b}" data-program="${p.id}">Geste et muscles ${icon('arrow')}</button></div></li>`).join('')}</ol></details>`;
     }).join('')}</div><details class="sheet-extra"><summary>Conseils et sources</summary><div class="sheet-extra-content"><ul>${[...(p.notes||[]),...(D.sessionProgramNotes||[])].map(note=>`<li>${esc(note)}</li>`).join('')}</ul><p>Durées indicatives : elles incluent les repos prévus et le travail des deux côtés. Les réglages et transitions peuvent les allonger.</p><ul>${sourceLinks(p.source_ids)}</ul></div></details><div class="program-actions">${btn('Personnaliser','program-customize',`data-id="${id}"`)}${btn(icon('play')+' Démarrer','program-start',`data-id="${id}"`,'primary')}</div></div>`,true);
   }
+  function groupChoices(selected, attribute) {
+    return `<div class="muscle-group-choices">${[['upper','Haut du corps'],['lower','Bas du corps'],['core','Tronc']].map(([region,label])=>`<fieldset><legend>${label}</legend>${muscleGroups().filter(p=>p.region===region).map(p=>`<label><input type="checkbox" ${attribute}="${p.id}" ${selected.includes(p.id)?'checked':''}><span>${esc(p.focusLabel)}</span></label>`).join('')}</fieldset>`).join('')}</div>`;
+  }
+  function openGroupComposer() {
+    showModal('Composer plusieurs groupes',`<div class="group-composer"><p>Choisissez au moins deux groupes. L’échauffement est commun et les mouvements en double sont regroupés.</p>${groupChoices(compositionIds,'data-compose-group')}<div class="composition-options"><label class="field">Mouvements par groupe<select id="composition-count"><option value="1" ${compositionCount===1?'selected':''}>1 · séance plus courte</option><option value="2" ${compositionCount===2?'selected':''}>2 · séance plus complète</option></select></label><label class="checkbox-field"><input id="composition-mobility" type="checkbox" ${compositionMobility?'checked':''}> Ajouter un bloc de mobilité</label></div><footer class="composition-footer"><p id="composition-summary" role="status" aria-live="polite"></p>${btn('Voir la séance '+icon('arrow'),'compose-preview','','primary')}</footer></div>`,true);
+    updateCompositionSummary();
+  }
+  function updateCompositionSummary() {
+    const count=compositionIds.length,button=$('[data-action="compose-preview"]');if(!button)return;
+    button.disabled=count<2;
+    if(count<2){$('#composition-summary').textContent=count+' groupe sélectionné · choisissez-en au moins 2.';return;}
+    composedProgram=C.composeProgram(D.sessionPrograms,D.routines,compositionIds,{perGroup:compositionCount,mobility:compositionMobility});
+    $('#composition-summary').textContent=count+' groupes · '+composedProgram.items.filter(i=>i.block==='renforcement').length+' exercices de renfo · ≈ '+C.estimate(composedProgram,catalog())+' min au total';
+  }
   function prepareSessionProgram(id) {
-    const p=D.sessionPrograms.find(p=>p.id===id);if(!p)return;
+    const p=findProgram(id);if(!p)return;
     draft=C.programTemplate(p,state.profiles.map(p=>p.id));builderBlock=p.kind==='mobility'?'mobilisation':'renforcement';openSharedBuilder();
   }
   function sharedTemplateCard(t){return `<article class="template-card simple-template"><span class="eyebrow">${t.items.length} MOUVEMENTS · ≈ ${C.estimate(t,catalog())} MIN</span><h3>${esc(t.name)}</h3><p>${esc(t.description||t.items.slice(0,3).map(p=>exercise(p.exerciseId)?.name).join(' · '))}</p><div class="phase-chips">${C.blocks.filter(b=>t.items.some(p=>p.block===b)).map(b=>`<span class="phase-chip ${b}">${labels[b]}</span>`).join('')}</div><div class="card-actions">${btn('Choisir','start-template',`data-id="${t.id}"`,'primary')}${ibtn('edit','Modifier '+t.name,'edit-template',`data-id="${t.id}"`)}${ibtn('copy','Dupliquer '+t.name,'duplicate-template',`data-id="${t.id}"`)}${ibtn('trash','Supprimer '+t.name,'delete-template',`data-id="${t.id}"`)}</div></article>`;}
@@ -572,11 +605,15 @@
     const id=button.dataset.id,pid=button.dataset.person||trainingPerson,w=workout();
     if(button.dataset.person)selectParticipant(pid);
     switch(action){
+      case 'compose-groups':openGroupComposer();return true;
+      case 'compose-preview':if(compositionIds.length>=2)openSessionProgram('programme-compose');return true;
+      case 'picker-clear-groups':pickerFilters.groups=[];openPicker(pickerTarget,pickerFilters.category,true);return true;
+      case 'picker-reset':pickerFilters.groups=[];pickerFilters.q='';pickerFilters.role='primary';openPicker(pickerTarget,pickerFilters.category,true);return true;
       case 'session-source':sessionSource=id;render();return true;
       case 'program-kind':programKind=id;render();return true;
       case 'program-reset':programSearch='';programKind='all';programRegion='all';render();return true;
       case 'program-detail':openSessionProgram(id);return true;
-      case 'program-start':{const p=D.sessionPrograms.find(p=>p.id===id);if(p)chooseParticipants(C.programTemplate(p,state.profiles.map(p=>p.id)));return true;}
+      case 'program-start':{const p=findProgram(id);if(p)chooseParticipants(C.programTemplate(p,state.profiles.map(p=>p.id)));return true;}
       case 'program-customize':if(draft&&(draft.items.length||draft.name.trim())){askConfirm('Un brouillon est déjà ouvert',`Le brouillon « ${esc(draft.name||'Sans titre')} » sera remplacé par ce programme. Pour le conserver, annulez puis reprenez sa création dans l’onglet Séances.`,'program-customize-confirm',`data-id="${id}"`);return true;}prepareSessionProgram(id);return true;
       case 'program-customize-confirm':prepareSessionProgram(id);return true;
       case 'choose-sessions':templatesView='choose';navigate('templates');return true;
@@ -717,12 +754,11 @@
         case 'delete-template':askConfirm('Supprimer ce modèle ?','Ce modèle et ses versions personnelles seront retirés pour tout le monde. Les séances déjà réalisées seront conservées.','confirm-delete-template',`data-id="${id}"`);break;
         case 'confirm-delete-template':state.templates=state.templates.filter(t=>t.id!==id);await save();closeModal();render();break;
         case 'builder-add':pickerBlock=button.dataset.block||null;openPicker('builder',pickerBlock||'all');break;
-        case 'builder-routine':pickerBlock=button.dataset.block;routineFilter='all';
-  let sessionSource='programs',programKind='all',programRegion='all',programSearch='';routineTarget='builder';chooseWarmup();break;
+        case 'builder-routine':pickerBlock=button.dataset.block;routineFilter='all';routineTarget='builder';chooseWarmup();break;
         case 'builder-warmup':pickerBlock='echauffement';routineTarget='builder';chooseWarmup();break;
         case 'builder-up':case 'builder-down':{const same=draft.items.map((p,i)=>p.block===draft.items[index].block?i:-1).filter(i=>i>=0),pos=same.indexOf(index),to=same[pos+(action==='builder-up'?-1:1)];if(to===undefined)break;[draft.items[index],draft.items[to]]=[draft.items[to],draft.items[index]];renderBuilder();break;}
         case 'builder-remove':draft.items.splice(index,1);renderBuilder();break;
-        case 'picker-category':openPicker(pickerTarget,id);break;
+        case 'picker-category':if(['builder','shared-add'].includes(pickerTarget)){pickerBlock=id==='all'?null:id;if(pickerTarget==='builder'&&id!=='all')builderBlock=id;}openPicker(pickerTarget,id,true);break;
         case 'picker-done':if(pickerTarget==='builder')renderBuilder();else closeModal();break;
         case 'pick-exercise':{
           const ex=exercise(id);
@@ -790,7 +826,7 @@
         case 'import-open':if(state.sessions.some(s=>s.status==='active')){toast('Termine les séances en cours de chaque personne avant d’importer un carnet.');break;}$('#import-file').click();break;
         case 'persist-storage':toast(await navigator.storage?.persist?.()?'Stockage persistant accordé sur cet appareil.':'Le navigateur n’a pas accordé le stockage persistant. Garde une sauvegarde exportée.');break;
         case 'cache-images':await cacheOffline();break;
-        case 'check-update':{const reg=await navigator.serviceWorker?.getRegistration();if(!reg){toast('Les mises à jour automatiques nécessitent la version hébergée.');break;}const ready=()=>toast('Mise à jour prête. Fermez tous les onglets Renfo puis rouvrez l’application. Votre carnet est conservé.');const watch=()=>{const worker=reg.installing;if(worker)worker.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller)ready();});};reg.addEventListener('updatefound',watch,{once:true});watch();await reg.update();if(reg.waiting)ready();else toast('Vérification en cours. Une mise à jour éventuelle sera signalée.');break;}
+        case 'check-update':if(window.RenfoUpdates){await RenfoUpdates.check();updateVersionStatus(RenfoUpdates.getState());}break;
 
         case 'custom-exercise':customExerciseForm();break;
       }
@@ -808,13 +844,18 @@
     if(el.id==='entry-note'){const session=currentSession();if(session?.entries[session.cursor]){session.entries[session.cursor].note=el.value;save();}}
     if(el.id==='program-search'){programSearch=el.value;$('#program-results').innerHTML=programResults();}
     if(el.id==='exercise-search'){search=el.value;$('#exercise-results').innerHTML=exerciseResults();}
-    if(el.id==='picker-search')$('#picker-list').innerHTML=pickerList(el.value,el.dataset.category);
+    if(el.id==='picker-search'){pickerFilters.q=el.value;$('#picker-list').innerHTML=pickerList();}
     if(el.id==='template-name'&&draft)draft.name=el.value;
     if(el.id==='template-description'&&draft)draft.description=el.value;
     if(el.dataset.param&&el.type==='number'&&el.value!==''&&el.checkValidity()){const p=editableVariant(builderPerson).items.find(p=>p.id===builderSlot);p[el.dataset.param]=Number(el.value);}
   });
   document.addEventListener('change',async event=>{
     const el=event.target,s=currentSession(),entry=s?.entries[s.cursor];
+    if(el.dataset.composeGroup){compositionIds=el.checked?[...new Set([...compositionIds,el.dataset.composeGroup])]:compositionIds.filter(id=>id!==el.dataset.composeGroup);updateCompositionSummary();return;}
+    if(el.id==='composition-count'){compositionCount=Number(el.value);updateCompositionSummary();return;}
+    if(el.id==='composition-mobility'){compositionMobility=el.checked;updateCompositionSummary();return;}
+    if(el.dataset.pickerGroup){pickerFilters.groups=el.checked?[...new Set([...pickerFilters.groups,el.dataset.pickerGroup])]:pickerFilters.groups.filter(id=>id!==el.dataset.pickerGroup);refreshPickerResults();return;}
+    if(el.id==='picker-role'){pickerFilters.role=el.value;refreshPickerResults();return;}
     if(el.dataset.builderPerson){draft.participantIds=el.checked?[...new Set([...draft.participantIds,el.dataset.builderPerson])]:draft.participantIds.filter(id=>id!==el.dataset.builderPerson);return;}
     if(el.dataset.startPerson){pendingStart.ids=el.checked?[...new Set([...pendingStart.ids,el.dataset.startPerson])]:pendingStart.ids.filter(id=>id!==el.dataset.startPerson);return;}
     if(el.dataset.param){if(!el.checkValidity()){el.reportValidity();return;}const p=editableVariant(builderPerson).items.find(x=>x.id===builderSlot),key=el.dataset.param;p[key]=['sets','reps','duration','load','rest'].includes(key)?Number(el.value):el.value;if(key==='loadMode')builderAdjust(builderPerson,builderSlot);return;}
@@ -896,6 +937,45 @@
       if(out)out.textContent=failed?`${done} images disponibles ; ${failed} échecs. Réessaie une fois connecté.`:`Les ${done} illustrations sont prêtes hors ligne.`;
     }catch{toast('Espace de stockage indisponible.');}
   }
+  const uiResumeKey='renfo-ui-resume:'+location.pathname;
+  let lastInteractionAt=0;
+  document.addEventListener('input',()=>{lastInteractionAt=Date.now();},true);
+  function readyForUpdate() {
+    if(!initialized||pendingSaves||saveStatus!=='saved'||RenfoStorage.mode==='Mémoire temporaire'||$('#dialog[open]')||Date.now()-lastInteractionAt<1500)return false;
+    if(document.activeElement?.matches('input,textarea,select,[contenteditable="true"]'))return false;
+    return !(state.sessions||[]).some(s=>s.status==='active'&&!s.pausedAt&&((s.effortUntil||0)>Date.now()||(s.restUntil||0)>Date.now()));
+  }
+  async function preserveUpdateState() {
+    await RenfoStorage.flush();
+    if(!readyForUpdate())return false;
+    const ui={at:Date.now(),draft,templatesView,sessionSource,programKind,programRegion,programSearch,compositionIds,compositionCount,compositionMobility,composedProgram,pickerFilters,builderStep,builderBlock,trainingPerson,activeHistory};
+    try {sessionStorage.setItem(uiResumeKey,JSON.stringify(ui));return true;}catch(_){return false;}
+  }
+  function restoreUpdateState() {
+    try {
+      const ui=JSON.parse(sessionStorage.getItem(uiResumeKey)||'null');sessionStorage.removeItem(uiResumeKey);
+      if(!ui||Date.now()-ui.at>6*60*60*1000)return;
+      if(ui.draft&&Array.isArray(ui.draft.items)&&typeof ui.draft.name==='string')draft=ui.draft;
+      if(['hub','choose'].includes(ui.templatesView))templatesView=ui.templatesView;
+      if(['programs','saved'].includes(ui.sessionSource))sessionSource=ui.sessionSource;
+      if(['all','targeted','mixed','mobility'].includes(ui.programKind))programKind=ui.programKind;
+      if(['all','upper','lower','core','full'].includes(ui.programRegion))programRegion=ui.programRegion;
+      programSearch=typeof ui.programSearch==='string'?ui.programSearch:'';
+      compositionIds=Array.isArray(ui.compositionIds)?ui.compositionIds.filter(id=>muscleGroups().some(p=>p.id===id)):[];
+      compositionCount=ui.compositionCount===2?2:1;compositionMobility=!!ui.compositionMobility;
+      if(compositionIds.length>=2)composedProgram=C.composeProgram(D.sessionPrograms,D.routines,compositionIds,{perGroup:compositionCount,mobility:compositionMobility});
+      if(ui.pickerFilters&&Array.isArray(ui.pickerFilters.groups)&&['primary','assistance','all'].includes(ui.pickerFilters.role))pickerFilters={...ui.pickerFilters,groups:ui.pickerFilters.groups.filter(id=>muscleGroups().some(p=>p.id===id))};
+      if([1,2,3].includes(ui.builderStep))builderStep=ui.builderStep;
+      if(C.blocks.includes(ui.builderBlock))builderBlock=ui.builderBlock;
+      trainingPerson=state.profiles.some(p=>p.id===ui.trainingPerson)?ui.trainingPerson:null;
+      activeHistory=state.sessions.some(s=>s.id===ui.activeHistory)?ui.activeHistory:null;
+    }catch(_){/* An invalid temporary UI snapshot never replaces the saved carnet. */}
+  }
+  function updateVersionStatus(status) {
+    const messages={checking:'Recherche de mise à jour…',downloading:'Téléchargement de la mise à jour…',waiting:'Mise à jour prête : l’application se rafraîchira à la fin de la saisie ou du minuteur.',blocked:'Mise à jour en attente : terminez la saisie et vérifiez que le carnet est enregistré.',reloading:'Mise à jour prête. Rafraîchissement…',current:'Version '+D.version+' · mise à jour automatique',offline:'Hors ligne : les mises à jour reprendront avec la connexion.',error:'Vérification impossible pour le moment. Nouvel essai au retour dans l’application.',unsupported:'Les mises à jour nécessitent la version hébergée.'};
+    const out=$('#app-update-status');if(out)out.textContent=messages[status]||'';
+    if(['waiting','blocked','reloading'].includes(status))toast(messages[status]);
+  }
   window.addEventListener('hashchange',()=>{route=location.hash.slice(1)||'home';if(route!=='session')activeHistory=null;render();});
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){tick();requestWakeLock();}});
   document.addEventListener('error',event=>{const img=event.target;if(img instanceof HTMLImageElement&&img.classList.contains('exercise-image')){const p=document.createElement('div');p.className='movement-text';p.textContent='Illustration indisponible hors ligne. Ouvre la fiche pour les consignes.';img.replaceWith(p);}},true);
@@ -904,9 +984,9 @@
     state=restored?C.validateBackup(restored):C.newState(seeds());
     if(!restored||restored.schema<3)await save();
     if('BroadcastChannel' in window){channel=new BroadcastChannel('renfo-updates');channel.onmessage=event=>{if(event.data.updatedAt>state.updatedAt){pendingExternal=event.data;toast('Ton carnet a changé dans une autre fenêtre. Recharge pour continuer.');render();}};}
-    initialized=true;route=location.hash.slice(1)||'home';render();setInterval(tick,500);
+    initialized=true;route=location.hash.slice(1)||'home';restoreUpdateState();render();setInterval(tick,500);
     if(RenfoStorage.error)toast(RenfoStorage.error);
-    if('serviceWorker' in navigator&&location.protocol!=='file:'&&location.hostname!=='127.0.0.1'&&location.hostname!=='localhost')navigator.serviceWorker.register('sw.js').catch(()=>{});
+    if(location.hostname!=='127.0.0.1'&&location.hostname!=='localhost')window.RenfoUpdates?.start({version:D.cacheVersion,ready:readyForUpdate,beforeReload:preserveUpdateState,onStatus:updateVersionStatus});
   }catch(error){
     console.error(error);$('#app').innerHTML=`<main class="loading-screen"><h1>Ton carnet n’a pas pu s’ouvrir</h1><p>Les données existantes n’ont pas été effacées.</p><p>${esc(error.message)}</p><button class="btn primary" id="rescue-export">Exporter les données pour les récupérer</button></main>`;
     $('#rescue-export').onclick=async()=>{const stored=await RenfoStorage.open();downloadJSON({format:'renfo-backup',version:3,state:stored},'renfo-recuperation.json');};

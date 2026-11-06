@@ -4,6 +4,9 @@ Application personnelle de renforcement, en français, utilisable sur téléphon
 
 ## Fonctionnalités
 
+- Composition multi-groupes : choix de plusieurs muscles, 1 ou 2 mouvements par groupe, échauffement commun, étirements sans doublon et mobilité facultative.
+- Filtre multi-sélection par groupe musculaire dans le choix des exercices, avec distinction cible / assistance / stabilisation.
+- Mise à jour automatique au lancement, au retour dans l’app et toutes les 5 minutes au premier plan. Le rafraîchissement attend la fin des saisies et minuteurs, sauvegarde le brouillon local, et ne touche pas aux données IndexedDB. Une page d’une ancienne version déjà ouverte peut nécessiter un premier rechargement pour charger ce mécanisme.
 - Catalogue de 24 séances disponibles aussi sur les carnets existants : 15 groupes musculaires, 3 renforcement + mobilité et 6 mobilité. Échauffement lié, étirements adaptés, aperçu des blocs et personnalisation par personne. Les modèles personnels restent séparés du catalogue.
 
 - Séances communes : Les personnes choisies apparaissent ensemble. Chacun conserve ses séries, répétitions, charges, chronos, exercices et commentaires. Le choix de profil filtre uniquement le suivi.
@@ -75,4 +78,4 @@ Les navigateurs peuvent suspendre les minuteurs sonores en arrière-plan. Le tem
 
 ## Mise à jour de la PWA
 
-Dans Réglages, utiliser « Vérifier les mises à jour », puis fermer tous les onglets et fenêtres Renfo avant de rouvrir. La séance et les profils restent en IndexedDB. Le cache ne change pas pendant une séance ouverte. Les illustrations inchangées déjà téléchargées sont conservées après une mise à jour. Les nouvelles peuvent être préparées hors ligne depuis les réglages.
+Les nouvelles versions se téléchargent automatiquement en ligne au lancement, au retour dans l’application et toutes les cinq minutes au premier plan. Le nouveau cache est préparé entièrement avant activation. L’interface se recharge quand les écritures sont terminées, sans formulaire ni minuteur en cours ; le brouillon de séance est conservé dans un stockage temporaire propre à cet onglet. Les séances et profils restent en IndexedDB. Le bouton « Vérifier les mises à jour » permet aussi de relancer une vérification. Une version antérieure à 3.2 déjà ouverte peut nécessiter une première vérification puis un rechargement pour recevoir ce mécanisme. Les illustrations inchangées sont conservées ; les nouvelles peuvent être préparées hors ligne dans les réglages.
